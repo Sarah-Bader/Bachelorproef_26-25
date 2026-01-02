@@ -6,15 +6,15 @@
 
 % Voor een voorstel in het Engels: voeg de documentclass-optie [english] toe.
 % Let op: kan enkel na toestemming van de bachelorproefcoördinator!
-\documentclass{hogent-article}[english]
+\documentclass{hogent-article}
 
 % Invoegen bibliografiebestand
 \addbibresource{voorstel.bib}
  
 % Informatie over de opleiding, het vak en soort opdracht
-\studyprogramme{Bachelor of applied information technology}
-\course{Bachelor thesis}
-\assignmenttype{Research proposal}
+\studyprogramme{Professionele bachelor toegepaste informatica}
+\course{Bachelorproef}
+\assignmenttype{Onderzoeksvoorstel}
 
 \academicyear{2025-2026} 
 
@@ -22,17 +22,12 @@
 \title{Vul hier de voorgestelde titel van je onderzoek in}
 
 % TODO: Studentnaam en emailadres invullen
-\author{Ernst Aarden}
-\email{ernst.aarden@student.hogent.be}
+\author{Sarah Bader}
+\email{sarah.bader@student.hogent.be}
 
-% TODO: Medestudent
-% Gaat het om een bachelorproef in samenwerking met een student in een andere
-% opleiding? Geef dan de naam en emailadres hier
-% \author{Yasmine Alaoui (naam opleiding)}
-% \email{yasmine.alaoui@student.hogent.be}
 
 % TODO: Geef de co-promotor op
-\supervisor[Co-promotor]{S. Beekman (Synalco, \href{mailto:sigrid.beekman@synalco.be}{sigrid.beekman@synalco.be})}
+\supervisor[Co-promotor]{J. Doe (Acme, \href{mailto:John.Doe@mail.com}{John.Doe@mail.com})}
 
 % Binnen welke specialisatierichting uit 3TI situeert dit onderzoek zich?
 % Kies uit deze lijst:
@@ -45,13 +40,15 @@
 % - Als het onderzoek niet past binnen een van deze domeinen specifieer je deze
 %   zelf
 %
-\specialisation{Mobile \& Enterprise development}
-\keywords{Scheme, World Wide Web, $\lambda$-calculus}
+\specialisation{Mainframe Expert}
+\keywords{HLASM, Control Flow Graphs, Static Analysis, Program Visualization, Legacy Systems, z/Architecture, z/OS}
+
 
 \begin{document}
 
 \begin{abstract}
-  Hier schrijf je de samenvatting van je voorstel, als een doorlopende tekst van één paragraaf. Let op: dit is geen inleiding, maar een samenvattende tekst van heel je voorstel met inleiding (voorstelling, kaderen thema), probleemstelling en centrale onderzoeksvraag, onderzoeksdoelstelling (wat zie je als het concrete resultaat van je bachelorproef?), voorgestelde methodologie, verwachte resultaten en meerwaarde van dit onderzoek (wat heeft de doelgroep aan het resultaat?).
+  
+High-Level Assembler (HLASM) vormt de fundamentele basis voor kritische mainframeapplicaties in de financiële sector. Deze legacysystemen zijn vaak een ‘black box’ voor de nieuwe generatie mainframe-applicatieontwikkelaars. Daarnaast gaan ervaren professionals binnen het mainframedomein met pensioen en zijn de huidige legacysystemen vaak miniem gedocumenteerd. Hierdoor bestaat er een kenniskloof. Dit zorgt ervoor dat voortdurend onderhoud aan deze systemen tijdrovend wordt. Dit onderzoek richt zich op het overbruggen van deze kloof door middel van een technische oplossing die statische analyse uitvoert op HLASM-broncode, om zo een beter begrip te krijgen van de programmalogica. De hoofddoelstelling is om een Python-gebaseerde parser te ontwikkelen die logische instructies en labels identificeert en automatisch omzet in een visuele flowchart in Mermaid.js-syntax. De methodologie bestaat uit een diepgaande literatuurstudie naar HLASM-control-flow en een vergelijking daarvan met traditionele code-reviews. Het verwachte resultaat is een functionele tool die logische instructies vertaalt naar visuele stappen om zo de leesbaarheid te vergroten voor de nieuwe generatie mainframe-applicatieontwikkelaars. 
 \end{abstract}
 
 \tableofcontents
