@@ -19,8 +19,7 @@
 \academicyear{2025-2026} 
 
 % TODO: Werktitel
-\title{Geautomatiseerde control-flow visualisatie van HLASM-legacycode.}
-%\title{Geautomatiseerde control-flow visualisatie van HLASM-legacycode: Het overbruggen van de kenniskloof binnen mainframesystemen.}
+\title{Statische analyse en visualisatie van control flow in HLASM-legacycode met Mermaid.js, ter ondersteuning van de beheersbaarheid voor beginnende mainframeontwikkelaars.}
 
 
 \author{Sarah Bader}
@@ -42,7 +41,7 @@
 %   zelf
 %
 \specialisation{Mainframe Expert}
-\keywords{HLASM, Control Flow Graphs, Static Analysis, Program Visualization, Legacy Systems, z/Architecture, z/OS}
+\keywords{HLASM, Control Flow Graphs, Static Analysis, Program Visualization, Legacy Systems, z/Architecture, z/OS, Mermaid.js}
 
 
 \begin{document}
@@ -50,7 +49,10 @@
 % TODO: Review + Rewrite
 \begin{abstract}
     
-Mainframeapplicaties bestaan fundamenteel uit High-Level Assembler (HLASM) broncode en vormen dus een kritisch aspect in de financiële sector. Momenteel zijn deze legacysystemen vaak een 'black box' voor de nieuwe generatie. Aangezien veel ervaren professionals binnen het mainframedomein binnenkort op pensioen gaan en deze HLASM-code vaak minimaal gedocumenteerd is, is er een behoefte aan hulpmiddelen om deze legacycode leesbaarder en begrijpelijker te maken voor de nieuwe generatie. Dit onderzoek richt zich op het verbeteren van de leesbaarheid en de begrijpbaarheid van legacycode door middel van een technische oplossing die statische analyse uitvoert op HLASM-broncode. De voornaamste doelstelling is om een op Python gebaseerde parser te ontwikkelen die logische instructies en labels identificeert en automatisch omzet in een visuele flowchart opgesteld in Mermaid.js-syntax. De gebruikte methodologie bestaat uit een diepgaande literatuurstudie naar de control-flow van HLASM-broncode, vervolgens wordt er een vergelijking gemaakt met traditionele code reviews. Het verwachte resultaat is dat de geautomatiseerde wijze sneller inzicht en begrip biedt voor beginnende mainframe-applicatieontwikkelaars.
+Mainframeapplicaties zijn voornamelijk opgebouwd uit High-Level Assembler (HLASM), waardoor het onderhoud van deze broncode van groot belang is. Voor beginnende mainframe-ontwikkelaars is deze legacycode echter vaak moeilijk beheersbaar. Daarnaast naderen veel mainframe-specialisten hun pensioen en is deze legacycode vaak miniem gedocumenteerd. Hierdoor wordt het zeer moeilijk en tijdrovend om voortdurend onderhoud aan deze legacycode te waarborgen.
+Dit onderzoek richt zich dan ook op het ontwikkelen en ondersteunen van HLASM-legacycode-documentatie door middel van een technische oplossing die zich focust op statische analyse. De proof of concept (PoC) richt zich expliciet op een subset van de belangrijkste HLASM-opcodes die de control flow bepalen. Concreet wordt een op Python gebaseerde parser ontwikkeld die gedefineerde HLASM-opcodes en labels detecteert en deze omzet naar een control-flowdiagram in Mermaid.js-syntax.
+De methodologie bestaat uit een literatuurstudie naar statische control-flowanalyse, gevolgd door de evaluatie van de technische oplossing. De PoC wordt vergeleken met traditionele, manuele code reviews manieren om daaruit de nodige conclusies te trekken. Het verwachte resultaat is dat de PoC sneller inzicht biedt in de structuur van HLASM-programma’s en hiermee beginnende mainframe-applicatieontwikkelaars ondersteunt bij het beheersen van bestaande HLASM-broncode.
+
   
 \end{abstract}
 
