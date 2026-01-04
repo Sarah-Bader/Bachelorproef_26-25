@@ -2,7 +2,7 @@
 
 \section{Inleiding}%
 \label{sec:inleiding}
-Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. De applicaties op de mainframecomputer zijn voornamelijk opgebouwd uit High-Level Assembler (HLASM) en zijn vaak tientallen jaren oud. Aangezien veel ervaren mainframe-specialisten hun pensioen naderen, is er nood aan een nieuwe generatie toegewijde mainframe-enthousiastelingen. 
+Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. De applicaties op de mainframecomputer zijn voornamelijk opgebouwd uit High-Level Assembler (HLASM) en zijn vaak tientallen jaren oud. Aangezien veel ervaren mainframe-specialisten hun pensioen naderen, is er nood aan een nieuwe generatie toegewijde mainframe-ent\-housiastelingen. 
 
 Omdat de broncode vaak minimaal gedocumenteerd is, vormt dit een grote uitdaging voor nieuwe mainframe-ontwikkelaars om deze code te begrijpen en te onderhouden. Door dit alles verhoogt het risico op fouten tijdens onderhoud en wordt de industrie steeds afhankelijker van een beperkt aantal experts, waarvan het aantal is aan het afnemen.
 Dit onderzoek wil ondersteuning bieden aan beginnende mainframe-applicatieontwikkelaars binnen organisaties die afhankelijk zijn van optimaal onderhoud van legacy HLASM-broncode. Omdat HLASM-broncode vaak minimaal gedocumenteerd is, moeten ontwikkelaars doorgaans vertrouwen op manuele code reviews om de functionaliteit te achterhalen.
@@ -57,30 +57,68 @@ Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur v
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor literatuurstudie, interviews met belanghebbenden (bv.~voor requirements-analyse), experimenten, simulaties, vergelijkende studie, risico-analyse, PoC, \ldots?
+Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhoud van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie waarin de control flow van HLASM-broncode wordt bestudeerd en vervolgens wordt een subset van representatieve HLASM-opcodes en labels geselecteerd. Hierna start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
 
-Valt je onderwerp onder één van de typische soorten bachelorproeven die besproken zijn in de lessen Research Methods (bv.\ vergelijkende studie of risico-analyse)? Zorg er dan ook voor dat we duidelijk de verschillende stappen terug vinden die we verwachten in dit soort onderzoek!
+\subsection{Fase 1: Oriëntatie en Literatuurstudie}
 
-Vermijd onderzoekstechnieken die geen objectieve, meetbare resultaten kunnen opleveren. Enquêtes, bijvoorbeeld, zijn voor een bachelorproef informatica meestal \textbf{niet geschikt}. De antwoorden zijn eerder meningen dan feiten en in de praktijk blijkt het ook bijzonder moeilijk om voldoende respondenten te vinden. Studenten die een enquête willen voeren, hebben meestal ook geen goede definitie van de populatie, waardoor ook niet kan aangetoond worden dat eventuele resultaten representatief zijn.
+Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling. Dit gebeurt door middel van een literatuurstudie waarin dieper wordt ingegaan op de leercurve van assemblytalen en waarin voorgaande oplossingen worden onderzocht. Daarnaast wordt gekeken naar HLASM-labels en -opcodes om een representatieve subset te definiëren die later kan worden gebruikt bij het visualiseren van de statische control flow.
+Het doel van deze fase is het definiëren van de vereisten voor de technische oplossing. De scope wordt zo nauwkeurig mogelijk afgebakend om een specifieke oplossing te garanderen die voldoet aan de requirements.
 
-Uit dit onderdeel moet duidelijk naar voor komen dat je bachelorproef ook technisch voldoen\-de diepgang zal bevatten. Het zou niet kloppen als een bachelorproef informatica ook door bv.\ een student marketing zou kunnen uitgevoerd worden.
+Tijdens deze fase worden de volgende aspecten bestudeerd en verzameld:
 
-Je beschrijft ook al welke tools (hardware, software, diensten, \ldots) je denkt hiervoor te gebruiken of te ontwikkelen.
+\begin{itemize}
+    \item de uitdagingen bij het beheersen van legacycode voor beginnende ontwikkelaars;
+    \item bestaande visualisatietechnieken voor programmacomprehensie;
+    \item de meest gebruikte HLASM-opcodes en labels die de control flow beïnvloeden.
+\end{itemize}
 
-Probeer ook een tijdschatting te maken. Hoe lang zal je met elke fase van je onderzoek bezig zijn en wat zijn de concrete \emph{deliverables} in elke fase?
+Het resultaat van deze fase is een theoretisch onderzoek naar de probleemstelling en een afgebakende scope voor de verdere ontwikkeling van de technische oplossing.
+
+\subsection{Fase 2: Implementatie en Evaluatie}
+
+Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een Python-gebaseerde parser ontwikkeld die HLASM-broncode statisch analyseert. De parser identificeert instructies en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
+
+Concreet worden tijdens deze fase de volgende aspecten ontwikkeld:
+
+\begin{itemize}
+    \item de logische opbouw van de parser op basis van patroonherkenning in de HLASM\-broncodestructuur;
+    \item een mapping van de geselecteerde HLASM-opcodes en labels naar Mermaid.js-elementen.
+\end{itemize}
+
+Tijdens de ontwikkeling wordt de PoC iteratief beoordeeld via een vergelijkende studie met traditionele, manuele code reviews. Hierbij worden codefragmenten met beide methoden geanalyseerd door vrijwillige, beginnende mainframe\-applicatieontwikkelaars. Zij worden gevraagd de functionaliteit van HLASM-broncode te bepalen aan de hand van zowel de technische als de traditionele methode. De resultaten worden geanalyseerd op basis van de tijd die nodig was om de functionaliteit van de HLASM-broncode te identificeren.
+
+Deze fase resulteert in een werkende PoC die HLASM-broncode omzet naar Mermaid.js-\-flowcharts. Daarnaast worden evaluatieresultaten verkregen die inzicht geven in de effectiviteit van de technische oplossing.
+
+\subsection{Fase 3: Resultaat en Verdediging}
+
+In de laatste fase worden de onderzoeksresultaten verwerkt tot een conclusie. Specifiek worden de volgende aspecten besproken:
+
+\begin{itemize}
+    \item de sterktes en beperkingen van de PoC;
+    \item mogelijke uitbreidingen voor toekomstig onderzoek.
+\end{itemize}
+
+Deze fase resulteert in de finale scriptie en een gedocumenteerde proof-of-concept.
+
+\subsection{Tijdsplanning}
+
+Elke fase heeft een afgebakende tijdsperiode waarin de specifieke resultaten moeten worden opgeleverd voor de volgende fase. Zoals vermeld in figuur \ref{fig:gantt-diagram}, zijn ook de administratieve deliverables opgenomen om samenhang te tonen met de feedback van de promotor.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{gantt-diagram.png}
+    \caption{Gantt-diagram met een tijdsindicatie per onderzoeksfase.}
+    \label{fig:gantt-diagram}
+\end{figure}
+
 
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
 
 Het verwachte resultaat van deze studie is een technische oplossing, proof of concept (PoC), die in staat is een subset van gedefinieerde en representatieve HLASM-opcodes en labels om te zetten in visuele stappen. De PoC brengt door middel van statische HLASM-broncodeanalyse de control flow in kaart. Het eindresultaat wordt vertaald naar Mermaid.js-syntax, waarmee een visuele flowchart kan worden gegenereerd.
-Met deze PoC wordt verwacht beginnende mainframe-applicatieontwikkelaars te ondersteunen met het beheersen van een onbekend stuk HLASM-broncode. De evaluatie van het verwachte resultaat wordt uitgevoerd door middel van een vergelijking met de traditionele, manuele manieren van code reviews.
+Met deze PoC wordt verwacht beginnende mainframe\-applicatieontwikkelaars te ondersteunen met het beheersen van een onbekend stuk HLASM-broncode. De evaluatie van het verwachte resultaat wordt uitgevoerd door middel van een vergelijking met de traditionele, manuele manieren van code reviews.
 
-
-
-%Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de onderdelen van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet welk soort data je moet verzamelen en hoe je die moet meten.
-%Wat heeft de doelgroep van je onderzoek aan het resultaat? Op welke manier zorgt jouw bachelorproef voor een meerwaarde?
-%Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is \textbf{niet} erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.
 
 
 
