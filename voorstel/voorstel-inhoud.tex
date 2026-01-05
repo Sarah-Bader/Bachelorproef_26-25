@@ -2,18 +2,36 @@
 
 \section{Inleiding}%
 \label{sec:inleiding}
-Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. De applicaties op de mainframecomputer zijn voornamelijk opgebouwd uit High-Level Assembler (HLASM) en zijn vaak tientallen jaren oud. Aangezien veel ervaren mainframe-specialisten hun pensioen naderen, is er nood aan een nieuwe generatie toegewijde mainframe-ent\-housiastelingen. 
+Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. Vermits veel ervaren mainframe-specialisten hun pensioen naderen, is er dus nood aan een nieuwe generatie mainframe-specialisten die de onderhoud van hun systemen kan waarborgen. Onder het onderhoud vallen de bedrijfskritische functionaliteiten van mainframeapplicaties die voornamelijk opgebouwd zijn uit High-Level Assembler (HLASM). Deze legacycode is vaak tientallen jaren oud en vaak minimaal gedocumenteerd. Voor de nieuwe generatie mainframe-ontwikkelaars vormt dit een uitdaging om deze legacycode te begrijpen en onderhouden, ze vertrouwen vaak enkel om manuele code reviews. In het algemeen is de mainframe afhankelijk van een beperkt aantal experts, waarvan het aantal is aan het afnemen. 
 
-Omdat de broncode vaak minimaal gedocumenteerd is, vormt dit een grote uitdaging voor nieuwe mainframe-ontwikkelaars om deze code te begrijpen en te onderhouden. Door dit alles verhoogt het risico op fouten tijdens onderhoud en wordt de industrie steeds afhankelijker van een beperkt aantal experts, waarvan het aantal is aan het afnemen.
-Dit onderzoek wil ondersteuning bieden aan beginnende mainframe-applicatieontwikkelaars binnen organisaties die afhankelijk zijn van optimaal onderhoud van legacy HLASM-broncode. Omdat HLASM-broncode vaak minimaal gedocumenteerd is, moeten ontwikkelaars doorgaans vertrouwen op manuele code reviews om de functionaliteit te achterhalen.
+Doormiddel van een geautomatiseerde tool die statische analyse van HLASM-code visualiseert in een control-flowchart, wil dit onderzoek ondersteuning bieden aan beginnende mainframe-ontwikkelaars, specifiek binnen organisaties die afhankelijk zijn van legacy HLASM-code. 
 
 De probleemstelling van dit onderzoek luidt als volgt:
 \begin{quote}
 \itshape
-Op welke manier kan statische analyse van HLASM-broncode worden ingezet om control-flowstructuren te visualiseren in Mermaid.js, zodat beginnende mainframe-ontwikkelaars ondersteund worden in de beheersing van legacycode?
+Op welke manier kan statische analyse van HLASM-broncode worden ingezet om control-flowstructuren te visualiseren in Mermaid.js, zodat beginnende mainframe-ontwikkelaars ondersteund worden in het begrijpen van legacycode?
 \end{quote}
 
-Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die een representatieve subset van HLASM-opcodes en labels statisch analyseert en deze omzet in een visueel control-flowdiagram in Mermaid.js-syntax. Er wordt vertrokken vanuit een literatuurstudie naar control-flowanalyse, gevolgd door de ontwikkeling en implementatie van de technische oplossing. Ten slotte wordt de oplossing geëvalueerd door middel van een vergelijking met traditionele, manuele code reviews. Het gewenste eindresultaat is een prototype dat kan worden gebruikt als ondersteunende factor bij de beheersing en het onderhoud van de control flow van legacy HLASM-code.
+Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die een representatieve subset van HLASM-opcodes en labels statisch analyseert en deze omzet in een visueel control-flowdiagram in Mermaid.js-syntax. 
+
+Vooraleer de ontwikkeling van de PoC van start gaat, wordt een literatuurstudie gedaan naar het probleimdomein en het oplossingsdomein. 
+
+Rond het probleemdomein worden volgende vragen bestudeerd:
+\begin{itemize}
+    \item Wat is het belang van de mainframecomputer? 
+    \item Waarom is er nood aan het onderhouden van HLASM-code? 
+    \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars? 
+\end{itemize}
+
+Rond het oplossingsdomein worden volgende vragen bestudeerd:
+\begin{itemize}
+    \item Wat is de effectiviteit van visualisatietechnieken voor programmacomprehensie? 
+    \item Wat zijn de bestaande visualisatietools? 
+    \item Welke HLASM-opcodes en labels bepalen de control flow in een programma? 
+\end{itemize}
+
+% TODO ; spelcheck
+
 
 
 %Waarover zal je bachelorproef gaan? Introduceer het thema en zorg dat volgende zaken zeker duidelijk aanwezig zijn:
@@ -34,15 +52,31 @@ Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
+\subsection{Belang van de mainframecomputer}
 
-Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
+Mainframes hebben de reputatie verouderde technologie te zijn en voor een lange tijd werd gepleit dat de mainframecomputer zou worden vervangen. Momenteel blijven mainframes bedrijfskritische applicaties draaien en worden ze geïntegreerd met moderne technologieën \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt bevestigd door recent onderzoek waarin wordt aangetoond dat organisaties niet enkel gebruikmaken van legacyapplicaties, maar ook bezig zijn met het ontwikkelen van nieuwe applicaties \autocite{shaik_2024}.
 
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom.
+Ondanks het feit dat mainframes zeer relevant zijn, is er een dalend aantal ontwikkelaars met mainframe-kennis. De ervaren professionals naderen de pensioenleeftijd en er is een beperkt aanbod aan mainframegerichte opleidingen. Dit veroorzaakt een probleem voor het toekomstige onderhoud van mainframes \autocite{waites_ketterer_2013}. Er is dan ook een nood aan een nieuwe generatie mainframespecialisten die dit onderhoud kan waarborgen.
 
-Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron.
+\subsection{Nood aan onderhoud van HLASM-code}
 
-Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
+Bedrijfskritische functionaliteiten van mainframeapplicaties zijn vaak geïmplementeerd in High Level Assembler (HLASM), waardoor onderhoud van deze legacycode van groot belang is. Uit een onderzoek naar softwareonderhoud blijkt dat het begrijpen van bestaande code een groot deel van de moeite neemt tijdens onderhoud. Vooral bij beginnende ontwikkelaars gaat het merendeels van hun tijd aan programmacomprehensie, dit is omdat zij minder ervaring hebben \autocite{xia_bao_lo_xing_hassan_li_2018}. Dit is vooral het geval bij legacycode zoals HLASM, omdat daar de documentatie vaak beperkt is. Voor dit probleem biedt een code control-flow visualisatie tool meer en makkelijker inzicht in de fuctionaliteiten van broncode. 
+
+\subsection{Moeilijkheden voor beginnende ontwikkelaars}
+
+Assemblytalen zijn erg abstract en zeer gedetailleerd. Als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de programmeerervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
+
+Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het begrijpen van de control flow is er een grotere kans op fouten en verwarring \autocite{kawash_2024}. Hiermee kan worden geconcludeerd dat een visuele representatie kan bijdragen aan het verkrijgen van inzicht in de control flow.
+
+\subsection{Effectiviteit van visualisatietechnieken}
+
+Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in de belangrijkste componenten \autocite{baldwin_myers_storey_coady_2009}.
+
+\subsection{Bestaande visualisatietools}
+
+\subsection{HLASM-opcodes en labels}
+
+%Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)? Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek? Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom. Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron. Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
 
 % Voor literatuurverwijzingen zijn er twee belangrijke commando's:
 % \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
@@ -51,7 +85,7 @@ Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle no
 %   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
 %   ...'')
 
-Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
+%Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
 
 %---------- Methodologie ------------------------------------------------------
 \section{Methodologie}%
