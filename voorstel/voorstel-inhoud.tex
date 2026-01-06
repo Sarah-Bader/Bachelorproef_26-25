@@ -2,36 +2,33 @@
 
 \section{Inleiding}%
 \label{sec:inleiding}
-Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. Vermits veel ervaren mainframe-specialisten hun pensioen naderen, is er dus nood aan een nieuwe generatie mainframe-specialisten die de onderhoud van hun systemen kan waarborgen. Onder het onderhoud vallen de bedrijfskritische functionaliteiten van mainframeapplicaties die voornamelijk opgebouwd zijn uit High-Level Assembler (HLASM). Deze legacycode is vaak tientallen jaren oud en vaak minimaal gedocumenteerd. Voor de nieuwe generatie mainframe-ontwikkelaars vormt dit een uitdaging om deze legacycode te begrijpen en onderhouden, ze vertrouwen vaak enkel om manuele code reviews. In het algemeen is de mainframe afhankelijk van een beperkt aantal experts, waarvan het aantal is aan het afnemen. 
+Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. Vermits veel ervaren mainframe-specialisten hun pensioen naderen, is er nood aan een nieuwe generatie mainframe-specialisten die het onderhoud van hun systemen kan waarborgen. Onder dit onderhoud vallen de bedrijfskritische functionaliteiten van mainframeapplicaties, die voornamelijk opgebouwd zijn uit High-Level Assembler (HLASM). Deze legacycode is vaak tientallen jaren oud en minimaal gedocumenteerd. Voor de nieuwe generatie mainframeontwikkelaars vormt dit een uitdaging om deze legacycode te begrijpen en te onderhouden. Zij vertrouwen vaak enkel op manuele code reviews.
 
-Doormiddel van een geautomatiseerde tool die statische analyse van HLASM-code visualiseert in een control-flowchart, wil dit onderzoek ondersteuning bieden aan beginnende mainframe-ontwikkelaars, specifiek binnen organisaties die afhankelijk zijn van legacy HLASM-code. 
+Door middel van een geautomatiseerde tool die statische analyse van HLASM-code visualiseert in een control-flowchart, wil dit onderzoek ondersteuning bieden aan beginnende mainframeontwikkelaars, specifiek binnen organisaties die afhankelijk zijn van legacy HLASM-code.
 
 De probleemstelling van dit onderzoek luidt als volgt:
 \begin{quote}
-\itshape
-Op welke manier kan statische analyse van HLASM-broncode worden ingezet om control-flowstructuren te visualiseren in Mermaid.js, zodat beginnende mainframe-ontwikkelaars ondersteund worden in het begrijpen van legacycode?
+    \itshape
+    Op welke manier kan statische analyse van HLASM-broncode worden ingezet om control-flowstructuren te visualiseren in Mermaid.js, zodat beginnende mainframeontwikkelaars ondersteund worden in het begrijpen van legacycode?
 \end{quote}
 
-Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die een representatieve subset van HLASM-opcodes en labels statisch analyseert en deze omzet in een visueel control-flowdiagram in Mermaid.js-syntax. 
+Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die een representatieve subset van HLASM-opcodes en labels statisch analyseert en deze omzet in een visueel control-flowdiagram in Mermaid.js-syntax.
 
-Vooraleer de ontwikkeling van de PoC van start gaat, wordt een literatuurstudie gedaan naar het probleimdomein en het oplossingsdomein. 
+Vooraleer de ontwikkeling van de PoC van start gaat, wordt een literatuurstudie uitgevoerd naar het probleemdomein en het oplossingsdomein.
 
 Rond het probleemdomein worden volgende vragen bestudeerd:
 \begin{itemize}
-    \item Wat is het belang van de mainframecomputer? 
-    \item Waarom is er nood aan het onderhouden van HLASM-code? 
-    \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars? 
+    \item Wat is het belang van de mainframecomputer?
+    \item Waarom is er nood aan het onderhouden van HLASM-code?
+    \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars?
 \end{itemize}
 
 Rond het oplossingsdomein worden volgende vragen bestudeerd:
 \begin{itemize}
-    \item Wat is de effectiviteit van visualisatietechnieken voor programmacomprehensie? 
-    \item Wat zijn de bestaande visualisatietools? 
-    \item Welke HLASM-opcodes en labels bepalen de control flow in een programma? 
+    \item Wat is de effectiviteit van visualisatietechnieken voor programmacomprehensie?
+    \item Wat zijn de bestaande visualisatietools binnen High Level Assembler?
+    \item Welke HLASM-opcodes en labels bepalen de control flow in een programma?
 \end{itemize}
-
-% TODO ; spelcheck
-
 
 
 %Waarover zal je bachelorproef gaan? Introduceer het thema en zorg dat volgende zaken zeker duidelijk aanwezig zijn:
@@ -52,21 +49,23 @@ Rond het oplossingsdomein worden volgende vragen bestudeerd:
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
+%  TODO : herschrijven... 
+
 \subsection{Belang van de mainframecomputer}
 
-Mainframes hebben de reputatie verouderde technologie te zijn en voor een lange tijd werd gepleit dat de mainframecomputer zou worden vervangen. Momenteel blijven mainframes bedrijfskritische applicaties draaien en worden ze geïntegreerd met moderne technologieën \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt bevestigd door recent onderzoek waarin wordt aangetoond dat organisaties niet enkel gebruikmaken van legacyapplicaties, maar ook bezig zijn met het ontwikkelen van nieuwe applicaties \autocite{shaik_2024}.
+Mainframes hebben de reputatie verouderde technologie te zijn en voor een lange tijd werd gepleit dat de mainframecomputer zou worden vervangen. Momenteel blijven mainframes bedrijfskritische applicaties draaien en worden ze geïntegreerd met moderne technologieën \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt bevestigd door recent onderzoek waarin wordt aangetoond dat organisaties niet enkel gebruikmaken van legacyapplicaties, maar ook bezig zijn met het actief ontwikkelen van nieuwe applicaties \autocite{shaik_2024}.
 
-Ondanks het feit dat mainframes zeer relevant zijn, is er een dalend aantal ontwikkelaars met mainframe-kennis. De ervaren professionals naderen de pensioenleeftijd en er is een beperkt aanbod aan mainframegerichte opleidingen. Dit veroorzaakt een probleem voor het toekomstige onderhoud van mainframes \autocite{waites_ketterer_2013}. Er is dan ook een nood aan een nieuwe generatie mainframespecialisten die dit onderhoud kan waarborgen.
+Ondanks het feit dat mainframes zeer relevant en modern zijn, is er een dalend aantal ontwikkelaars met mainframe-kennis. De ervaren professionals naderen hun pensioen en er is een beperkt aanbod aan mainframegerichte opleidingen. Dit veroorzaakt een probleem voor het toekomstige onderhoud van mainframes \autocite{waites_ketterer_2013}. Er is dus een nood aan een nieuwe generatie mainframespecialisten die dit onderhoud kan waarborgen.
 
 \subsection{Nood aan onderhoud van HLASM-code}
 
-Bedrijfskritische functionaliteiten van mainframeapplicaties zijn vaak geïmplementeerd in High Level Assembler (HLASM), waardoor onderhoud van deze legacycode van groot belang is. Uit een onderzoek naar softwareonderhoud blijkt dat het begrijpen van bestaande code een groot deel van de moeite neemt tijdens onderhoud. Vooral bij beginnende ontwikkelaars gaat het merendeels van hun tijd aan programmacomprehensie, dit is omdat zij minder ervaring hebben \autocite{xia_bao_lo_xing_hassan_li_2018}. Dit is vooral het geval bij legacycode zoals HLASM, omdat daar de documentatie vaak beperkt is. Voor dit probleem biedt een code control-flow visualisatie tool meer en makkelijker inzicht in de fuctionaliteiten van broncode. 
+Bedrijfskritische functionaliteiten van mainframeapplicaties zijn vaak geïmplementeerd in High Level Assembler (HLASM), waardoor onderhoud van deze legacycode van groot belang is. Uit een onderzoek naar softwareonderhoud blijkt dat het begrijpen van bestaande code een groot deel van de moeite neemt tijdens onderhoud. Vooral bij beginnende ontwikkelaars gaat het merendeels van hun tijd aan het begrijpen van de functionaliteit, dit is omdat zij minder ervaring hebben \autocite{xia_bao_lo_xing_hassan_li_2018}. Dit is vooral het geval bij legacycode zoals HLASM, omdat daar de documentatie vaak beperkt is. Voor dit probleem biedt een code control-flow visualisatie tool meer en makkelijker inzicht in de fuctionaliteiten van broncode. 
 
 \subsection{Moeilijkheden voor beginnende ontwikkelaars}
 
-Assemblytalen zijn erg abstract en zeer gedetailleerd. Als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de programmeerervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
+Assemblytalen zijn zeer gedetailleerd. Als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de programmeerervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
 
-Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het begrijpen van de control flow is er een grotere kans op fouten en verwarring \autocite{kawash_2024}. Hiermee kan worden geconcludeerd dat een visuele representatie kan bijdragen aan het verkrijgen van inzicht in de control flow.
+Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het doorgronden hoe de control flow loopt, maken beginners regelmatig fouten en ervaren ze vaak verwarring \autocite{kawash_2024}. Hiermee kan worden geconcludeerd dat een visuele representatie kan bijdragen aan het verkrijgen van inzicht in de control flow.
 
 \subsection{Effectiviteit van visualisatietechnieken}
 
@@ -74,7 +73,21 @@ Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden
 
 \subsection{Bestaande visualisatietools}
 
-\subsection{HLASM-opcodes en labels}
+Een bestaande tool die kan worden ingezet voor de visualisatie van HLASM-code is FermaT. Deze tool is voornamelijk gericht op het begrijpen en migreren van legacycode. Het is een zeer krachtige, maar ook zware tool, die vooral focust op codeconversies en diepgaande analyses \autocite{ward_2001}.
+
+Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar high-level control-flowdiagrammen in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, met als doel beginnende ontwikkelaars te ondersteunen. In tegenstelling tot FermaT ligt de focus uitsluitend op een heldere en toegankelijke visualisatie van de control flow.
+
+
+
+\subsection{High Level Assembler}
+High Level Assembler (HLASM) wordt beschouwd als een Second Generation Language (2GL), de instructies in HLASM komen rechtstreeks overeen met processorcommando's. Er zijn dus geen abstracties zoals functies of objecten. Deze abstracties zijn wel terug te vinden in talen met een hoger generatieniveau zoals COBOL. HLASM biedt daardoor veel controle, maar dat maakt de code vaak moeilijker te lezen en te onderhouden \autocite{kornelis_2003}.
+
+Een HLASM-programma bestaat uit één of meerdere modules. Elke module wordt samengesteld uit één bronbestand, de bijbehorende copybooks en macro's. De structuur van HLASM-code wordt bepaald door opcodes en labels. Om een subroutine aan te roepen, kun je gebruikmaken van opcodes zoals BAL of BAS. Deze opcodes slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de opcode BR (Branch to Register), met deze opcode spring je naar het adres in de meegegeven operand (het register) \autocite{ward_2013}.
+
+Op de IBM 370- en z/OS-mainframes is er geen hardware-stack. In plaats daarvan wordt er gebruikgemaakt van een gelinkte lijst van save areas. Een save area is opslagruimte waarin kopieën van alle registerwaarden en de verwijzingen naar de volgende en vorige save area zijn opgeslagen. De control flow is dus gedefinieerd in de registers en niet in een stack. Hierdoor is het de taak van de ontwikkelaar om de calls en de returns van en naar subroutines zelf goed af te handelen door middel van de registerwaarden \autocite{ward_2013}.
+
+HLASM-code heeft vaste labels en opcodes om de control flow van het programma te bepalen. Voor het aanroepen heb je opcodes zoals BAL of BAS en voor het terugkeren heb je bijvoorbeeld BR, hierdoor kan de structuur van het programma vastgesteld worden. Dit biedt de mogelijkheid om op een geautomatiseerde manier HLASM-code statisch te analyseren en te visualiseren naar een control-flowchart in Mermaid.js-syntax.
+
 
 %Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)? Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek? Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom. Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron. Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
 
@@ -150,8 +163,8 @@ Elke fase heeft een afgebakende tijdsperiode waarin de specifieke resultaten moe
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
 
-Het verwachte resultaat van deze studie is een technische oplossing, proof of concept (PoC), die in staat is een subset van gedefinieerde en representatieve HLASM-opcodes en labels om te zetten in visuele stappen. De PoC brengt door middel van statische HLASM-broncodeanalyse de control flow in kaart. Het eindresultaat wordt vertaald naar Mermaid.js-syntax, waarmee een visuele flowchart kan worden gegenereerd.
-Met deze PoC wordt verwacht beginnende mainframe\-applicatieontwikkelaars te ondersteunen met het beheersen van een onbekend stuk HLASM-broncode. De evaluatie van het verwachte resultaat wordt uitgevoerd door middel van een vergelijking met de traditionele, manuele manieren van code reviews.
+Het verwachte resultaat van deze studie is een proof of concept (PoC), die in staat is een subset van gedefinieerde en representatieve HLASM-opcodes en labels om te zetten in visuele stappen. De PoC brengt door middel van statische HLASM-broncodeanalyse de control flow in kaart. Het eindresultaat wordt vertaald naar Mermaid.js-syntax, waarmee een visuele flowchart kan worden gegenereerd.
+Met deze PoC wordt verwacht beginnende mainframeontwikkelaars te ondersteunen met het begrijpen van een onbekend stuk HLASM-broncode. De evaluatie van het verwachte resultaat wordt uitgevoerd door middel van een vergelijking met de traditionele, manuele manieren van code reviews.
 
 
 
