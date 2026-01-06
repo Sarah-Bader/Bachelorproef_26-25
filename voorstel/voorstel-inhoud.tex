@@ -2,7 +2,7 @@
 
 \section{Inleiding}%
 \label{sec:inleiding}
-Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. Vermits veel ervaren mainframe-specialisten hun pensioen naderen, is er nood aan een nieuwe generatie mainframe-specialisten die het onderhoud van hun systemen kan waarborgen. Onder dit onderhoud vallen de bedrijfskritische functionaliteiten van mainframeapplicaties, die voornamelijk opgebouwd zijn uit High-Level Assembler (HLASM). Deze legacycode is vaak tientallen jaren oud en minimaal gedocumenteerd. Voor de nieuwe generatie mainframeontwikkelaars vormt dit een uitdaging om deze legacycode te begrijpen en te onderhouden. Zij vertrouwen vaak enkel op manuele code reviews.
+Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. Vermits veel ervaren mainframe-specialisten hun pensioen naderen, is er nood aan een nieuwe generatie mainframe-specialisten die het onderhoud van hun systemen kan waarborgen. Onder dit onderhoud vallen de bedrijfskritische functionaliteiten van mainframeapplicaties, die voornamelijk afhankelijk zijn van High-Level Assembler (HLASM). Deze legacycode is vaak tientallen jaren oud en minimaal gedocumenteerd. Voor de nieuwe generatie mainframeontwikkelaars vormt dit een uitdaging om deze legacycode te begrijpen en te onderhouden. Zij vertrouwen vaak enkel op manuele code reviews.
 
 Door middel van een geautomatiseerde tool die statische analyse van HLASM-code visualiseert in een control-flowchart, wil dit onderzoek ondersteuning bieden aan beginnende mainframeontwikkelaars, specifiek binnen organisaties die afhankelijk zijn van legacy HLASM-code.
 
@@ -59,32 +59,31 @@ Ondanks het feit dat mainframes zeer relevant en modern zijn, is er een dalend a
 
 \subsection{Nood aan onderhoud van HLASM-code}
 
-Bedrijfskritische functionaliteiten van mainframeapplicaties zijn vaak geïmplementeerd in High Level Assembler (HLASM), waardoor onderhoud van deze legacycode van groot belang is. Uit een onderzoek naar softwareonderhoud blijkt dat het begrijpen van bestaande code een groot deel van de moeite neemt tijdens onderhoud. Vooral bij beginnende ontwikkelaars gaat het merendeels van hun tijd aan het begrijpen van de functionaliteit, dit is omdat zij minder ervaring hebben \autocite{xia_bao_lo_xing_hassan_li_2018}. Dit is vooral het geval bij legacycode zoals HLASM, omdat daar de documentatie vaak beperkt is. Voor dit probleem biedt een code control-flow visualisatie tool meer en makkelijker inzicht in de fuctionaliteiten van broncode. 
+Bedrijfskritische functionaliteiten van mainframeapplicaties zijn vaak afhankelijk van High Level Assembler (HLASM), waardoor onderhoud van deze legacycode van groot belang is. Als de aangeroepen HLASM-code faalt, dan faalt het volledige programma \autocite{zaytsev_2020}. Uit een onderzoek naar softwareonderhoud blijkt dat het begrijpen van bestaande code een groot deel van de moeite neemt tijdens onderhoud. Vooral bij beginnende ontwikkelaars gaat het merendeels van hun tijd aan het begrijpen van de functionaliteit, dit is omdat zij minder ervaring hebben \autocite{xia_bao_lo_xing_hassan_li_2018}. Dit is vooral het geval bij legacycode zoals HLASM, omdat daar de documentatie vaak beperkt is.
 
 \subsection{Moeilijkheden voor beginnende ontwikkelaars}
 
-Assemblytalen zijn zeer gedetailleerd. Als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de programmeerervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
+Assemblytalen zijn zeer gedetailleerd, als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de ervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
 
-Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het doorgronden hoe de control flow loopt, maken beginners regelmatig fouten en ervaren ze vaak verwarring \autocite{kawash_2024}. Hiermee kan worden geconcludeerd dat een visuele representatie kan bijdragen aan het verkrijgen van inzicht in de control flow.
+Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het begrijpen van de control flow maken beginners vaak fouten en ervaren ze vaak verwarring \autocite{kawash_2024}. Hiermee kan worden geconcludeerd dat de control flow van code een moeilijkheid is onder beginnende ontwikkelaars en dat een hulpmiddel kan bijdragen bij het verkrijgen van inzicht.
 
 \subsection{Effectiviteit van visualisatietechnieken}
 
-Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in de belangrijkste componenten \autocite{baldwin_myers_storey_coady_2009}.
+Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in componenten \autocite{baldwin_myers_storey_coady_2009}.
 
 \subsection{Bestaande visualisatietools}
 
 Een bestaande tool die kan worden ingezet voor de visualisatie van HLASM-code is FermaT. Deze tool is voornamelijk gericht op het begrijpen en migreren van legacycode. Het is een zeer krachtige, maar ook zware tool, die vooral focust op codeconversies en diepgaande analyses \autocite{ward_2001}.
 
-Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar high-level control-flowdiagrammen in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, met als doel beginnende ontwikkelaars te ondersteunen. In tegenstelling tot FermaT ligt de focus uitsluitend op een heldere en toegankelijke visualisatie van de control flow.
-
+Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar een high-level control-flowdiagram in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, om beginnende ontwikkelaars te ondersteunen. In tegenstelling tot FermaT ligt de focus uitsluitend op een visualisatie van de control flow.
 
 
 \subsection{High Level Assembler}
-High Level Assembler (HLASM) wordt beschouwd als een Second Generation Language (2GL), de instructies in HLASM komen rechtstreeks overeen met processorcommando's. Er zijn dus geen abstracties zoals functies of objecten. Deze abstracties zijn wel terug te vinden in talen met een hoger generatieniveau zoals COBOL. HLASM biedt daardoor veel controle, maar dat maakt de code vaak moeilijker te lezen en te onderhouden \autocite{kornelis_2003}.
+High Level Assembler (HLASM) wordt beschouwd als een Second Generation Language (2GL), de instructies in HLASM komen rechtstreeks overeen met processorcommando's. Er zijn dus geen abstracties zoals functies of objecten. Deze abstracties zijn wel terug te vinden in talen met een hoger generatieniveau zoals COBOL. HLASM biedt daardoor veel controle tot het fysieke systeem, maar dat maakt de code vaak moeilijker te lezen en te onderhouden \autocite{kornelis_2003}.
 
-Een HLASM-programma bestaat uit één of meerdere modules. Elke module wordt samengesteld uit één bronbestand, de bijbehorende copybooks en macro's. De structuur van HLASM-code wordt bepaald door opcodes en labels. Om een subroutine aan te roepen, kun je gebruikmaken van opcodes zoals BAL of BAS. Deze opcodes slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de opcode BR (Branch to Register), met deze opcode spring je naar het adres in de meegegeven operand (het register) \autocite{ward_2013}.
+Een HLASM-programma bestaat uit één of meerdere modules. Elke module wordt samengesteld uit één broncodebestand, de bijbehorende copybooks en macro's. De structuur van HLASM-code wordt bepaald door opcodes en labels. Om een subroutine aan te roepen, kun je gebruikmaken van opcodes zoals BAL of BAS. Deze opcodes slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de opcode BR (Branch to Register), met deze opcode spring je naar het adres in het meegegeven register \autocite{ward_2013}.
 
-Op de IBM 370- en z/OS-mainframes is er geen hardware-stack. In plaats daarvan wordt er gebruikgemaakt van een gelinkte lijst van save areas. Een save area is opslagruimte waarin kopieën van alle registerwaarden en de verwijzingen naar de volgende en vorige save area zijn opgeslagen. De control flow is dus gedefinieerd in de registers en niet in een stack. Hierdoor is het de taak van de ontwikkelaar om de calls en de returns van en naar subroutines zelf goed af te handelen door middel van de registerwaarden \autocite{ward_2013}.
+Op de IBM 370- en z/OS-mainframes is er geen hardware-stack. In plaats daarvan wordt er gebruikgemaakt van een gelinkte lijst van save areas. Een save area is opslagruimte waarin kopieën van alle registerwaarden en de verwijzingen naar de volgende en vorige save area zijn opgeslagen. De control flow is dus gedefinieerd in de registers en niet in een stack. Daardoor is het de taak van de ontwikkelaar om de calls en de returns van en naar subroutines zelf goed af te handelen door middel van de registerwaarden \autocite{ward_2013}.
 
 HLASM-code heeft vaste labels en opcodes om de control flow van het programma te bepalen. Voor het aanroepen heb je opcodes zoals BAL of BAS en voor het terugkeren heb je bijvoorbeeld BR, hierdoor kan de structuur van het programma vastgesteld worden. Dit biedt de mogelijkheid om op een geautomatiseerde manier HLASM-code statisch te analyseren en te visualiseren naar een control-flowchart in Mermaid.js-syntax.
 
@@ -104,35 +103,36 @@ HLASM-code heeft vaste labels en opcodes om de control flow van het programma te
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhoud van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie waarin de control flow van HLASM-broncode wordt bestudeerd en vervolgens wordt een subset van representatieve HLASM-opcodes en labels geselecteerd. Hierna start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
+Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhoud van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie naar het probleemdomein en het oplossingsdomein. Ook wordt de control flow van HLASM-broncode bestudeerd, waarna een subset van representatieve HLASM-opcodes en labels geselecteerd worden. Na de literatuurstudie start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
 
 \subsection{Fase 1: Oriëntatie en Literatuurstudie}
 
-Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling. Dit gebeurt door middel van een literatuurstudie waarin dieper wordt ingegaan op de leercurve van assemblytalen en waarin voorgaande oplossingen worden onderzocht. Daarnaast wordt gekeken naar HLASM-labels en -opcodes om een representatieve subset te definiëren die later kan worden gebruikt bij het visualiseren van de statische control flow.
-Het doel van deze fase is het definiëren van de vereisten voor de technische oplossing. De scope wordt zo nauwkeurig mogelijk afgebakend om een specifieke oplossing te garanderen die voldoet aan de requirements.
-
-Tijdens deze fase worden de volgende aspecten bestudeerd en verzameld:
+Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling en het oplossingsdomein. Dit gebeurt door middel van een literatuurstudie waarin dieper wordt ingegaan op de deelvragen:
 
 \begin{itemize}
-    \item de uitdagingen bij het beheersen van legacycode voor beginnende ontwikkelaars;
-    \item bestaande visualisatietechnieken voor programmacomprehensie;
-    \item de meest gebruikte HLASM-opcodes en labels die de control flow beïnvloeden.
+    \item Wat is het belang van de mainframecomputer?
+    \item Waarom is er nood aan het onderhouden van HLASM-code?
+    \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars?
+    \item Wat is de effectiviteit van visualisatietechnieken voor programmacomprehensie?
+    \item Wat zijn de bestaande visualisatietools binnen High Level Assembler?
+    \item Welke HLASM-opcodes en labels bepalen de control flow in een programma?
 \end{itemize}
 
-Het resultaat van deze fase is een theoretisch onderzoek naar de probleemstelling en een afgebakende scope voor de verdere ontwikkeling van de technische oplossing.
+
+Het resultaat van deze fase is een theoretisch onderzoek naar de probleemstelling en oplossingsdomein, en een afgebakende scope van HLASM-opcodes en labels voor de verdere ontwikkeling van de technische oplossing.
 
 \subsection{Fase 2: Implementatie en Evaluatie}
 
-Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een Python-gebaseerde parser ontwikkeld die HLASM-broncode statisch analyseert. De parser identificeert instructies en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
+Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een Python-gebaseerde parser ontwikkeld die HLASM-code statisch analyseert. De parser identificeert opcodes en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
 
 Concreet worden tijdens deze fase de volgende aspecten ontwikkeld:
 
 \begin{itemize}
-    \item de logische opbouw van de parser op basis van patroonherkenning in de HLASM\-broncodestructuur;
-    \item een mapping van de geselecteerde HLASM-opcodes en labels naar Mermaid.js-elementen.
+    \item een mapping van de geselecteerde HLASM-opcodes en labels naar Mermaid.js-elementen;
+    \item de logische opbouw van de parser op basis van patroonherkenning in de HLASM\-broncodestructuur.
 \end{itemize}
 
-Tijdens de ontwikkeling wordt de PoC iteratief beoordeeld via een vergelijkende studie met traditionele, manuele code reviews. Hierbij worden codefragmenten met beide methoden geanalyseerd door vrijwillige, beginnende mainframe\-applicatieontwikkelaars. Zij worden gevraagd de functionaliteit van HLASM-broncode te bepalen aan de hand van zowel de technische als de traditionele methode. De resultaten worden geanalyseerd op basis van de tijd die nodig was om de functionaliteit van de HLASM-broncode te identificeren.
+Tijdens de ontwikkeling wordt de PoC iteratief beoordeeld via een vergelijkende studie met traditionele, handmatige code reviews. Hierbij worden codefragmenten met beide methoden geanalyseerd door vrijwillige, beginnende mainframeontwikkelaars. Zij worden gevraagd de functionaliteit van HLASM-broncode te bepalen aan de hand van zowel de technische als de traditionele methode. De resultaten worden geanalyseerd op basis van de tijd die nodig was om de functionaliteit van de HLASM-broncode te identificeren.
 
 Deze fase resulteert in een werkende PoC die HLASM-broncode omzet naar Mermaid.js-\-flowcharts. Daarnaast worden evaluatieresultaten verkregen die inzicht geven in de effectiviteit van de technische oplossing.
 
@@ -145,11 +145,11 @@ In de laatste fase worden de onderzoeksresultaten verwerkt tot een conclusie. Sp
     \item mogelijke uitbreidingen voor toekomstig onderzoek.
 \end{itemize}
 
-Deze fase resulteert in de finale scriptie en een gedocumenteerde proof-of-concept.
+Deze fase resulteert in de finale scriptie, de verdediging en een proof-of-concept, met de bijhorende documentatie.
 
 \subsection{Tijdsplanning}
 
-Elke fase heeft een afgebakende tijdsperiode waarin de specifieke resultaten moeten worden opgeleverd voor de volgende fase. Zoals vermeld in figuur \ref{fig:gantt-diagram}, zijn ook de administratieve deliverables opgenomen om samenhang te tonen met de feedback van de promotor.
+Elke fase heeft een afgebakende tijdsperiode waarin de specifieke resultaten moeten worden opgeleverd voor de volgende fase. Zoals vermeld in figuur \ref{fig:gantt-diagram}, zijn ook de administratieve deliverables opgenomen.
 
 \begin{figure}[htbp]
     \centering
@@ -158,13 +158,12 @@ Elke fase heeft een afgebakende tijdsperiode waarin de specifieke resultaten moe
     \label{fig:gantt-diagram}
 \end{figure}
 
-
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
 
-Het verwachte resultaat van deze studie is een proof of concept (PoC), die in staat is een subset van gedefinieerde en representatieve HLASM-opcodes en labels om te zetten in visuele stappen. De PoC brengt door middel van statische HLASM-broncodeanalyse de control flow in kaart. Het eindresultaat wordt vertaald naar Mermaid.js-syntax, waarmee een visuele flowchart kan worden gegenereerd.
-Met deze PoC wordt verwacht beginnende mainframeontwikkelaars te ondersteunen met het begrijpen van een onbekend stuk HLASM-broncode. De evaluatie van het verwachte resultaat wordt uitgevoerd door middel van een vergelijking met de traditionele, manuele manieren van code reviews.
+Het verwachte resultaat van deze studie is een proof of concept (PoC), die in staat is een subset van representatieve HLASM-opcodes en labels om te zetten in visuele stappen geïnterpreteerd in Mermaid.js-syntax. De PoC brengt door middel van statische HLASM-broncodeanalyse de control flow in kaart. 
+Met deze PoC wordt verwacht beginnende mainframeontwikkelaars te ondersteunen met het begrijpen van een onbekend stuk HLASM-broncode. De evaluatie van het verwachte resultaat wordt uitgevoerd door middel van een vergelijking met de traditionele, handmatige manieren van code reviews.
 
 
 
