@@ -1,0 +1,57 @@
+%==============================================================================
+% Sjabloon onderzoeksvoorstel bachproef
+%==============================================================================
+% Gebaseerd op document class `hogent-article'
+% zie <https://github.com/HoGentTIN/latex-hogent-article>
+
+% Voor een voorstel in het Engels: voeg de documentclass-optie [english] toe.
+% Let op: kan enkel na toestemming van de bachelorproefcoördinator!
+\documentclass{hogent-article}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+
+% Invoegen bibliografiebestand
+\addbibresource{voorstel.bib}
+ 
+% Informatie over de opleiding, het vak en soort opdracht
+\studyprogramme{Professionele bachelor toegepaste informatica}
+\course{Bachelorproef}
+\assignmenttype{Onderzoeksvoorstel}
+
+\academicyear{2025-2026} 
+
+\title{Statische analyse en visualisatie van control flow in HLASM-code met Mermaid.js, ter ondersteuning van beginnende mainframeontwikkelaars.}
+
+\author{Sarah Bader}
+\email{sarah.bader@student.hogent.be}
+
+% TODO: Geef de co-promotor op
+\supervisor[Co-promotor]{John Doe (ACME Group, \href{mailto:john.doe@mail.com}{john.doe@mail.com})}
+
+
+\specialisation{Mainframe Expert}
+\keywords{Mainframe, HLASM, Control Flow Graphs, Static Analysis, Program Visualization, Legacy Systems, z/Architecture, z/OS, Mermaid.js}
+
+\begin{document}
+
+
+\begin{abstract}
+
+Veel applicaties op het mainframe zijn vaak afhankelijk van High-Level Assembler (HLASM), de programma’s gebruiken kritische functionaliteit die vanuit een HLASM-broncode komt. Dit zorgt ervoor dat onderhoud van deze broncode van groot belang is. Wanneer deze code faalt kan de continuïteit van het systeem in gevaar komen. Momenteel wordt deze legacycode onderhouden door een beperkt aantal mainframe-specialisten, die sterk aan het afnemen zijn. Ook is deze legacycode vaak minimaal gedocumenteerd, waardoor het tijdrovend is om de functionaliteit ervan achter te halen. De mainframe-industrie heeft behoefte aan een nieuwe generatie mainframeontwikkelaars en hulpmiddelen om deze generatie te ondersteunen bij het beheersen van deze legacycode.
+
+Dit onderzoek richt zich specifiek op het ondersteunen van beginnende mainframeontwikkelaars met een tool die de control-flow van HLASM-legacycode statisch analyseert en visualiseert in Mermaid.js syntax. Concreet is de proof of concept (PoC) een op Python gebaseerde parser die een subset van de belangrijkste HLASM-mnemonics en labels detecteert en daarna omzet naar Mermaid.js-elementen. 
+
+De methodologie is opgedeeld in verschillende fasen, met elk een resulterend doeleind die verwerkt wordt in de volgende fase. De eerste fase bevat een literatuurstudie die dieper ingaat op het belang van de mainframecomputer, de nood aan onderhoud van HLASM-code, de moeilijkheden bij het leren van assemblytalen en de bestaande visualisatietools voor High Level Assembler. In de literatuurstudie worden ook de HLASM-mnemonics en labels gedefinieerd die de control flow definiëren. Na de literatuurstudie start de ontwikkeling van de proof of concept. Tijdens de ontwikkeling wordt de PoC geëvalueerd op een Agile manier, het wordt vergelijken met traditionele, handmatige code reviews. Het verwachte resultaat is dat de PoC sneller inzicht biedt in de functionaliteiten van HLASM-programma’s aan beginnende mainframeontwikkelaars.
+
+  
+\end{abstract}
+
+\tableofcontents
+
+\input{voorstel-inhoud}
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
