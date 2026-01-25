@@ -107,12 +107,13 @@ HLASM-code heeft vaste labels en instructies om de control flow van het programm
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhoud van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie naar het probleemdomein en het oplossingsdomein. Ook wordt de control flow van HLASM-broncode bestudeerd, waarna een subset van representatieve HLASM-instructies en labels geselecteerd worden. Na de literatuurstudie start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
+Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhouden en begrijpen van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie naar het probleemdomein en het oplossingsdomein. Ook wordt de control flow van HLASM-broncode bestudeerd, waarna een subset van representatieve HLASM-instructies en labels geselecteerd worden. Na de literatuurstudie start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
 
 \subsection{Fase 1: Oriëntatie en Literatuurstudie}
 
 Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling en het oplossingsdomein. Dit gebeurt door middel van een literatuurstudie waarin dieper wordt ingegaan op de deelvragen:
 
+% TODO ; verander deelvragen
 \begin{itemize}
     \item Wat is het belang van de mainframecomputer?
     \item Waarom is er nood aan het onderhouden van HLASM-code?
@@ -123,33 +124,50 @@ Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling en h
 \end{itemize}
 
 
-Het resultaat van deze fase is een theoretisch onderzoek naar de probleemstelling en oplossingsdomein, en een afgebakende scope van HLASM-instructies en labels voor de verdere ontwikkeling van de technische oplossing.
+Deze fase loopt van 20 december 2025 tot 1 maart 2026 en resulteert in een uitgewerkte literatuurstudie en methodologie. Het resultaat bevat concreet een theoretisch onderzoek naar de probleemstelling en oplossingsdomein, en een afgebakende scope van HLASM-instructies en labels voor de verdere ontwikkeling van de technische oplossing.
 
-\subsection{Fase 2: Implementatie en Evaluatie}
+\subsection{Fase 2: Requirementsanalyse}
 
-Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een JavaScript-gebaseerde parser ontwikkeld die HLASM-code statisch analyseert. De parser identificeert instructies en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
+Tijdens de literatuurstudie (tussen januari 2026 en maart 2026) wordt een requirementsanalyse uitgevoerd. Het doel van deze fase is om concrete en meetbare eisen voor de proof of concept en de evaluatie vast te leggen. 
+
+Binnen deze fase beginnen we eerst met het specifiek definiëren van de doelgroep. Uit de doelgroep wordt gezocht naar 5 à 10 deelnemers die instaan voor de evaluatie van de PoC. Voor de evaluatie worden ook HLASM-codefragmenten verzameld die typische control-flowconstructies hebben zoals labels, conditionele takken en subroutines-aanroepen. 
+
+Ook worden de succescriteria van de PoC vastgesteld: 
+\begin{itemize}  
+    \item correcte detectie van de geselecteerde HLASM-instructies en labels,
+    \item correcte omzetting naar Mermaid.js-flowcharts, 
+    \item meetbare tijdswinst bij het begrijpen van de control flow in vergelijking met een manuele analyse.  
+\end{itemize}
+
+Door deze fase zal de implementatie en evaluatie van de PoC doelgericht uitgevoerd worden. 
+
+\subsection{Fase 3: Implementatie en Evaluatie}
+
+Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. Deze fase vindt plaats tussen 2 maart 2026 en 4 mei 2026. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een JavaScript-gebaseerde parser ontwikkeld die HLASM-code statisch analyseert. De parser identificeert instructies en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
 
 Concreet worden tijdens deze fase de volgende aspecten ontwikkeld:
 
 \begin{itemize}
     \item de logische opbouw van de parser op basis van patroonherkenning in de HLASM\-broncodestructuur;
-    \item een mapping van de geselecteerde HLASM- en labels naar Mermaid.js-elementen.
+    \item een mapping van de geselecteerde HLASM-instructies en labels naar Mermaid.js-elementen.
 \end{itemize}
 
-Tijdens de ontwikkeling wordt de PoC iteratief beoordeeld via een vergelijkende studie met traditionele, handmatige code reviews. Hierbij worden codefragmenten met beide methoden geanalyseerd door vrijwillige, beginnende mainframeontwikkelaars. Zij worden gevraagd de functionaliteit van HLASM-broncode te bepalen aan de hand van zowel de technische als de traditionele methode. De resultaten worden geanalyseerd op basis van de tijd die nodig was om de functionaliteit van de HLASM-broncode te identificeren.
+Tijdens de ontwikkeling wordt de PoC iteratief geëvalueerd via een vergelijkende studie met traditionele, handmatige code reviews door 5 à 10 vrijwillige deelnemers. De evaluatie loopt tijdens de implementatie, van 1 april 2026 tot 4 mei 2026. De deelnemers worden gevraagd de functionaliteit van HLASM-broncode te bepalen aan de hand van zowel de technische als de traditionele methode. De resultaten worden geanalyseerd op basis van de tijd die nodig was om de functionaliteit van de HLASM-broncode te identificeren en de juistheid van de beschreven control flow. Aan de hand van deze metingen wordt bepaald of de PoC aan de gedefinieerde succescriteria voldoet. 
 
 Deze fase resulteert in een werkende PoC die HLASM-broncode omzet naar een flowchart in Mermaid.js-syntax. Daarnaast worden evaluatieresultaten verkregen die inzicht geven in de effectiviteit van de technische oplossing.
 
-\subsection{Fase 3: Resultaat en Verdediging}
+\subsection{Fase 4: Resultaat en Verdediging}
 
-In de laatste fase worden de onderzoeksresultaten verwerkt tot een conclusie. Specifiek worden de volgende aspecten besproken:
+De laatste fase loopt van 4 mei 2026 tot juni 2026. In deze fase worden de onderzoeksresultaten en evaluatieresultaten verwerkt tot een conclusie.
+
+Specifiek worden de volgende aspecten besproken:
 
 \begin{itemize}
     \item de sterktes en beperkingen van de PoC;
     \item mogelijke uitbreidingen voor toekomstig onderzoek.
 \end{itemize}
 
-Deze fase resulteert in de finale scriptie, de verdediging en een proof-of-concept, met de bijhorende documentatie.
+Deze fase resulteert in de finale bachelorproef die wordt ingediend op 29 mei 2026, de verdediging en de proof-of-concept met de bijbehorende documentatie.
 
 \subsection{Tijdsplanning}
 
