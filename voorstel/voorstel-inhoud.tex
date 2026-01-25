@@ -86,11 +86,26 @@ Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code
 
 High Level Assembler (HLASM) wordt gezien als een Second Generation Language (2GL), de instructies in HLASM komen rechtstreeks overeen met processorcommando's. Er zijn dus geen abstracties zoals functies of objecten. Deze abstracties zijn wel terug te vinden in talen met een hoger generatieniveau zoals COBOL. HLASM biedt daardoor veel controle tot het fysieke systeem, maar dat maakt de code vaak moeilijker te lezen en te onderhouden \autocite{kornelis_2003}.
 
-Een HLASM-programma bestaat uit één of meerdere modules. Elke module wordt samengesteld uit één broncodebestand, de bijbehorende copybooks en macro's. De structuur van HLASM-code wordt bepaald door instructies en labels. Om een subroutine aan te roepen, kun je gebruikmaken van instructies zoals BAL of BAS. Deze instructies slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de instructie BR (Branch to Register), met deze instructie spring je naar het adres in het meegegeven register \autocite{ward_2013}.
+De structuur van HLASM-code wordt bepaald door instructies en labels. Om een subroutine aan te roepen, kun je gebruikmaken van instructies zoals BAL of BAS. Deze instructies slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de instructie BR (Branch to Register), met deze instructie spring je naar het adres in het meegegeven register \autocite{ward_2013}.
 
 Op de IBM 370- en z/OS-mainframes is er geen hardware-stack. In plaats daarvan wordt er gebruikgemaakt van een gelinkte lijst van save areas. Een save area is een opslagruimte waarin kopieën van alle registerwaarden en de verwijzingen naar de volgende en vorige save area zijn opgeslagen. De control flow is dus gedefinieerd in de registers en niet in een stack. Daardoor is het de taak van de ontwikkelaar om de calls en de returns, van en naar subroutines, zelf goed af te handelen door middel van de registerwaarden \autocite{ward_2013}.
 
 HLASM-code heeft vaste labels en instructies om de control flow van het programma te bepalen. Voor het aanroepen heb je instructies zoals BAL of BAS en voor het terugkeren heb je bijvoorbeeld BR, hierdoor kan de structuur van het programma vastgesteld worden. Dit biedt de mogelijkheid om op een geautomatiseerde manier HLASM-code statisch te analyseren en te visualiseren naar een control-flowchart in Mermaid.js-syntax.
+
+\subsection{Control Flow in High Level Assembler}
+
+High Level Assembler (HLASM) wordt gezien als een Second Generation Language (2GL), de instructies in HLASM komen rechtstreeks overeen met processorcommando's. Er zijn dus geen abstracties zoals functies of objecten. Deze abstracties zijn wel terug te vinden in talen met een hoger generatieniveau zoals COBOL. HLASM biedt daardoor veel controle over het fysieke systeem, maar dat maakt de code vaak moeilijker te lezen en te onderhouden \autocite{kornelis_2003}.
+ 
+Om de control-flow van HLASM te definiëren kan er gefocust worden op bepaalde elementen die sprongen of vertakkingen maken: 
+
+\begin{itemize}
+    \item Een directe sprong: Instructies zoals B (Branch) sturen het programma direct naar een ander codeblok \autocite{ibm_hlasm_programmers_guide}.
+    \item Een conditionele sprong: Door middel van vergelijkingen (C voor Compare) of condities (BE voor Branch on Equal) verandert de route van het programma \autocite{ibm_hlasm_programmers_guide}. 
+    \item Een subroutine: Bij het aanroepen van een subroutine worden instructies zoals BAL of BAS gebruikt. Het terugkeren vanuit een subroutine gebeurt via een BR-instructie \autocite{ward_2013}.
+\end{itemize}
+
+Deze specifieke instructies kunnen een idee geven van de control-flow van het programma. 
+
 
 \subsection{JavaScript Parsing}
 Binnen HLASM wordt er gewerkt met een vaste kolom-gebaseerde indeling. Elk onderdeel van de code staat op een vaste plek. Elke kolom heeft een eigen functie: kolommen 1-8 zijn voor labels, kolommen 10-14 voor de instructie en vanaf kolom 16 staan de operanden. Na kolom 71 wordt alles beschouwd als commentaar of wordt het genegeerd \autocite{ibm_hlasm}. 
@@ -125,7 +140,6 @@ Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing 
 
 Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling en het oplossingsdomein. Dit gebeurt door middel van een literatuurstudie waarin dieper wordt ingegaan op de deelvragen:
 
-% TODO ; verander deelvragen
 \begin{itemize}
     \item Wat is het belang van de mainframecomputer?
     \item Waarom is er nood aan het onderhouden van HLASM-code?
