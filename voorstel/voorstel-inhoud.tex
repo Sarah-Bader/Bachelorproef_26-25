@@ -9,10 +9,10 @@ Door middel van een geautomatiseerde tool die statische analyse van HLASM-code v
 De probleemstelling van dit onderzoek luidt als volgt:
 \begin{quote}
     \itshape
-    Op welke manier kan statische analyse van HLASM-broncode worden ingezet om control-flowstructuren te visualiseren in Mermaid.js, zodat beginnende mainframeontwikkelaars ondersteund worden in het begrijpen van legacycode?
+    Hoe effectief versnellen statische analyse en Mermaid-diagrammen het leerproces van HLASM bij beginners?
 \end{quote}
 
-Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die een representatieve subset van HLASM-mnemonics en labels statisch analyseert en deze omzet in een visueel control-flowdiagram in Mermaid.js-syntax.
+Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die een representatieve subset van HLASM-instructies en labels statisch analyseert en deze omzet in een visueel control-flowdiagram in Mermaid.js-syntax.
 
 Vooraleer de ontwikkeling van de PoC van start gaat, wordt een literatuurstudie uitgevoerd naar het probleemdomein en het oplossingsdomein.
 
@@ -24,12 +24,14 @@ Rond het probleemdomein worden volgende vragen bestudeerd:
 \end{itemize}
 
 Rond het oplossings domein worden volgende vragen bestudeerd:
-\begin{itemize}
-    \item Wat is de effectiviteit van visualisatietechnieken voor programmacomprehensie?
-    \item Wat zijn de bestaande visualisatietools binnen High Level Assembler?
-    \item Welke HLASM-mnemonics en labels bepalen de control flow in een programma?
-\end{itemize}
 
+\begin{itemize}
+    \item Hoe helpt visualisatie bij het sneller begrijpen van programma's?
+    \item Welke tools bestaan er al om HLASM-code te visualiseren?
+    \item Welke HLASM-instructies zijn onmisbaar om een parser te bouwen die de control-flow duidelijk weergeeft?
+    \item Welke parsing-strategie in JavaScript is het meest geschikt voor de specifieke kolom-gebaseerde structuur van HLASM?
+    \item Hoe kan conditionele logica uit de HLASM-code technisch worden vertaald naar correcte Mermaid.js-syntax?
+\end{itemize}
 
 %Waarover zal je bachelorproef gaan? Introduceer het thema en zorg dat volgende zaken zeker duidelijk aanwezig zijn:
 %\begin{itemize}
@@ -83,11 +85,11 @@ Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code
 
 High Level Assembler (HLASM) wordt gezien als een Second Generation Language (2GL), de instructies in HLASM komen rechtstreeks overeen met processorcommando's. Er zijn dus geen abstracties zoals functies of objecten. Deze abstracties zijn wel terug te vinden in talen met een hoger generatieniveau zoals COBOL. HLASM biedt daardoor veel controle tot het fysieke systeem, maar dat maakt de code vaak moeilijker te lezen en te onderhouden \autocite{kornelis_2003}.
 
-Een HLASM-programma bestaat uit één of meerdere modules. Elke module wordt samengesteld uit één broncodebestand, de bijbehorende copybooks en macro's. De structuur van HLASM-code wordt bepaald door mnemonics en labels. Om een subroutine aan te roepen, kun je gebruikmaken van mnemonics zoals BAL of BAS. Deze mnemonics slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de mnemonic BR (Branch to Register), met deze mnemonic spring je naar het adres in het meegegeven register \autocite{ward_2013}.
+Een HLASM-programma bestaat uit één of meerdere modules. Elke module wordt samengesteld uit één broncodebestand, de bijbehorende copybooks en macro's. De structuur van HLASM-code wordt bepaald door instructies en labels. Om een subroutine aan te roepen, kun je gebruikmaken van instructies zoals BAL of BAS. Deze instructies slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de instructie BR (Branch to Register), met deze instructie spring je naar het adres in het meegegeven register \autocite{ward_2013}.
 
 Op de IBM 370- en z/OS-mainframes is er geen hardware-stack. In plaats daarvan wordt er gebruikgemaakt van een gelinkte lijst van save areas. Een save area is een opslagruimte waarin kopieën van alle registerwaarden en de verwijzingen naar de volgende en vorige save area zijn opgeslagen. De control flow is dus gedefinieerd in de registers en niet in een stack. Daardoor is het de taak van de ontwikkelaar om de calls en de returns, van en naar subroutines, zelf goed af te handelen door middel van de registerwaarden \autocite{ward_2013}.
 
-HLASM-code heeft vaste labels en mnemonics om de control flow van het programma te bepalen. Voor het aanroepen heb je mnemonics zoals BAL of BAS en voor het terugkeren heb je bijvoorbeeld BR, hierdoor kan de structuur van het programma vastgesteld worden. Dit biedt de mogelijkheid om op een geautomatiseerde manier HLASM-code statisch te analyseren en te visualiseren naar een control-flowchart in Mermaid.js-syntax.
+HLASM-code heeft vaste labels en instructies om de control flow van het programma te bepalen. Voor het aanroepen heb je instructies zoals BAL of BAS en voor het terugkeren heb je bijvoorbeeld BR, hierdoor kan de structuur van het programma vastgesteld worden. Dit biedt de mogelijkheid om op een geautomatiseerde manier HLASM-code statisch te analyseren en te visualiseren naar een control-flowchart in Mermaid.js-syntax.
 
 
 %Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)? Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek? Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom. Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron. Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
@@ -105,7 +107,7 @@ HLASM-code heeft vaste labels en mnemonics om de control flow van het programma 
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhoud van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie naar het probleemdomein en het oplossingsdomein. Ook wordt de control flow van HLASM-broncode bestudeerd, waarna een subset van representatieve HLASM-mnemonics en labels geselecteerd worden. Na de literatuurstudie start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
+Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhoud van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie naar het probleemdomein en het oplossingsdomein. Ook wordt de control flow van HLASM-broncode bestudeerd, waarna een subset van representatieve HLASM-instructies en labels geselecteerd worden. Na de literatuurstudie start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
 
 \subsection{Fase 1: Oriëntatie en Literatuurstudie}
 
@@ -117,15 +119,15 @@ Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling en h
     \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars?
     \item Wat is de effectiviteit van visualisatietechnieken voor programmacomprehensie?
     \item Wat zijn de bestaande visualisatietools binnen High Level Assembler?
-    \item Welke HLASM-mnemonics en labels bepalen de control flow in een programma?
+    \item Welke HLASM-instructies en labels bepalen de control flow in een programma?
 \end{itemize}
 
 
-Het resultaat van deze fase is een theoretisch onderzoek naar de probleemstelling en oplossingsdomein, en een afgebakende scope van HLASM-mnemonics en labels voor de verdere ontwikkeling van de technische oplossing.
+Het resultaat van deze fase is een theoretisch onderzoek naar de probleemstelling en oplossingsdomein, en een afgebakende scope van HLASM-instructies en labels voor de verdere ontwikkeling van de technische oplossing.
 
 \subsection{Fase 2: Implementatie en Evaluatie}
 
-Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een Python-gebaseerde parser ontwikkeld die HLASM-code statisch analyseert. De parser identificeert mnemonics en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
+Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een JavaScript-gebaseerde parser ontwikkeld die HLASM-code statisch analyseert. De parser identificeert instructies en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
 
 Concreet worden tijdens deze fase de volgende aspecten ontwikkeld:
 
