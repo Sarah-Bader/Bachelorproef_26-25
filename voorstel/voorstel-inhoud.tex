@@ -28,6 +28,7 @@ Rond het oplossings domein worden volgende vragen bestudeerd:
 \begin{itemize}
     \item Hoe helpt visualisatie bij het sneller begrijpen van programma's?
     \item Welke tools bestaan er al om HLASM-code te visualiseren?
+    \item Welke HLASM parsers bestaan er?
     \item Welke HLASM-instructies zijn van noodzaak om de control-flow van de code in kaart te brengen?
     \item Wat is de beste manier om de kolom-gebaseerde structuur van HLASM te verwerken met een JavaScript-parser?
     \item Hoe vertaal je de vertakkingen in de HLASM-code naar correcte Mermaid.js-diagrammen?
@@ -51,8 +52,6 @@ Rond het oplossings domein worden volgende vragen bestudeerd:
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
-%  TODO : herschrijven... 
-
 \subsection{Belang van de mainframecomputer}
 
 Vaak worden mainframes beschreven als oude technologie en wordt gedacht dat ze niet meer relevant zijn. Ook wouden bedrijven graag mainframes vervangen door andere servers. Momenteel zijn mainframes nog steeds zeer actief en staan ze in voor kritische bedrijfsactiviteiten. Tegenwoordig worden mainframes ook geïntegreerd met moderne technologieën \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt bevestigd door recent onderzoek waarin wordt aangetoond dat organisaties niet enkel gebruikmaken van legacyapplicaties, maar ook bezig zijn met het actief ontwikkelen van nieuwe applicaties \autocite{shaik_2024}.
@@ -74,23 +73,14 @@ Binnen het onderwijs hebben studenten vooral moeite met de componenten die de lo
 
 Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in componenten \autocite{baldwin_myers_storey_coady_2009}.
 
-\subsection{Bestaande visualisatietools}
+\subsection{Bestaande visualisatietools en parsers}
 
 Een bestaande tool die kan worden gebruikt voor de visualisatie van HLASM-code is FermaT. Deze tool is vooral gericht op het begrijpen en migreren van legacycode. Het is een zeer krachtige en zware tool die veel functionaliteiten heeft \autocite{ward_2001}.
 
-Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar een high-level control-flowdiagram in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, om beginnende ontwikkelaars te ondersteunen. In tegenstelling tot FermaT ligt de focus uitsluitend op een visualisatie van de control flow.
+Ook bied IBM een HLASM parser aan, die onderdeel maakt van IBM Developer for z/OS. Deze parser is bedoeld voor diepe analyse en gebruik met andere tools \autocite{ibm_hlasm_parser}.
 
-% --- vanaf hier begint de aanpassing
+Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar een high-level control-flowdiagram visualisatie in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, om beginnende ontwikkelaars te ondersteunen. Ook ligt de focus enkel op een beperkte subset van control-flow-instructies, in tegenstelling tot bestaande tools.
 
-\subsection{High Level Assembler}
-
-High Level Assembler (HLASM) wordt gezien als een Second Generation Language (2GL), de instructies in HLASM komen rechtstreeks overeen met processorcommando's. Er zijn dus geen abstracties zoals functies of objecten. Deze abstracties zijn wel terug te vinden in talen met een hoger generatieniveau zoals COBOL. HLASM biedt daardoor veel controle tot het fysieke systeem, maar dat maakt de code vaak moeilijker te lezen en te onderhouden \autocite{kornelis_2003}.
-
-De structuur van HLASM-code wordt bepaald door instructies en labels. Om een subroutine aan te roepen, kun je gebruikmaken van instructies zoals BAL of BAS. Deze instructies slaan het retouradres (het adres van de instructie na de call) op in een register. Om terug te keren vanuit een subroutine kun je gebruikmaken van de instructie BR (Branch to Register), met deze instructie spring je naar het adres in het meegegeven register \autocite{ward_2013}.
-
-Op de IBM 370- en z/OS-mainframes is er geen hardware-stack. In plaats daarvan wordt er gebruikgemaakt van een gelinkte lijst van save areas. Een save area is een opslagruimte waarin kopieën van alle registerwaarden en de verwijzingen naar de volgende en vorige save area zijn opgeslagen. De control flow is dus gedefinieerd in de registers en niet in een stack. Daardoor is het de taak van de ontwikkelaar om de calls en de returns, van en naar subroutines, zelf goed af te handelen door middel van de registerwaarden \autocite{ward_2013}.
-
-HLASM-code heeft vaste labels en instructies om de control flow van het programma te bepalen. Voor het aanroepen heb je instructies zoals BAL of BAS en voor het terugkeren heb je bijvoorbeeld BR, hierdoor kan de structuur van het programma vastgesteld worden. Dit biedt de mogelijkheid om op een geautomatiseerde manier HLASM-code statisch te analyseren en te visualiseren naar een control-flowchart in Mermaid.js-syntax.
 
 \subsection{Control Flow in High Level Assembler}
 
@@ -162,14 +152,10 @@ Binnen deze fase beginnen we eerst met het specifiek definiëren van de doelgroe
 
 Ook worden de succescriteria van de PoC vastgesteld: 
 \begin{itemize}  
-    \item correcte detectie van de geselecteerde HLASM-instructies en labels,
-    \item correcte omzetting naar Mermaid.js-flowcharts, 
+    \item correcte detectie van de geselecteerde HLASM-instructies en labels;
+    \item correcte omzetting naar Mermaid.js-flowcharts;
     \item meetbare tijdswinst bij het begrijpen van de control flow in vergelijking met een manuele analyse.  
 \end{itemize}
-
-De evaluatie wordt uitgevoerd door de helft van de deelnemers de PoC te laten gebruiken om codefragmenten uit te leggen en de andere helft doet dit zonder de PoC. Beide groepen maken gebruik van dezelfde codefragmenten en worden getimed op het moment waarop zij zelf aangeven dat ze de code begrijpen. 
-
-De resultaten worden geanalyseerd door de gemeten tijden en correctheid te vergelijken tussen beide werkwijzen. De analyse toont aan of de PoC efficiënter en handiger is om begrip te krijgen van de control flow in HLASM-codefragmenten.
 
 \subsection{Fase 3: Implementatie en Evaluatie}
 
@@ -179,12 +165,13 @@ Concreet worden tijdens deze fase de volgende aspecten ontwikkeld:
 
 \begin{itemize}
     \item de logische opbouw van de parser op basis van patroonherkenning in de HLASM\-broncodestructuur;
-    \item een mapping van de geselecteerde HLASM-instructies en labels naar Mermaid.js-elementen.
+    \item een mapping van de geselecteerde HLASM-instructies en labels naar Mermaid.js-elementen;
+    \item een evaluatie van de PoC op correctheid en tijdswinst.
 \end{itemize}
 
-Tijdens de ontwikkeling wordt de PoC iteratief geëvalueerd via een vergelijkende studie met traditionele, handmatige code reviews door 5 à 10 vrijwillige deelnemers. De evaluatie loopt tijdens de implementatie, van 1 april 2026 tot 4 mei 2026. De deelnemers worden gevraagd de functionaliteit van HLASM-broncode te bepalen aan de hand van zowel de technische als de traditionele methode. De resultaten worden geanalyseerd op basis van de tijd die nodig was om de functionaliteit van de HLASM-broncode te identificeren en de juistheid van de beschreven control flow. Aan de hand van deze metingen wordt bepaald of de PoC aan de gedefinieerde succescriteria voldoet. 
+Tijdens de ontwikkeling wordt de PoC iteratief geëvalueerd via een vergelijkende studie met handmatige code reviews. De evaluatie wordt uitgevoerd door 6 à 10 vrijwillige deelnemers, de helft van de deelnemers gebruikt de PoC om codefragmenten uit te leggen en de andere helft doet dit zonder de PoC. Beide groepen maken gebruik van dezelfde codefragmenten en worden getimed op het moment waarop zij zelf aangeven dat ze de code begrijpen. 
 
-Deze fase resulteert in een werkende PoC die HLASM-broncode omzet naar een flowchart in Mermaid.js-syntax. Daarnaast worden evaluatieresultaten verkregen die inzicht geven in de effectiviteit van de technische oplossing.
+De evaluatie loopt tijdens de implementatie, van 1 april 2026 tot 4 mei 2026. 
 
 \subsection{Fase 4: Resultaat en Verdediging}
 

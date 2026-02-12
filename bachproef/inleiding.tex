@@ -4,6 +4,41 @@
 
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
+%%-------------------------
+
+Tegenwoordig spelen mainframecomputers een cruciale rol in de dagelijkse activiteiten van bedrijven in de financiële sector, de gezondheidszorg, verzekeringen en tal van andere publieke en private ondernemingen. Deze bedrijven zijn afhankelijk van mainframecomputers en hebben dan ook de nood om deze zo optimaal mogelijk te onderhouden. Vermits veel ervaren mainframe-specialisten hun pensioen naderen, is er nood aan een nieuwe generatie mainframe-specialisten die het onderhoud van hun systemen kan waarborgen. Onder dit onderhoud vallen de bedrijfskritische functionaliteiten van mainframeapplicaties, die voornamelijk afhankelijk zijn van High-Level Assembler (HLASM). Deze legacycode is vaak tientallen jaren oud en minimaal gedocumenteerd. Voor de nieuwe generatie mainframeontwikkelaars vormt dit een uitdaging om deze legacycode te begrijpen en te onderhouden. Zij vertrouwen vaak enkel op manuele code reviews.
+
+Door middel van een geautomatiseerde tool die statische analyse van HLASM-code visualiseert in een control-flowchart, wil dit onderzoek ondersteuning bieden aan beginnende mainframeontwikkelaars, specifiek binnen organisaties die afhankelijk zijn van legacy HLASM-code.
+
+De probleemstelling van dit onderzoek luidt als volgt:
+\begin{quote}
+    \itshape
+    Hoe effectief versnellen statische analyse en Mermaid-diagrammen het leerproces van HLASM bij beginners?
+\end{quote}
+
+Het doel van dit onderzoek is het ontwikkelen van een proof-of-concept (PoC) die een representatieve subset van HLASM-instructies en labels statisch analyseert en deze omzet in een visueel control-flowdiagram in Mermaid.js-syntax.
+
+Vooraleer de ontwikkeling van de PoC van start gaat, wordt een literatuurstudie uitgevoerd naar het probleemdomein en het oplossingsdomein.
+
+Rond het probleemdomein worden volgende vragen bestudeerd:
+\begin{itemize}
+    \item Wat is het belang van de mainframecomputer?
+    \item Waarom is er nood aan het onderhouden van HLASM-code?
+    \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars?
+\end{itemize}
+
+Rond het oplossings domein worden volgende vragen bestudeerd:
+
+\begin{itemize}
+    \item Hoe helpt visualisatie bij het sneller begrijpen van programma's?
+    \item Welke tools bestaan er al om HLASM-code te visualiseren?
+    \item Welke HLASM parsers bestaan er?
+    \item Welke HLASM-instructies zijn van noodzaak om de control-flow van de code in kaart te brengen?
+    \item Wat is de beste manier om de kolom-gebaseerde structuur van HLASM te verwerken met een JavaScript-parser?
+    \item Hoe vertaal je de vertakkingen in de HLASM-code naar correcte Mermaid.js-diagrammen?
+\end{itemize}
+
+%%-------------------------
 
 De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te begrijpen en in te zien waarom de onderzoeksvraag de moeite waard is om te onderzoeken. In de inleiding ga je literatuurverwijzingen beperken, zodat de tekst vlot leesbaar blijft. Je kan de inleiding verder onderverdelen in secties als dit de tekst verduidelijkt. Zaken die aan bod kunnen komen in de inleiding~\autocite{Pollefliet2011}:
 
