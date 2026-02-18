@@ -5,6 +5,81 @@
 \chapter{\IfLanguageName{dutch}{Methodologie}{Methodology}}%
 \label{ch:methodologie}
 
+
+Deze bachelorproef is een toegepast en technisch onderzoek waarin een oplossing wordt gezocht voor het onderhouden en begrijpen van legacy HLASM-broncode. Het onderzoek start met een literatuurstudie naar het probleemdomein en het oplossingsdomein. Ook wordt de control flow van HLASM-broncode bestudeerd, waarna een subset van representatieve HLASM-instructies en labels geselecteerd worden. Na de literatuurstudie start de ontwikkeling van een technische proof-of-concept (PoC) die de geselecteerde subset visueel omzet in een control-flowchart in Mermaid.js-syntax.
+
+\subsection{Fase 1: Oriëntatie en Literatuurstudie}
+
+Tijdens deze fase wordt gefocust op het aanscherpen van de probleemstelling en het oplossingsdomein. Dit gebeurt door middel van een literatuurstudie waarin dieper wordt ingegaan op de deelvragen:
+
+\begin{itemize}
+    \item Wat is het belang van de mainframecomputer?
+    \item Waarom is er nood aan het onderhouden van HLASM-code?
+    \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars?
+    \item Wat is de effectiviteit van visualisatietechnieken voor het sneller begrijpen van programma's?
+    \item Wat zijn de bestaande visualisatietools binnen High Level Assembler?
+    \item Welke HLASM-instructies zijn van noodzaak om de control-flow van de code in kaart te brengen?
+    \item Wat is de beste manier om de kolom-gebaseerde structuur van HLASM te verwerken met een JavaScript-parser?
+    \item Hoe vertaal je de vertakkingen in de HLASM-code naar correcte Mermaid.js-diagrammen?
+\end{itemize}
+
+
+Deze fase loopt van 20 december 2025 tot 1 maart 2026 en resulteert in een uitgewerkte literatuurstudie en methodologie. Het resultaat bevat concreet een theoretisch onderzoek naar de probleemstelling en oplossingsdomein, en een afgebakende scope van HLASM-instructies en labels voor de verdere ontwikkeling van de technische oplossing.
+
+\subsection{Fase 2: Requirementsanalyse}
+
+Tijdens de literatuurstudie (tussen januari 2026 en maart 2026) wordt een requirementsanalyse uitgevoerd. Het doel van deze fase is om concrete en meetbare eisen voor de proof of concept en de evaluatie vast te leggen. 
+
+Binnen deze fase beginnen we eerst met het specifiek definiëren van de doelgroep. Uit de doelgroep wordt gezocht naar 6 à 10 deelnemers die instaan voor de evaluatie van de PoC. Voor de evaluatie worden ook HLASM-codefragmenten verzameld die typische control-flowconstructies hebben zoals labels, conditionele takken en subroutines-aanroepen. 
+
+Ook worden de succescriteria van de PoC vastgesteld: 
+\begin{itemize}  
+    \item correcte detectie van de geselecteerde HLASM-instructies en labels;
+    \item correcte omzetting naar Mermaid.js-flowcharts;
+    \item meetbare tijdswinst bij het begrijpen van de control flow in vergelijking met een manuele analyse.  
+\end{itemize}
+
+\subsection{Fase 3: Implementatie en Evaluatie}
+
+Tijdens de implementatie- en evaluatiefase wordt de proof-of-concept uitgewerkt en iteratief geëvalueerd. Deze fase vindt plaats tussen 2 maart 2026 en 4 mei 2026. De ontwikkeling gebeurt volgens een scrum-werkwijze om de effectiviteit van de PoC te waarborgen. Met behulp van de subset die in de vorige fase werd gedefinieerd, wordt een JavaScript-gebaseerde parser ontwikkeld die HLASM-code statisch analyseert. De parser identificeert instructies en labels aan de hand van patroonherkenning in de structuur van HLASM-broncode en zet deze via een mapping om naar Mermaid.js-syntax.
+
+Concreet worden tijdens deze fase de volgende aspecten ontwikkeld:
+
+\begin{itemize}
+    \item de logische opbouw van de parser op basis van patroonherkenning in de HLASM\-broncodestructuur;
+    \item een mapping van de geselecteerde HLASM-instructies en labels naar Mermaid.js-elementen;
+    \item een evaluatie van de PoC op correctheid en tijdswinst.
+\end{itemize}
+
+Tijdens de ontwikkeling wordt de PoC iteratief geëvalueerd via een vergelijkende studie met handmatige code reviews. De evaluatie wordt uitgevoerd door 6 à 10 vrijwillige deelnemers, de helft van de deelnemers gebruikt de PoC om codefragmenten uit te leggen en de andere helft doet dit zonder de PoC. Beide groepen maken gebruik van dezelfde codefragmenten en worden getimed op het moment waarop zij zelf aangeven dat ze de code begrijpen. 
+
+De evaluatie loopt tijdens de implementatie, van 1 april 2026 tot 4 mei 2026. 
+
+\subsection{Fase 4: Resultaat en Verdediging}
+
+De laatste fase loopt van 4 mei 2026 tot juni 2026. In deze fase worden de onderzoeksresultaten en evaluatieresultaten verwerkt tot een conclusie.
+
+Specifiek worden de volgende aspecten besproken:
+
+\begin{itemize}
+    \item de sterktes en beperkingen van de PoC;
+    \item mogelijke uitbreidingen voor toekomstig onderzoek.
+\end{itemize}
+
+Deze fase resulteert in de finale bachelorproef die wordt ingediend op 29 mei 2026, de verdediging en de proof-of-concept met de bijbehorende documentatie.
+
+\subsection{Tijdsplanning}
+
+Elke fase heeft een tijdsperiode waarin de specifieke resultaten moeten worden opgeleverd voor de volgende fase. Zoals te zien in figuur \ref{fig:gantt-diagram}, zijn ook de administratieve deliverables opgenomen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{gantt-diagram.png}
+    \caption{Gantt-diagram met een tijdsindicatie per onderzoeksfase.}
+    \label{fig:gantt-diagram}
+\end{figure}
+
+
 %% TODO: In dit hoofstuk geef je een korte toelichting over hoe je te werk bent
 %% gegaan. Verdeel je onderzoek in grote fasen, en licht in elke fase toe wat
 %% de doelstelling was, welke deliverables daar uit gekomen zijn, en welke
