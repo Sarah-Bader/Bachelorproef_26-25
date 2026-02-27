@@ -5,19 +5,83 @@
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
 
-Vaak wordt een mainframe gezien als verouderde technolgie die enkel gekend is uit de films. Het tegengestelde is waar, mainframes zijn één van de meest geavanceerde servers die telkens onderhouden en gemoderniseerd worden. Mainframes zijn dan ook nog volop in gerbruik. Door de betrouwbaarheid en capaciteit van een mainframe is het vooral geschikt voor grote aantallen transacties/aanvragen van gebruikers. Mainframes worden vaak gebruikt door banken, verzekeraars, vliegmaatschapijen... om hun fundamentele bedrijfsprocessen te ondersteunen. 
+\section{Probleemstelling}
+\label{sec:probleemstelling}
 
-Omdat deze systemen zo fundamenteel zijn is het onderhoud ervan van groot belang. Vaak zijn de programma's die draaien op de mainframe ook tientallen jaren oud. Een deel van deze programma's zijn geprogrammeert in High Level Assembler (HLASM). Deze programmeertaal is vaak gekozen omdat het programma snel moet zijn en directe controle nodig heeft tot de hardware. Andere programma's maken vaak gebruik van de HLASM programma's waardoor ze er afhankelijk van worden. 
+Vaak wordt een mainframe gezien als verouderde technologie die enkel gekend is uit films. Het tegengestelde is waar: mainframes zijn één van de meest geavanceerde servers die voortdurend onderhouden en gemoderniseerd worden. Mainframes zijn dan ook nog volop in gebruik. Door de betrouwbaarheid en capaciteit van een mainframe is het vooral geschikt voor grote aantallen transacties/aanvragen van gebruikers. Mainframes worden vaak gebruikt door banken, verzekeraars, luchtvaartmaatschappijen... om hun fundamentele bedrijfsprocessen te ondersteunen.
 
-Daarom is het onderhouden van deze code van groot belang. Daarbij zijn deze programma's vaak miniem gedocumenteerd of bevat het verouderde documentatie. Hierdoor is het moeilijk om als nieuwe mainframe developer de voorgaande code te begrijpen. 
+Omdat deze systemen zo fundamenteel zijn, is het onderhoud ervan van groot belang. Vaak zijn de programma's die draaien op het mainframe ook tientallen jaren oud. Een deel van deze programma's is geprogrammeerd in High Level Assembler (HLASM). Deze programmeertaal wordt vaak gekozen omdat het programma snel moet zijn en directe controle over de hardware nodig heeft. Andere programma's maken vaak gebruik van de HLASM-programma's, waardoor ze ervan afhankelijk worden. 
 
-Veel bedrijven hadden het idee dat mainframes onnodig gingen zijn en dat ze konden vertrouwen op ''modernere'' servers. In werkelijkheid groeide hun workload alleen maar en was de workload te groot om op reguliere servers te runnen. Met de vloeiende modernisatie leek de mainframe echter de beste keuze, om verder hun bedrijfsactiviteiten op te vertrouwen. 
+Daarbij zijn deze programma's vaak minimaal gedocumenteerd of bevatten ze verouderde documentatie. Hierdoor is het moeilijk om als nieuwe mainframe developer de voorgaande code te begrijpen. 
 
-Met de mindset dat ze van de mainframe gingen gaan, invisteerde bedrijven niet in nieuw mainframe talent. Hierdoor is de industrie vooral opgemaakt door proffesionals die binnekort volop met pensioen gaan. Nu dat het duidelijk is dat een mainframe beter in staat is om hun huidige workload te beheren, is het tekort aan junior talent een probleem. De kennis van de bedrijfs- programma's en systemen ziten dus in een generatie die de werkracht verlaat. 
+Veel bedrijven hadden het idee dat mainframes onnodig zouden worden en dat ze konden vertrouwen op “modernere” servers. In werkelijkheid groeide hun workload alleen maar en werd die te groot om op reguliere servers te runnen. Met de voortdurende modernisatie bleek het mainframe echter de beste keuze om hun bedrijfsactiviteiten verder op te vertrouwen.  
 
-Hierdoor is er een nood aan een nieuwe generatie om vooral de onderhoud van de systemen en de programma's te beheren. Door het gebrek aan voldoende en bruikbare documentatie is het vaak moeilijk om als nieuwe mainframe programmeur code te begrijpen. Wat vervolgens het onderhouden ervan moeilijk maakt. Documentatie is dus belangrijk voor de leesbaarheid en onderhoudbaarheid van de code, waardoor minder fouten worden gemaakt.
+Met de oude mindset dat ze van het mainframe zouden weggaan, investeerden bedrijven niet in nieuw mainframe talent. Hierdoor bestaat de industrie vooral uit professionals die binnenkort met pensioen gaan. Nu het duidelijk is dat een mainframe beter in staat is om hun huidige workload te beheren, is het tekort aan junior talent een probleem. De kennis van de bedrijfsprogramma's en systemen zit dus in een generatie die de arbeidsmarkt verlaat. 
 
-Een hulpmiddel zou een visualisatie tool zijn die kan dienen als documentatie. Beginners hebben vaak vooral moeite met het begrijpen van de control flow van een programma, daarom is visaulisatie van de control flow vooral handig.
+Hierdoor is er nood aan een nieuwe generatie om vooral het onderhoud van de systemen en programma's te beheren. Door het gebrek aan voldoende en bruikbare documentatie is het vaak moeilijk om als nieuwe mainframe programmeur code te begrijpen, wat het onderhouden ervan belemmert. Documentatie is dus belangrijk voor de leesbaarheid en onderhoudbaarheid van de code, waardoor minder fouten worden gemaakt.
+
+Een hulpmiddel zou een visualisatietool kunnen zijn die kan dienen als documentatie. Beginners hebben vaak moeite met het begrijpen van de control flow van een programma, daarom is visualisatie van de control flow vooral handig.
+
+\section{De onderzoeksvraag}
+\label{sec:onderzoeksvraag}
+
+Dit onderzoek is gericht op het beantwoorden van de volgende vraag:
+
+\begin{quote}
+    \itshape
+    Hoe effectief versnellen statische analyse en Mermaid-diagrammen het leerproces van HLASM bij beginners?
+\end{quote}
+
+Binnen dit onderzoek wordt gefocust op twee aspecten: het technische en het menselijke. Er wordt gekeken naar hoe de visualisatie technisch kan geïmplementeerd worden en ook naar de effectiviteit van de visualisatie als documentatie en hulpmiddel bij het begrijpen van de control flow in HLASM.  
+
+\section{Onderzoeksdoelstelling}
+\label{sec:Onderzoeksdoelstelling}
+
+Het doel van dit onderzoek is het uitwerken van een Proof-of-Concept en een bijhorende analyse ervan. De PoC moet in staat zijn de belangrijkste onderdelen van HLASM-code om te zetten in een Mermaid.js flowchart. De focus ligt expliciet op de structuur van het programma, dus minder op de details. Het moet bijvoorbeeld weergeven waar het programma begint, waar het zich opsplitst in verschillende takken en waar het eindigt.  
+
+Vooraleer de implementatie van start gaat, wordt onderzoek gedaan naar de bestaande technologieën die van hulp kunnen zijn. Dit onderzoek wordt uitgevoerd in de vorm van een literatuurstudie. Tijdens de literatuurstudie wordt gekeken naar het probleemdomein en het oplossingsdomein. 
+
+Binnen de literatuurstudie worden volgende vragen gesteld om het probleemdomein beter te verstaan:  
+
+\begin{itemize}
+    \item Waarom is een mainframe nog steeds van belang? 
+    \item Waarom is er nood aan het onderhouden van HLASM-code?
+    \item Hoe helpt visualisatie met het begrijpen van codestructuur? 
+    \item Wat zijn de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars?
+\end{itemize}
+
+Rond het oplossingsdomein worden volgende vragen bestudeerd:
+
+\begin{itemize}
+    \item Hoe helpt visualisatie bij het sneller begrijpen van programma's?
+    \item Welke tools bestaan er al om HLASM-code te visualiseren?
+    \item Welke HLASM parsers bestaan er?
+    \item Wat is de beste manier om de kolom-gebaseerde structuur van HLASM te verwerken met een JavaScript-parser?
+    \item Welke JavaScript-libraries zijn toegankelijk en bruikbaar? 
+\end{itemize}
+
+\section{Het verwachte resultaat}
+\label{sec:resultaat}
+
+Het verwachte resultaat van dit onderzoek is dat de visualisatie helpt bij het beheersen van HLASM-control flow, in tegenstelling tot het gebruik van manuele methodes. Om dit resultaat te meten wordt de PoC geëvalueerd aan de hand van testen die de tijd meten met de PoC en met de manuele manier.
+
+\section{Structuur van het onderzoek}
+\label{sec:structuur}
+
+Deze bachelorproef is als volgt opgesteld: 
+
+In Hoofdstuk 2 (Literatuurstudie) worden de deelvragen uit het oplossingsdomein en het probleemdomein onderzocht aan de hand van bestaande onderzoeken en literatuur. Hiermee wordt een beter zicht gecreëerd op het probleem en de oplossing om zo gericht mogelijk te werken. 
+
+In Hoofdstuk 3 (Methodologie) wordt toegelicht welke onderzoekstechnieken worden gebruikt.
+
+In Hoofdstuk 4 (HLASM-analyse) wordt gekeken naar Assembler, hoe de programmeertaal is opgebouwd en welke elementen de structuur van het programma vastleggen. 
+
+In Hoofdstuk 5 (Control-flow visualisatie) wordt bekeken hoe de Assembler-structuur kan worden omgezet naar Mermaid.js-elementen. Er wordt onderzocht hoe dit visueel logisch kan worden gerepresenteerd. 
+
+In Hoofdstuk 6 (Proof-of-Concept) wordt de PoC uitgewerkt en daarna geëvalueerd aan de hand van testen. 
+
+In Hoofdstuk 7 (Conclusie) wordt gekeken naar het resultaat van de evaluatie en naar de literatuurstudie om een antwoord te formuleren op de onderzoeksvragen.  
+
 
 %%-------------------------
 
