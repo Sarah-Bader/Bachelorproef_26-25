@@ -9,51 +9,60 @@ Binnen dit hoofdstuk wordt toegelicht hoe dit toegepast en technisch onderzoek w
 
 
 \subsection{Fase 1: Literatuurstudie}
-Binnen de literatuurstudie werd onderzoek gedaan naar het probleemdomein en het oplossingsdomein. De doelstelling was om inzicht te krijgen in het belang van mainframes, de rol van HLASM en de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars. Voor het oplossingsdomein werd onderzocht welke visualisatietechnieken en bestaande tools gebruikt worden voor het analyseren van control flow. 
+
+Binnen de literatuurstudie werd onderzoek gedaan naar het probleemdomein en het oplossingsdomein. De doelstelling was om inzicht te krijgen in het belang van mainframes, de rol van HLASM en de moeilijkheden bij het begrijpen van assemblytalen voor beginnende ontwikkelaars. Daarnaast werd onderzocht welke visualisatietechnieken en bestaande tools gebruikt worden voor het analyseren van control flow. 
 
 De onderzoeksmethode in deze fase bestond uit het analyseren van wetenschappelijke literatuur, technische documentatie en bestaande tools. 
 
-Het resultaat van deze fase is Hoofdstuk 2 (Literatuurstudie), waarin de deelvragen worden beantwoord en de noodzaak van een visualisatietool wordt onderbouwd. Deze fase diende als theoretische basis voor de verdere technische uitwerking.
+Het resultaat van deze fase is Hoofdstuk 2 (Literatuurstudie), waarin de deelvragen worden beantwoord en de noodzaak van een visualisatietool wordt onderbouwd.
 
-\subsection{Fase 2: Requirementsanalyse}
+\subsection{Fase 2: Technische analyse van HLASM}
 
-Op basis van de literatuurstudie werd een requirementsanalyse opgesteld. De doelstelling van deze fase was het definiëren van concrete en meetbare eisen voor de proof-of-concept en de evaluatie.
+In deze fase werd de structuur van HLASM-broncode geanalyseerd.  De doelstelling was het identificeren van structurele elementen die de control flow representeren, zoals labels, conditionele vertakkingen en sprongen.
 
-Er werd bepaald welke subset van HLASM-instructies en labels noodzakelijk is om de control flow van een programma correct te representeren. Daarnaast werden succescriteria vastgelegd, zoals correcte detectie van instructies, correcte omzetting naar Mermaid.js-flowcharts en meetbare tijdswinst bij het begrijpen van code.
-
-De onderzoeksmethode bestond uit analyse en afbakening op basis van de bevindingen uit de literatuurstudie. 
-
-Het resultaat van deze fase is een afgebakende scope en een duidelijke set functionele eisen voor de verdere ontwikkeling.
-
-\subsection{Fase 3: Technische analyse van HLASM}
-
-In deze fase werd de structuur van HLASM-broncode geanalyseerd. De doelstelling was te bepalen hoe control-flowconstructies, zoals labels, conditionele vertakkingen en subroutine-aanroepen, syntactisch worden weergegeven.
-
-De methode bestond uit een technische analyse van representatieve HLASM-codefragmenten. Hierbij werd specifiek gekeken naar de kolomgebaseerde structuur en naar patronen die bruikbaar zijn voor statische analyse via een parser.
+De methode bestond uit een technische analyse van representatieve HLASM-codefragmenten. Hierbij werd specifiek gekeken naar de kolomgebaseerde structuur en naar patronen die gebruikt kunnen worden voor statische analyse.
 
 Het resultaat van deze fase is Hoofdstuk 4 (HLASM-analyse), waarin wordt vastgelegd welke structurele elementen noodzakelijk zijn voor de visualisatie van de control flow.
 
+\subsection{Fase 3: Requirementsanalyse}
+
+Op basis van de literatuurstudie en de technische analyse werd een requirementsanalyse opgesteld. De doelstelling was het definiëren van een afgebakende en technisch haalbare scope voor de proof-of-concept.
+
+Volgende aspecten werden bepaald:
+
+\begin{itemize}
+    \item Welke subset van HLASM-instructies representeert de control flow? 
+    \item Welke Mermaid.js-syntax vertaalt zich naar de juiste visualisatie van de control flow?
+    \item Wat zijn de meetbare succescriteria voor de evaluatiefase?
+\end{itemize}
+
+Het resultaat van deze fase is een duidelijke afbakening en functionele eisen voor de verdere ontwikkeling en evaluatie. 
+
 \subsection{Fase 4: Ontwerp en Implementatie}
 
-Op basis van de vorige fasen werd een proof-of-concept ontwikkeld. De doelstelling was het automatisch omzetten van een geselecteerde subset HLASM-code naar een control-flowchart in Mermaid.js-syntax.
+In deze fase werd de proof-of-concept ontwikkeld. De doelstelling was het automatisch omzetten van een geselecteerde subset HLASM-code naar een control-flowdiagram in Mermaid.js-syntax
 
-De ontwikkeling gebeurde iteratief. Er werd een JavaScript-gebaseerde parser ontworpen die via patroonherkenning instructies en labels detecteert in de HLASM-broncode. Vervolgens werd een mapping opgesteld tussen deze elementen en overeenkomstige Mermaid.js-structuren.
+De ontwikkeling gebeurde iteratief. Er werd een JavaScript-gebaseerde parser ontworpen die via patroonherkenning instructies en labels detecteert in de HLASM-broncode. Vervolgens werden deze gemapt naar Mermaid.js-elementen.
 
-De onderzoeksmethode in deze fase is ontwerpgericht en technisch-experimenteel. 
-
-Het resultaat van deze fase is Hoofdstuk 5 (Control-flow visualisatie) en Hoofdstuk 6 (Proof-of-Concept), waarin zowel het ontwerp als de implementatie worden toegelicht.
+Het resultaat van deze fase is Hoofdstuk 6 (Proof-of-Concept), waarin het ontwerp en de implementatie wordt weergegeven. 
 
 \subsection{Fase 5: Evaluatie}
 
-In de evaluatiefase werd onderzocht of de proof-of-concept effectief bijdraagt aan het sneller begrijpen van HLASM-control flow. 
+In de evaluatiefase werd onderzocht of de proof-of-concept effectief bijdraagt aan het sneller en correcter begrijpen van HLASM-control flow. 
 
-De methode bestond uit een vergelijkende studie met 6 à 10 deelnemers. De deelnemers werden opgesplitst in twee groepen: één groep gebruikte de proof-of-concept bij het analyseren van HLASM-codefragmenten, de andere groep voerde een manuele analyse uit. Beide groepen werkten met dezelfde codefragmenten en werden getimed tot het moment waarop zij aangaven de control flow te begrijpen.
+Er werd een vergelijkende studie uitgevoerd met 6 tot 10 beginnende mainframeontwikkelaars. De deelnemers analyseerden HLASM-codefragmenten, met of zonder gebruik van de PoC.
 
-De verzamelde resultaten werden geanalyseerd op correctheid en tijdswinst.
+Om de correctheid te kunnen meten, werden volgende criteria vastgelegd:
 
-Het resultaat van deze fase wordt besproken in Hoofdstuk 6 (Proof-of-Concept) en Hoofdstuk 7 (Conclusie), waarin de effectiviteit en beperkingen van de oplossing worden geëvalueerd.
+\begin{itemize}
+    \item het identificeren van start- en eindpunten,
+    \item het aanduiden van alle mogelijke vertakkingen,
+    \item het uitleggen van een bepaalde conditionele vertakking.
+\end{itemize}
 
+Naast correctheid werden de resultaten ook geëvalueerd op de benodigde tijd om de code te analyseren. 
 
+Het resultaat van deze fase wordt besproken in Hoofdstuk 6 (Proof-of-Concept) en geïnterpreteerd in Hoofdstuk 7 (Conclusie).
 
 %% TODO: In dit hoofstuk geef je een korte toelichting over hoe je te werk bent
 %% gegaan. Verdeel je onderzoek in grote fasen, en licht in elke fase toe wat
@@ -76,5 +85,4 @@ Het resultaat van deze fase wordt besproken in Hoofdstuk 6 (Proof-of-Concept) en
 %% Maak voor elke fase (behalve het literatuuronderzoek) een NIEUW HOOFDSTUK aan
 %% en geef het een gepaste titel.
 
-\lipsum[21-25]
 
