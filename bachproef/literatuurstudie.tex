@@ -3,28 +3,40 @@
 
 %-----------------------------
 
-\subsection{Belang van de mainframecomputer}
+\section{De mainframeindustrie}
 
-Vaak worden mainframes beschreven als oude technologie en wordt gedacht dat ze niet meer relevant zijn. Ook wouden bedrijven graag mainframes vervangen door andere servers. Momenteel zijn mainframes nog steeds zeer actief en staan ze in voor kritische bedrijfsactiviteiten. Tegenwoordig worden mainframes ook geïntegreerd met moderne technologieën \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt bevestigd door recent onderzoek waarin wordt aangetoond dat organisaties niet enkel gebruikmaken van legacyapplicaties, maar ook bezig zijn met het actief ontwikkelen van nieuwe applicaties \autocite{shaik_2024}.
+Voor een lange tijd werd beweerd dat de mainframecomputer zou uitsterven en dat grote bedrijven er afstand van zouden doen. Het einde van mainframes is nog steeds niet gekomen en in sommige sectoren is er zelfs sprake van een trend om te blijven investeren in mainframes \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}.  
 
-Mainframes zijn dus een zeer relevante en moderne technologie, die dagelijks draait. Omdat ervaren mainframeprofessionals hun pensioen naderen is er een behoefte aan een nieuwe generatie mainframespecialisten die het onderhoud van deze systemen kunnen waarborgen \autocite{waites_ketterer_2013}. 
+Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} toont aan dat er een behoefte is aan een voorturende werkracht met mainframe-kennis. Mainframes bekleden nog steeds een belangrijken rol in bedrijven en dat zal waarschijnlijk nog tientallen jaren zo blijven. Ook wordt vermeld dat de academische wereld niet in staat is om voldoende mensen met mainframe-kennis op te leiden. Dit komt omdat de opleiding in het verleden zijn stopgezet. Uit het onderzoek blijkt dat het aantal nieuwe medewerkers dat de industrie nodig heeft als gevolg van pensionering, groter is dan het aantal mensen dat wordt opgeleid door de academische wereld \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. 
 
+Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt ondersteund door recent onderzoek waarin wordt geconstateerd dat een mainframe voor grote IT-bedrijven nog steeds een belangrijke functie vervult. De mainframecomputer heeft daarbij ook nieuwe mogelijkheden gekregen die het aantrekkelijk maken voor nieuwe kopers. Het vermogen van mainframes om de fundamentele bedrijfsprocessen voor banken en verzekeringsmaatschappijen te waarborgen, samen met de nieuwe mogelijkheden die het de afgelopen jaren heeft gekregen, zorgen ervoor dat mainframes relevant blijven \autocite{shaik_2024}.
 
-\subsection{Nood aan onderhoud van HLASM-code}
+In het onderzoek van \textcite{waites_ketterer_2013} wordt het punt herhaald dat de werknemers die mainframes ontwikkelen, ondersteunen en onderhouden bijna met pensioen gaan en daarmee hun waardevolle kennis verdwijnt.
+
+\section{Onderhoud van HLASM-code}
+
+Het is nu duidelijk dat er nood is aan een nieuwe generatie die...
+https://ijcesen.com/index.php/ijcesen/article/view/4782/1743 
+
+% ----
+
+In het onderzoek van \textcite{xia_bao_lo_xing_hassan_li_2018} werd een grootschalig veldonderzoek gedaan naar hoe programmacomprehensie in de praktijk wordt uitgevoerd. Er werd gekeken naar 79 ontwikkelaars die aan 7 industriële projecten werkten. Als resultaat werd geconstateerd dat ontwikkelaars gemiddeld tot ~58\% van hun tijd besteden aan het begrijpen van programma's. Hierbij gebruiken ze vaak webbrowsers en documentatie editors. Ook werd vastgelegd dat senior ontwikkelaars minder tijd besteden aan het begrijpen van programma's en dat er meer tijd nodig voor is tijdens een onderhoudsfase \autocite{xia_bao_lo_xing_hassan_li_2018}. 
+
+% ----
 
 Bedrijfskritische functionaliteiten van mainframeapplicaties zijn vaak afhankelijk van High Level Assembler (HLASM), waardoor onderhoud van deze legacycode van groot belang is. Als de aangeroepen HLASM-code faalt, dan faalt het volledige programma \autocite{zaytsev_2020}. Uit een onderzoek naar softwareonderhoud blijkt dat het begrijpen van bestaande code een groot deel van de moeite neemt tijdens onderhoud. Vooral bij beginnende ontwikkelaars gaat het merendeels van hun tijd aan het begrijpen van de functionaliteit, dit is omdat zij minder ervaring hebben \autocite{xia_bao_lo_xing_hassan_li_2018}. Dit is vooral het geval bij legacycode zoals HLASM, omdat daar de documentatie vaak beperkt is.
 
-\subsection{Moeilijkheden voor beginnende ontwikkelaars}
+\section{Moeilijkheden voor beginnende ontwikkelaars}
 
 Assemblytalen zijn zeer gedetailleerd, als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de ervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
 
 Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het begrijpen van de control flow maken beginners vaak fouten en ervaren ze vaak verwarring \autocite{kawash_2024}. Hieruit kan worden geconcludeerd dat de control flow van code een moeilijkheid is onder beginnende ontwikkelaars.
 
-\subsection{Effectiviteit van visualisatietechnieken}
+\section{Effectiviteit van visualisatietechnieken}
 
 Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in componenten \autocite{baldwin_myers_storey_coady_2009}.
 
-\subsection{Bestaande visualisatietools en parsers}
+\section{Bestaande visualisatietools en parsers}
 
 Een bestaande tool die kan worden gebruikt voor de visualisatie van HLASM-code is FermaT. Deze tool is vooral gericht op het begrijpen en migreren van legacycode. Het is een zeer krachtige en zware tool die veel functionaliteiten heeft \autocite{ward_2001}.
 
@@ -32,13 +44,13 @@ Ook bied IBM een HLASM parser aan, die onderdeel maakt van IBM Developer for z/O
 
 Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar een high-level control-flowdiagram visualisatie in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, om beginnende ontwikkelaars te ondersteunen. Ook ligt de focus enkel op een beperkte subset van control-flow-instructies, in tegenstelling tot bestaande tools.
 
-\subsection{JavaScript Parsing}
+\section{JavaScript Parsing}
 
 Binnen HLASM wordt er gewerkt met een vaste kolom-gebaseerde indeling. Elk onderdeel van de code staat op een vaste plek. Elke kolom heeft een eigen functie: kolommen 1-8 zijn voor labels, kolommen 10-14 voor de instructie en vanaf kolom 16 staan de operanden. Na kolom 71 wordt alles beschouwd als commentaar of wordt het genegeerd \autocite{ibm_hlasm}. 
 
 JavaScript is zeer nuttig om tekst te parsen, het is namelijk erg goed in het doorzoeken en herkennen van patronen \autocite{flanagan_2020}. Voor de PoC is een regel-voor-regel aanpak voldoende. Hierbij zal de parser elke regel doorlopen op basis van de vaste kolomposities. Zo kunnen de labels en instructies herkend worden die bijdragen aan de control-flow. De verzamelde elementen worden vervolgens gemapt naar Mermaid.js-elementen.
 
-\subsection{Mermaid.js en flowcharts}
+\section{Mermaid.js en flowcharts}
 
 Met Mermaid.js worden flowcharts en andere structuren vanuit tekst automatisch gevisualiseerd \autocite{sveidqvist_jain_2021}. Dit maakt het makkelijk om een mapping te maken van HLASM-elementen naar een visuele representatie. Het gebruik van flowcharts om complexe software begrijpelijk te maken is een bekend middel in de informatica \autocite{ensmenger_2016}. 
 
