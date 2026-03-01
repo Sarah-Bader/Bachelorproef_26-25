@@ -5,7 +5,7 @@
 
 \section{De mainframeindustrie}
 
-Voor een lange tijd werd beweerd dat de mainframecomputer zou uitsterven en dat grote bedrijven er afstand van zouden doen. Het einde van mainframes is nog steeds niet gekomen en in sommige sectoren is er zelfs sprake van een trend om te blijven investeren in mainframes \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}.  
+Voor een lange tijd werd beweerd dat de mainframecomputer zou uitsterven en dat grote bedrijven er afstand van zouden doen \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. Het einde van mainframes is nog steeds niet gekomen en in sommige sectoren is er zelfs sprake van een trend om te blijven investeren in mainframes \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}.  
 
 Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} toont aan dat er een behoefte is aan een voorturende werkracht met mainframe-kennis. Mainframes bekleden nog steeds een belangrijken rol in bedrijven en dat zal waarschijnlijk nog tientallen jaren zo blijven. Ook wordt vermeld dat de academische wereld niet in staat is om voldoende mensen met mainframe-kennis op te leiden. Dit komt omdat de opleiding in het verleden zijn stopgezet. Uit het onderzoek blijkt dat het aantal nieuwe medewerkers dat de industrie nodig heeft als gevolg van pensionering, groter is dan het aantal mensen dat wordt opgeleid door de academische wereld \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. 
 
@@ -13,10 +13,46 @@ Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt ond
 
 In het onderzoek van \textcite{waites_ketterer_2013} wordt het punt herhaald dat de werknemers die mainframes ontwikkelen, ondersteunen en onderhouden bijna met pensioen gaan en daarmee hun waardevolle kennis verdwijnt.
 
-\section{Onderhoud van HLASM-code}
 
-Het is nu duidelijk dat er nood is aan een nieuwe generatie die...
-https://ijcesen.com/index.php/ijcesen/article/view/4782/1743 
+\section{Aanwezigheid van HLASM-code}
+
+Door de nauwkeurigheid, flexibiliteit en efficiëntie van HLASM, blijft het een essentieël component in mainframe-omgevingen \autocite{yalamanchili_2022}. Het zorgt ervoor dat systeemontwikkelaars toegang hebben tot geheugen en het kunnen manipuleren. In hogere programmeertalen zoals COBOL, zijn deze functionaliteiten beperkt. HLASM wordt dus gebruikt binnen een context waar prestatie centraal staat, hierdoor blijft het een belangrijk component \autocite{yalamanchili_2022}. 
+
+\subsection{HLASM onderhoud en modernisatie}
+
+Het onderzoek van \autocite{ehrman_2004} geeft advies over het beheer van legacy-applicaties op mainframes. Legacy betekent niet meteen dat het aan vervanging toe is, code wordt als legacy benoemt wanneer het de productie ingaat. Het wordt vaak negatief bekeken omdat het een bron kan zijn van problemen en onderhoud \autocite{ehrman_2004}. 
+
+Applicaties moderniseren en onderhouden is een mogelijkheid die grote voordelen en lagere kosten kan bieden \autocite{ehrman_2004}. Het legacy-systeem kan gezien worden als een investering die je hergebruikt. Ook heeft het minder nood aan nieuwe testen, sinds de code minder wordt veranderd integenstelling tot een volledige conversie \autocite{ehrman_2004}.  
+
+Nieuwe tools kunnen helpen met het moderniseren van HLASM-applicaties \autocite{ehrman_2004}. Ze kunen meer inzicht geven in het gedrag van applicaties. Het moderniseren van HLASM kan stapsgewijs aangepakt worden: afzonderlijke instructies, blokken
+code, procedures, modules... De organisatie kiest zelf hoe groot of klein deze stappen zijn en per stap kunnen de nodige testen uitgevoerd worden \autocite{ehrman_2004}. 
+
+\subsubsection{High Level Assembler Toolkit Feature}
+
+De High Level Assembler Toolkit Feature is een IBM-product dat een set van tools bevat om het herstel en de ontwikkeling van HLASM applicaties te verbeteren, analyseren, debuggen en te onderhouden \autocite{ehrman_2001}. Hierdoor helpt het bij de modernisatie van HLASM-applicaties \autocite{ehrman_2004}.  
+
+\subsubsection{FermaT}
+
+%Een bestaande tool die kan worden gebruikt voor de visualisatie van HLASM-code is FermaT. Deze tool is vooral gericht op het begrijpen en migreren van legacycode. Het is een zeer krachtige en zware tool die veel functionaliteiten heeft \autocite{ward_2001}.
+
+%Ook bied IBM een HLASM parser aan, die onderdeel maakt van IBM Developer for z/OS. Deze parser is bedoeld voor diepe analyse en gebruik met andere tools \autocite{ibm_hlasm_parser}.
+
+\subsubsection{Tape-z}
+
+%https://github.com/avishek-sen-gupta/tape-z
+
+%\section{Bestaande visualisatietools en parsers}
+
+
+%Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar een high-level control-flowdiagram visualisatie in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, om beginnende ontwikkelaars te ondersteunen. Ook ligt de focus enkel op een beperkte subset van control-flow-instructies, in tegenstelling tot bestaande tools.
+
+
+%\section{Herimplementatie vs Herbouw}
+
+%Uit onderzoek naar herimplementatie als alternatief van herontwikkeling voor een verouderd systeem, blijkt dat het een realistisch alternatief is maar vooral wanneer een geautomatiseerde conversie niet mogelijk is. In de besproken casestudy's leverde herimplementatie bruikbare resultaten die duurzamer leken dan de herontwikkelingresultaten. Herimplementatie is vooral zinvol wanneer een legacy-systeem essentieel is voor de onderneming en als het nog jarenlang moet meegaan \autocite{sneed_verhoef_2019}. 
+
+
+\subsection{Kosten van Onderhoud}
 
 % ----
 
@@ -24,9 +60,10 @@ In het onderzoek van \textcite{xia_bao_lo_xing_hassan_li_2018} werd een grootsch
 
 % ----
 
-Bedrijfskritische functionaliteiten van mainframeapplicaties zijn vaak afhankelijk van High Level Assembler (HLASM), waardoor onderhoud van deze legacycode van groot belang is. Als de aangeroepen HLASM-code faalt, dan faalt het volledige programma \autocite{zaytsev_2020}. Uit een onderzoek naar softwareonderhoud blijkt dat het begrijpen van bestaande code een groot deel van de moeite neemt tijdens onderhoud. Vooral bij beginnende ontwikkelaars gaat het merendeels van hun tijd aan het begrijpen van de functionaliteit, dit is omdat zij minder ervaring hebben \autocite{xia_bao_lo_xing_hassan_li_2018}. Dit is vooral het geval bij legacycode zoals HLASM, omdat daar de documentatie vaak beperkt is.
-
 \section{Moeilijkheden voor beginnende ontwikkelaars}
+
+Uit het onderzoek van \textcite{feigenspan_kästner_liebig_apel_hanenberg_2012} blijkt dat binnen een groep bachelorstudenten 
+
 
 Assemblytalen zijn zeer gedetailleerd, als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de ervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
 
@@ -36,13 +73,8 @@ Binnen het onderwijs hebben studenten vooral moeite met de componenten die de lo
 
 Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in componenten \autocite{baldwin_myers_storey_coady_2009}.
 
-\section{Bestaande visualisatietools en parsers}
 
-Een bestaande tool die kan worden gebruikt voor de visualisatie van HLASM-code is FermaT. Deze tool is vooral gericht op het begrijpen en migreren van legacycode. Het is een zeer krachtige en zware tool die veel functionaliteiten heeft \autocite{ward_2001}.
 
-Ook bied IBM een HLASM parser aan, die onderdeel maakt van IBM Developer for z/OS. Deze parser is bedoeld voor diepe analyse en gebruik met andere tools \autocite{ibm_hlasm_parser}.
-
-Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar een high-level control-flowdiagram visualisatie in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, om beginnende ontwikkelaars te ondersteunen. Ook ligt de focus enkel op een beperkte subset van control-flow-instructies, in tegenstelling tot bestaande tools.
 
 \section{JavaScript Parsing}
 
