@@ -18,7 +18,7 @@ In het onderzoek van \textcite{waites_ketterer_2013} wordt het punt herhaald dat
 
 Door de nauwkeurigheid, flexibiliteit en efficiëntie van HLASM, blijft het een essentieël component in mainframe-omgevingen \autocite{yalamanchili_2022}. Het zorgt ervoor dat systeemontwikkelaars toegang hebben tot geheugen en het kunnen manipuleren. In hogere programmeertalen zoals COBOL, zijn deze functionaliteiten beperkt. HLASM wordt dus gebruikt binnen een context waar prestatie centraal staat, hierdoor blijft het een belangrijk component \autocite{yalamanchili_2022}. 
 
-\subsection{HLASM onderhoud en modernisatie}
+\subsection{HLASM Onderhoud en Modernisatie}
 
 Het onderzoek van \autocite{ehrman_2004} geeft advies over het beheer van legacy-applicaties op mainframes. Legacy betekent niet meteen dat het aan vervanging toe is, code wordt als legacy benoemt wanneer het de productie ingaat. Het wordt vaak negatief bekeken omdat het een bron kan zijn van problemen en onderhoud \autocite{ehrman_2004}. 
 
@@ -27,29 +27,21 @@ Applicaties moderniseren en onderhouden is een mogelijkheid die grote voordelen 
 Nieuwe tools kunnen helpen met het moderniseren van HLASM-applicaties \autocite{ehrman_2004}. Ze kunen meer inzicht geven in het gedrag van applicaties. Het moderniseren van HLASM kan stapsgewijs aangepakt worden: afzonderlijke instructies, blokken
 code, procedures, modules... De organisatie kiest zelf hoe groot of klein deze stappen zijn en per stap kunnen de nodige testen uitgevoerd worden \autocite{ehrman_2004}. 
 
+\subsection{Bestaande HLASM-hulpmiddelen}
+
 \subsubsection{High Level Assembler Toolkit Feature}
 
 De High Level Assembler Toolkit Feature is een IBM-product dat een set van tools bevat om het herstel en de ontwikkeling van HLASM applicaties te verbeteren, analyseren, debuggen en te onderhouden \autocite{ehrman_2001}. Hierdoor helpt het bij de modernisatie van HLASM-applicaties \autocite{ehrman_2004}.  
 
 \subsubsection{FermaT}
 
-%Een bestaande tool die kan worden gebruikt voor de visualisatie van HLASM-code is FermaT. Deze tool is vooral gericht op het begrijpen en migreren van legacycode. Het is een zeer krachtige en zware tool die veel functionaliteiten heeft \autocite{ward_2001}.
-
-%Ook bied IBM een HLASM parser aan, die onderdeel maakt van IBM Developer for z/OS. Deze parser is bedoeld voor diepe analyse en gebruik met andere tools \autocite{ibm_hlasm_parser}.
+FermaT is een programma die kan gebruikt worden voor de visualisatie van HLASM-code. Het bestaat uit geïntegreerde tools voor programma-inzicht, migratie en herontwerp \autocite{ward_2001}. 
 
 \subsubsection{Tape-z}
 
+Tape/Z is een tookit ontworpen voor het analyseren en visualiseren van HLASM-code. Het doel van de tool is om code in kaart te brengen door middel van het parsen van instructies en het bouwen van control-flow diagrammen \autocite{gupta_2025}. 
+
 %https://github.com/avishek-sen-gupta/tape-z
-
-%\section{Bestaande visualisatietools en parsers}
-
-
-%Het doel van dit onderzoek is het ontwikkelen van een lichte tool die HLASM-code omzet naar een high-level control-flowdiagram visualisatie in Mermaid.js-syntax. Deze tool is specifiek bedoeld voor educatieve doeleinden, om beginnende ontwikkelaars te ondersteunen. Ook ligt de focus enkel op een beperkte subset van control-flow-instructies, in tegenstelling tot bestaande tools.
-
-
-%\section{Herimplementatie vs Herbouw}
-
-%Uit onderzoek naar herimplementatie als alternatief van herontwikkeling voor een verouderd systeem, blijkt dat het een realistisch alternatief is maar vooral wanneer een geautomatiseerde conversie niet mogelijk is. In de besproken casestudy's leverde herimplementatie bruikbare resultaten die duurzamer leken dan de herontwikkelingresultaten. Herimplementatie is vooral zinvol wanneer een legacy-systeem essentieel is voor de onderneming en als het nog jarenlang moet meegaan \autocite{sneed_verhoef_2019}. 
 
 
 \subsection{Kosten van Onderhoud}
@@ -60,33 +52,40 @@ In het onderzoek van \textcite{xia_bao_lo_xing_hassan_li_2018} werd een grootsch
 
 % ----
 
-\section{Moeilijkheden voor beginnende ontwikkelaars}
-
-Uit het onderzoek van \textcite{feigenspan_kästner_liebig_apel_hanenberg_2012} blijkt dat binnen een groep bachelorstudenten 
-
+\section{Moeilijkheden voor Beginnende Ontwikkelaars}
 
 Assemblytalen zijn zeer gedetailleerd, als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de ervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
 
-Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het begrijpen van de control flow maken beginners vaak fouten en ervaren ze vaak verwarring \autocite{kawash_2024}. Hieruit kan worden geconcludeerd dat de control flow van code een moeilijkheid is onder beginnende ontwikkelaars.
+Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het begrijpen van de control flow maken beginners vaak fouten en ervaren ze vaak verwarring \autocite{kawash_2024}. 
 
-\section{Effectiviteit van visualisatietechnieken}
+\section{Grafische Softwarevisualisatie}
 
-Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in componenten \autocite{baldwin_myers_storey_coady_2009}.
+%Visualisatietechnieken worden vaak gebruikt om code beter te begrijpen en worden ook erkend als technieken die sneller en meer inzicht geven in codefunctionaliteiten. Visualisaties worden vaak gebruikt om de structuur van code te representeren \autocite{storey_2005}. Bij assemblytalen kan visualisatie vooral helpen, aangezien de code vaak is opgebouwd uit zeer gedetailleerde instructies en kan worden gegroepeerd in componenten \autocite{baldwin_myers_storey_coady_2009}.
 
+In het onderzoek van \textcite{cárdenas_aponte_2017} werd een gecontroleerd experiment uitgevoerd om de impact van het gebruik van grafische visualisatietechnieken bij het begrijpen van software vast te leggen. Hiervoor werden tajen uitgevoerd door 20 studenten, de helft gebruike een visualisatietool, de andere helft niet. Er werd beordeeld op de voltooiingstijd en de nauwkeurigheid van de antwoorden. 
 
+Uit het onderzoek werd geconcludeerd dat het gebruik van garfische visualisatie de juistheid verhoogt met 21,45\%. Er was geen bewijs dat er een vermindering was van voltooiingstijd. Grafische visualisatietechnieken kunnen dus bijdragen aan het begrijpen van programma's \autocite{cárdenas_aponte_2017}.  
+
+\subsection{Control-Flow Grafieken}
+
+Een control-flow grafiek heeft knooppunten die overeenkomen met basisblokken code met elk een gerichte rand die een mogelijke controlestroom tussen twee knooppunten aangeeft \autocite{debbabi_salcic_biglari-abhari_malik}. Hierdoor is het mogelijk om alle uitvoeringspaden van een programma te analyseren. Ze zijn vooral heel nuttig voor statische analyse en om inzicht te verkrijgen in de structuur van een programma \autocite{debbabi_salcic_biglari-abhari_malik}. 
+
+%\subsection{HLASM visualisatie}
+%Het onderzoek van \textcite{baldwin_myers_storey_coady_2009} 
+
+\subsection{Mermaid.js}
+
+Mermaid.js is een open-source tool waarmee diagrammen en flowcharts worden opgesteld vanuit tekst. Het heeft een simpele syntax die het makkelijk maakt om visualisaties te maken. De tool wordt gebruikt voor documentatie, code-review en visuele uitleg \autocite{sveidqvist_jain_2021}. 
 
 
 \section{JavaScript Parsing}
 
-Binnen HLASM wordt er gewerkt met een vaste kolom-gebaseerde indeling. Elk onderdeel van de code staat op een vaste plek. Elke kolom heeft een eigen functie: kolommen 1-8 zijn voor labels, kolommen 10-14 voor de instructie en vanaf kolom 16 staan de operanden. Na kolom 71 wordt alles beschouwd als commentaar of wordt het genegeerd \autocite{ibm_hlasm}. 
+JavaScript is een geschikte programmeertaal om een parser mee te bouwen omdat het veel liberaries heeft en makkelijk integreert met webtechnologieën \autocite{mdn_contributors_2023}. Daardoor kan de parsinglogica gebruikt worden voor analyse en directe visualisatie in een webinterface. JavaScript heeft ook een brede community en documentatie die het makkelijker maken om een parser te ontwikkelen \autocite{mdn_contributors_2023}. 
 
-JavaScript is zeer nuttig om tekst te parsen, het is namelijk erg goed in het doorzoeken en herkennen van patronen \autocite{flanagan_2020}. Voor de PoC is een regel-voor-regel aanpak voldoende. Hierbij zal de parser elke regel doorlopen op basis van de vaste kolomposities. Zo kunnen de labels en instructies herkend worden die bijdragen aan de control-flow. De verzamelde elementen worden vervolgens gemapt naar Mermaid.js-elementen.
+\subsection{Chevrotain}
 
-\section{Mermaid.js en flowcharts}
+Chevrotain is een krachtige, open-source parsing library voor JavaScript \autocite{chevrotain_2018}. 
 
-Met Mermaid.js worden flowcharts en andere structuren vanuit tekst automatisch gevisualiseerd \autocite{sveidqvist_jain_2021}. Dit maakt het makkelijk om een mapping te maken van HLASM-elementen naar een visuele representatie. Het gebruik van flowcharts om complexe software begrijpelijk te maken is een bekend middel in de informatica \autocite{ensmenger_2016}. 
-
-Een flowchart maakt gebruik van blokken en pijlen om een route te definiëren. In de context van informatica worden flowcharts vaak gebruikt om de route van een programma weer te geven \autocite{charntaweekhun_Wangsiripitak_2006}. In het geval van HLASM kunnen bijvoorbeeld spronginstructies worden weergegeven als pijlen die het programma brengen naar een ander codeblok.
 
 %-----------------------------
 
