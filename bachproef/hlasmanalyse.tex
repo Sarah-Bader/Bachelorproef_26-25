@@ -2,9 +2,12 @@
 \label{ch:hlasmanalyse}
 
 \section{Terminologie}
-\lipsum[5-10]
+% voor we spreken over Assembler (HLASM) worden alle termen geralteerd met dit onderwerp uitgelegd. 
 
-\begin{table}[h]
+ Deze terminologie is belangrijk het begrijpen van de syntaxis en werking van HLASM-programma’s. De definities zijn gebaseerd op de documentatie van IBM High Level Assembler en literatuur over assemblerprogrammering \autocite{ibm_hlasm, ibm_hlasm_programmers_guide, yalamanchili_2022}.
+
+
+\begin{table}[h!]
     \centering
     \begin{tabular}{|p{3cm}|p{10cm}|}
         \hline
@@ -37,10 +40,15 @@
 \end{table}
 
 \section{Opbouw van een HLASM-programma}
-\lipsum[21-25]
+
+
+% Kolomgebaseerde structuur,  Labels,  Instructieveld,  Operandveld, Commentaar ... hoe werkt het, hoe wordt het geimplementeerd met voorbeelden, waarom gebruikt...
 
 \section{Control-flow in HLASM}
-\lipsum[21-25]
+
+
+% Sequentiële uitvoering, Onvoorwaardelijke sprongen (B, BR, etc.), Conditionele vertakkingen (BE, BNE, etc.), Subroutine-aanroepen (BALR, etc.), RETURN-constructie ... Wat beïnvloedt effectief de control flow? ...
 
 \section{Selectie van control-flowrelevante instructies}
-\lipsum[21-25]
+
+% Welke instructies moet de PoC ondersteunen? Wat kan je negeren? Wat is buiten scope?
