@@ -10,27 +10,27 @@
         \hline
         \textbf{Begrip} & \textbf{Uitleg} \\
         \hline
-        Statement & Een volledige regel HLASM-broncode bestaande uit optioneel een label, gevolgd door een instructie of directive, operanden en eventueel commentaar. \\
+        Statement & Een volledige regel HLASM-broncode. Bestaat uit een label (optioneel), daarna een instructie of directive, vervolgens operanden en eventueel commentaar. \\
         \hline
-        Mnemonic & De symbolische naam van een machine-instructie (bv. \texttt{L}, \texttt{A}, \texttt{C}, \texttt{BCR}). De mnemonic vertegenwoordigt de binaire opcode die uiteindelijk door de processor wordt uitgevoerd. \\
+        Mnemonic & De binaire opcode die door de processor wordt uitgevoerd. \\
         \hline
-        Instruction & Een uitvoerbare machine-instructie die door de assembler wordt vertaald naar objectcode. Bestaat uit een mnemonic en bijhorende operanden. \\
+        Instruction & Een uitvoerbare machine-instructie die bestaat uit een mnemonic en bijhorende operanden. \\
         \hline
-        Label & Een symbolische naam aan het begin van een statement die een adres in het geheugen aanduidt. Labels worden gebruikt als doel van branches of als referentie naar data. \\
+        Label & Een symbolische naam aan het begin van een statement die een adres in het geheugen aanduidt. Labels worden gebruikt als branches of referentie naar data. \\
         \hline
-        Operand & De parameters van een instructie. Dit kunnen registers, geheugenadressen, immediates of symbolische verwijzingen zijn. De operand bepaalt waarop de instructie werkt. \\
+        Operand & De parameters van een instructie (registers, geheugenadressen, immediates...) De operand bepaalt waarop de instructie wordt uitgevoerd. \\
         \hline
-        Macro & Een assembleer-tijd constructie dat één of meerdere statements genereert. Macros verhogen de leesbaarheid en structureren code, maar worden tijdens assemblage uitgebreid naar gewone instructies. \\
+        Macro & Een ... \\
         \hline
-        CSECT & Control Section: een logisch blok code of data dat afzonderlijk kan worden gelinkt. \\
+        CSECT & Control Section,... \\
         \hline
-        DC & Define Constant: directive om data met een vaste waarde te definiëren. \\
+        DC & Define Constant,... om data met een vaste waarde te definiëren. \\
         \hline
-        DS & Define Storage: directive om opslagruimte te reserveren zonder initiële waarde. \\
+        DS & Define Storage,... om opslagruimte te reserveren zonder initiële waarde. \\
         \hline
-        USING & Directive die een basisregister koppelt aan een adresbereik zodat symbolische adressen correct kunnen worden berekend. \\
+        USING & ... \\
         \hline
-        Condition Code (CC) & Statusindicator die het resultaat van een bewerking weergeeft (bv. kleiner, gelijk, groter). Wordt gebruikt door voorwaardelijke branch-instructies. \\
+        Condition Code (CC) & Statusindicator... voor voorwaardelijke branch-instructies. \\
         \hline
     \end{tabular}
     \caption{Belangrijke terminologie in HLASM}

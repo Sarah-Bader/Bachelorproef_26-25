@@ -7,24 +7,29 @@
 
 Voor een lange tijd werd beweerd dat de mainframecomputer zou uitsterven en dat grote bedrijven er afstand van zouden doen \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. Het einde van mainframes is nog steeds niet gekomen en in sommige sectoren is er zelfs sprake van een trend om te blijven investeren in mainframes \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}.  
 
-Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} toont aan dat er een behoefte is aan een voorturende werkracht met mainframe-kennis. Mainframes bekleden nog steeds een belangrijken rol in bedrijven en dat zal waarschijnlijk nog tientallen jaren zo blijven. Ook wordt vermeld dat de academische wereld niet in staat is om voldoende mensen met mainframe-kennis op te leiden. Dit komt omdat de opleiding in het verleden zijn stopgezet. Uit het onderzoek blijkt dat het aantal nieuwe medewerkers dat de industrie nodig heeft als gevolg van pensionering, groter is dan het aantal mensen dat wordt opgeleid door de academische wereld \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. 
+Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} toont aan dat er een behoefte is aan een voortdurende werkracht met mainframe-kennis. Mainframes bekleden nog steeds een belangrijken rol in bedrijven en dat zal waarschijnlijk nog tientallen jaren zo blijven. Ook wordt vermeld dat de academische wereld niet in staat is om voldoende mensen met mainframe-kennis op te leiden. Dit komt omdat de opleiding in het verleden zijn stopgezet. Uit het onderzoek blijkt dat het aantal nieuwe medewerkers dat de industrie nodig heeft als gevolg van pensionering, groter is dan het aantal mensen dat wordt opgeleid door de academische wereld \autocite{Sagers_Ball_Hosack_Twitchell_Wallace_2018}. 
 
 Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt ondersteund door recent onderzoek waarin wordt geconstateerd dat een mainframe voor grote IT-bedrijven nog steeds een belangrijke functie vervult. De mainframecomputer heeft daarbij ook nieuwe mogelijkheden gekregen die het aantrekkelijk maken voor nieuwe kopers. Het vermogen van mainframes om de fundamentele bedrijfsprocessen voor banken en verzekeringsmaatschappijen te waarborgen, samen met de nieuwe mogelijkheden die het de afgelopen jaren heeft gekregen, zorgen ervoor dat mainframes relevant blijven \autocite{shaik_2024}.
 
 In het onderzoek van \textcite{waites_ketterer_2013} wordt het punt herhaald dat de werknemers die mainframes ontwikkelen, ondersteunen en onderhouden bijna met pensioen gaan en daarmee hun waardevolle kennis verdwijnt.
 
+Het onderzoek van \textcite{sneed_verhoef_2019} toont aan dat organisaties bij de modernisering van legacy-systemen verschillende mogelijkheden kunnen overwegen. Ze hebben bijvoorbeeld de mogelijkheid tot conversie, herontwikkeling of herimplementatie van hun bestaande systemen. De studie concludeerd dat automatische conversie van bestaande systemen niet altijd succesvol is, vooral wanneer programma's sterk geïntegreerd zijn met de bestaande architecturen. Hierdoor kan herimplementatie een realistischer alternatief zijn. 
+
 
 \section{Aanwezigheid van HLASM-code}
 
+Veel software die vandaag op mainframes draait wordt beschouwd als legacysoftware. Programma's die vaak tientallen jaren geleden ontwikkeld zijn maar nog steeds een cruciale rol spelen binnen organisaties. Legacysoftware bevat meestal een grote hoeveelheid bedrijfslogica die moeilijk te reconstrueren is wanneer het systeem volledig zou worden vervangen \autocite{sneed_verhoef_2019}. 
+
 Door de hoge nauwkeurigheid, flexibiliteit en efficiëntie van HLASM, blijft het een essentieël component in mainframe-omgevingen \autocite{yalamanchili_2022}. Het zorgt ervoor dat systeemontwikkelaars toegang hebben tot geheugen en het kunnen manipuleren. In hogere programmeertalen zoals COBOL, zijn deze functionaliteiten beperkt. HLASM wordt dus gebruikt binnen een context waar prestatie centraal staat, hierdoor blijft het een belangrijk component \autocite{yalamanchili_2022}. 
+
 
 \subsection{HLASM Onderhoud en Modernisatie}
 
-Het onderzoek van \autocite{ehrman_2004} geeft advies over het beheer van legacy-applicaties op mainframes. Legacy betekent niet meteen dat het aan vervanging toe is, code wordt als legacy benoemt wanneer het de productie ingaat. Het wordt vaak negatief bekeken omdat het een bron kan zijn van problemen en onderhoud \autocite{ehrman_2004}. 
-
 Applicaties moderniseren en onderhouden is een mogelijkheid die grote voordelen en lagere kosten kan bieden \autocite{ehrman_2004}. Het legacy-systeem kan gezien worden als een investering die je hergebruikt. Ook heeft het minder nood aan nieuwe testen, sinds de code minder wordt veranderd integenstelling tot een volledige conversie \autocite{ehrman_2004}.  
 
-Nieuwe tools kunnen helpen met het moderniseren van HLASM-applicaties \autocite{ehrman_2004}. Ze kunen meer inzicht geven in het gedrag van applicaties. Het moderniseren van HLASM kan stapsgewijs aangepakt worden: afzonderlijke instructies, blokken
+Bij programmeertalen zoals assembler kan program comprehension complex zijn. De code bestaat uit elementaire instructies die direct met de hardware werken. Hierdoor is het moeilijker om de logica van het programma te identificeren zonder extra hulpmiddelen zoals analysetools of visualisaties \autocite{baldwin_myers_storey_coady_2009}.
+
+Tools kunnen helpen met het moderniseren van HLASM-applicaties \autocite{ehrman_2004}. Ze kunnen namelijk meer inzicht geven in het gedrag van applicaties. Het moderniseren van HLASM kan stapsgewijs aangepakt worden: afzonderlijke instructies, blokken
 code, procedures, modules... De organisatie kiest zelf hoe groot of klein deze stappen zijn en per stap kunnen de nodige testen uitgevoerd worden \autocite{ehrman_2004}. 
 
 \subsection{Bestaande HLASM-hulpmiddelen}
@@ -33,13 +38,28 @@ code, procedures, modules... De organisatie kiest zelf hoe groot of klein deze s
 
 De High Level Assembler Toolkit Feature is een IBM-product dat een set van tools bevat om het herstel en de ontwikkeling van HLASM applicaties te verbeteren, analyseren, debuggen en te onderhouden \autocite{ehrman_2001}. Hierdoor helpt het bij de modernisatie van HLASM-applicaties \autocite{ehrman_2004}.  
 
+De tool is voornamelijk gericht op professionele mainframeontwikkelaars en vereist het gebruik van een volledige mainframeontwikkelomgeving. De proof-of-concept richt zich specifiek op het verbeteren van programmacomprehensie door middel van visuele representaties van HLASM-code.
+
 \subsubsection{FermaT}
 
 FermaT is een programma dat kan worden gebruikt voor de visualisatie van HLASM-code en dat ondersteuning biedt bij het analyseren en herstructureren van bestaande programma’s. Het bestaat uit geïntegreerde tools voor programma-inzicht, migratie en herontwerp, waardoor ontwikkelaars beter zicht krijgen op complexe programma's \autocite{ward_2001}. 
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{fme1.png}
+\caption[De FermaT Maintenance Environment (FME).]{Interface van de FermaT Maintenance Environment (FME). Links is de parse tree van het huidige programma zichtbaar, het middelste venster toont de WSL-code en rechts is de transformatiecatalogus \autocite{ward_2020}.}
+\end{figure} %
+
+In vergelijking met FermaT heeft de proof-of-concept een beperktere maar meer gerichte doelstelling, het visueel representeren van de control-flow van HLASM-code.
+
 \subsubsection{Tape-z}
 
-Tape/Z is een toolkit die werd ontworpen voor het analyseren en visualiseren van HLASM-code binnen mainframe-omgevingen. Het doel van deze tool is om code overzichtelijk in kaart te brengen door middel van het parsen van instructies en het automatisch opbouwen van control-flow diagrammen die de structuur van het programma weergeven \autocite{gupta_2025}.
+Tape/Z is een toolkit die werd ontworpen voor het analyseren en visualiseren van HLASM-code. Het doel van deze tool is om code overzichtelijk in kaart te brengen door middel van het parsen van instructies en het automatisch opbouwen van control-flow diagrammen die de structuur van het programma weergeven \autocite{gupta_2025}.
+
+Tape/Z biedt veel nuttige functionaliteiten voor het analyseren van HLASM-code, maar het gebruik van de tool vereist een technische configuratie. Dit kan een drempel vormen voor ontwikkelaars of studenten die snel een visuele representatie willen genereren.
+
+De proof-of-concept heeft als doel om een meer toegankelijke tool te zijn. De PoC wordt een webapplicatie die HLASM-code rechtstreeks omzet naar Mermaid.js syntax. Dit maakt het mogelijk om diagrammen te bouwen met tekstuele syntax die eenvoudig aangepast en uitgebreid kan worden. Hierdoor kunnen gebruikers de gegenereerde visualisaties niet alleen bekijken, maar ook verder aanpassen.
+
 
 %https://github.com/avishek-sen-gupta/tape-z
 
@@ -77,12 +97,17 @@ Een control-flow grafiek heeft knooppunten die overeenkomen met basisblokken cod
 
 Mermaid.js is een open-source tool waarmee diagrammen en flowcharts worden opgesteld vanuit tekst. Het heeft een simpele syntax die het makkelijk maakt om visualisaties te maken. De tool wordt gebruikt voor documentatie, code-review en visuele uitleg \autocite{sveidqvist_jain_2021}. 
 
+\section{Parsing van programmeertalen}
 
-\section{JavaScript Parsing}
+Parsing is een fundamenteel onderdeel van de analyse en verwerking van programmeertalen. Tijdens het parsingproces wordt broncode geanalyseerd volgens een grammatica om de syntactische structuur van het programma te bepalen. Dit proces is een belangrijke stap binnen compilers, interpreters en analysetools \autocite{zaytsev_2020}.
+
+Een programmeertaal wordt meestal beschreven door grammaticaregels. Op basis van deze regels kan een parser bepalen of een stuk broncode syntactisch correct is en hoe de verschillende onderdelen van het programma met elkaar verbonden zijn. Het resultaat is vaak een boomstructuur, zoals een abstract syntax tree (AST), waarin de hiërarchische structuur van het programma wordt weergegeven \autocite{sun_fang_miao_you_yuan_chen_zhang_guo_chen_liu_et_al._2023}. 
+
+\subsection{JavaScript Parsing}
 
 JavaScript is een geschikte programmeertaal om een parser mee te bouwen omdat het veel liberaries heeft en makkelijk integreert met webtechnologieën \autocite{mdn_contributors_2023}. Daardoor kan de parsinglogica gebruikt worden voor analyse en directe visualisatie in een webinterface. JavaScript heeft ook een brede community en documentatie die het makkelijker maken om een parser te ontwikkelen \autocite{mdn_contributors_2023}. 
 
-\subsection{Chevrotain}
+\subsubsection{Chevrotain}
 
 Chevrotain is een krachtige JavaScript-parsing library die ontworpen is om efficiënte parsers te bouwen. In tegenstelling tot klassieke generatoren genereert Chevrotain geen externe code, maar laat je grammatica’s volledig als gewone JavaScript-broncode definiëren \autocite{chevrotain_2018}. 
 
