@@ -11,10 +11,15 @@ Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} toont aan
 
 Het onderzoek van \textcite{Sagers_Ball_Hosack_Twitchell_Wallace_2018} wordt ondersteund door recent onderzoek waarin wordt geconstateerd dat een mainframe voor grote IT-bedrijven nog steeds een belangrijke functie vervult. De mainframecomputer heeft daarbij ook nieuwe mogelijkheden gekregen die het aantrekkelijk maken voor nieuwe kopers. Het vermogen van mainframes om de fundamentele bedrijfsprocessen voor banken en verzekeringsmaatschappijen te waarborgen, samen met de nieuwe mogelijkheden die het de afgelopen jaren heeft gekregen, zorgen ervoor dat mainframes relevant blijven \autocite{shaik_2024}.
 
-In het onderzoek van \textcite{waites_ketterer_2013} wordt het punt herhaald dat de werknemers die mainframes ontwikkelen, ondersteunen en onderhouden bijna met pensioen gaan en daarmee hun waardevolle kennis verdwijnt.
+Daarnaast wordt in het onderzoek van \textcite{waites_ketterer_2013} het punt herhaald dat de werknemers die mainframes ontwikkelen, ondersteunen en onderhouden bijna met pensioen gaan en daarmee hun waardevolle kennis verdwijnt.
 
-Het onderzoek van \textcite{sneed_verhoef_2019} toont aan dat organisaties bij de modernisering van legacy-systemen verschillende mogelijkheden kunnen overwegen. Ze hebben bijvoorbeeld de mogelijkheid tot conversie, herontwikkeling of herimplementatie van hun bestaande systemen. De studie concludeerd dat automatische conversie van bestaande systemen niet altijd succesvol is, vooral wanneer programma's sterk geïntegreerd zijn met de bestaande architecturen. Hierdoor kan herimplementatie een realistischer alternatief zijn. 
+\subsection{Modernisatie van legacy-systemen}
 
+Organisaties hebben verschillende mogelijkheden om legacy-systemen te moderniseren \textcite{sneed_verhoef_2019}. Ze hebben bijvoorbeeld de mogelijkheid tot conversie, herontwikkeling of herimplementatie van hun bestaande systemen. De studie concludeerd dat automatische conversie van bestaande systemen niet altijd succesvol is, vooral wanneer programma's sterk geïntegreerd zijn met de bestaande architecturen. Hierdoor kan herimplementatie een realistischer alternatief zijn. 
+
+\subsection{Eigen Bijdrage}
+
+Deze studie is gericht op het verbeteren van programmacomprehensie van bestaande systemen. De focus ligt specifiek op het toegankelijk maken van bestaande HLASM-code door visualisate. Door de abstracte en vaak ongedocumenteerde aard van deze code, is het begrijpen van de logica een tijdrovend proces.
 
 \section{Aanwezigheid van HLASM-code}
 
@@ -23,7 +28,7 @@ Veel software die vandaag op mainframes draait wordt beschouwd als legacysoftwar
 Door de hoge nauwkeurigheid, flexibiliteit en efficiëntie van HLASM, blijft het een essentieël component in mainframe-omgevingen \autocite{yalamanchili_2022}. Het zorgt ervoor dat systeemontwikkelaars toegang hebben tot geheugen en het kunnen manipuleren. In hogere programmeertalen zoals COBOL, zijn deze functionaliteiten beperkt. HLASM wordt dus gebruikt binnen een context waar prestatie centraal staat, hierdoor blijft het een belangrijk component \autocite{yalamanchili_2022}. 
 
 
-\subsection{HLASM Onderhoud en Modernisatie}
+\subsection{Onderhoud en Modernisatie}
 
 Applicaties moderniseren en onderhouden is een mogelijkheid die grote voordelen en lagere kosten kan bieden \autocite{ehrman_2004}. Het legacy-systeem kan gezien worden als een investering die je hergebruikt. Ook heeft het minder nood aan nieuwe testen, sinds de code minder wordt veranderd integenstelling tot een volledige conversie \autocite{ehrman_2004}.  
 
@@ -63,6 +68,10 @@ De proof-of-concept heeft als doel om een meer toegankelijke tool te zijn. De Po
 
 %https://github.com/avishek-sen-gupta/tape-z
 
+\subsubsection{Eigen Bijdrage}
+
+De focus van deze studie ligt op het ontwikkelen van een lichtgewicht en toegankelijke tool die specifiek gericht is op inzicht in control-flow. In tegenstelling tot bestaande oplossingen wordt gekozen voor een webgebaseerde aanpak. 
+
 
 \subsection{Kosten van Onderhoud}
 
@@ -77,6 +86,10 @@ In het onderzoek van \textcite{xia_bao_lo_xing_hassan_li_2018} werd een grootsch
 Assemblytalen zijn zeer gedetailleerd, als ontwikkelaar definieer je elke kleine stap van het programma, wat ingewikkeld kan zijn voor beginners. Uit onderzoek blijkt dat naarmate de ervaring toeneemt, het gemakkelijker wordt om de functionaliteit van code te begrijpen \autocite{feigenspan_kästner_liebig_apel_hanenberg_2012}.
 
 Binnen het onderwijs hebben studenten vooral moeite met de componenten die de logische volgorde van het programma bepalen. Dit zijn de componenten die de control flow van het programma definiëren. Bij het begrijpen van de control flow maken beginners vaak fouten en ervaren ze vaak verwarring \autocite{kawash_2024}. 
+
+\subsection{Eigen Bijdrage}
+
+Visualisatie van control-flow kan deze moeilijkheden verminderen door de structuur van programma’s zichtbaar te maken. Deze studie is specifiek om een tool te ontwikkelen die control-flow grafisch weergeeft vanuit HLASM-code.
 
 \section{Grafische Softwarevisualisatie}
 
@@ -96,6 +109,10 @@ Een control-flow grafiek heeft knooppunten die overeenkomen met basisblokken cod
 \subsection{Mermaid.js}
 
 Mermaid.js is een open-source tool waarmee diagrammen en flowcharts worden opgesteld vanuit tekst. Het heeft een simpele syntax die het makkelijk maakt om visualisaties te maken. De tool wordt gebruikt voor documentatie, code-review en visuele uitleg \autocite{sveidqvist_jain_2021}. 
+
+\subsection{Eigen Bijdrage}
+
+Binnen deze studie wordt Mermaid.js gebruikt als outputformaat. Hierdoor kunnen gegenereerde diagrammen eenvoudig aangepast worden en kan het geïntegreerd worden in documentatie.
 
 \section{Parsing van programmeertalen}
 

@@ -1,14 +1,62 @@
 \chapter{\IfLanguageName{dutch}{Control-flow visualisatie}{Control-flow visualisation}}%
 \label{ch:cfvisualisatie}
 
+Dit hoofdstuk beschrijft hoe de control-flow van HLASM-programma’s gevisualiseerd kan worden. Het doel van deze visualisatie is om ontwikkelaars een overzicht te geven bij de mogelijke uitvoeringspaden binnen een HLASM-programma. Een grafische visualistie maakt het eenvoudiger om sprongen, vertakkingen en programmastructuren te analyseren.
+
 \section{Requirements}
-\lipsum[10-15]
+
+Voor het ontwikkelen van een proof-of-concept moeten de functionele en niet-functionele vereisten worden gedefinieerd. Deze vereisten bepalen welke onderdelen van HLASM-code worden ondersteund en hoe de visualisatie eruit moet zien.
+
+% Welke instructies? Welke beperkingen?  Wat wordt niet ondersteund? 
+% Functionele vereisten; Detectie van labels, Detectie van sprongen, Correcte mapping naar nodes, Correcte mapping naar edges
+% Niet-functionele vereisten; Leesbaarheid van diagram, Correcte Mermaid.js-syntax
 
 \subsection{Functionele vereisten}
-\lipsum[5-10]
+
+Voor de PoC zijn de volgende functionele vereisten opgesteld:
+
+\begin{itemize}
+    \item Detectie van labels in de broncode, zodat mogelijke sprongdoelen geïdentificeerd kunnen worden.
+    \item Detectie van spronginstructies die de control-flow van het programma wijzigen, zoals onvoorwaardelijke en conditionele branches.
+    \item Correcte mapping van labels naar nodes in de control-flowgrafiek.
+    \item Correcte mapping van sprongen naar edges tussen nodes.
+    \item Ondersteuning voor zowel sequentiële uitvoering als vertakkingen binnen het programma.
+\end{itemize}
+
+\subsection{Niet-functionele vereisten}
+
+Voor de PoC zijn de volgende niet-functionele vereisten opgesteld:
+
+\begin{itemize}
+    \item De gegenereerde diagrammen moeten leesbaar zijn en een duidelijk overzicht geven van de programmastructuur.
+    \item De visualisatie moet automatisch gegenereerd worden.
+    \item De output moet weergegeven worden in de syntaxis van Mermaid.js, zodat de diagrammen eenvoudig aangepast kunnen worden.
+    \item De gegenereerde Mermaid.js-code moet correct en syntactisch geldig zijn.
+\end{itemize}
 
 \section{Ontwerp}
-\lipsum[10-15]
+
+Het ontwerp van de visualisatietool bestaat uit een vertaling van HLASM-broncode naar een grafische representatie van de control-flow.
 
 \subsection{Mapping van HLASM naar Mermaid.js}
-\lipsum[10-15]
+% Mapping van HLASM naar Mermaid.js; Label → Node, Branch → Edge, Conditionele sprong → Decision node, Startpunt → Entry node
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{8cm}|}
+        \hline
+        \textbf{HLASM-element} & \textbf{Mermaid.js representatie} \\
+        \hline
+        Label & Node in de flowchart \\
+        \hline
+        Sequentiële instructie & Verbinding tussen twee nodes \\
+        \hline
+        Onvoorwaardelijke sprong & Edge naar doelnode \\
+        \hline
+        Conditionele sprong & Vertakkende edge met conditie \\
+        \hline
+        Programma start & Entry node \\
+        \hline
+    \end{tabular}
+    \caption{Mapping van HLASM-elementen naar Mermaid.js}
+\end{table}
