@@ -1,162 +1,83 @@
 \chapter{\IfLanguageName{dutch}{HLASM-analyse}{HLASM-analysis}}%
 \label{ch:hlasmanalyse}
 
-In de literatuur worden de termen \textit{assembler}, \textit{assembly language} en \textit{HLASM} vaak door elkaar gebruikt. In dit onderzoek verwijst HLASM naar de IBM High Level Assembler voor z/Architecture. Wanneer de term assembler wordt gebruikt, heeft deze betrekking op HLASM tenzij anders vermeld \autocite{ibm_hlasm}.
+In dit onderzoek worden de termen assembler en HLASM als synoniemen gebruikt voor de IBM High Level Assembler (z/Architecture).
 
-\section{Assembler Structuur}
-% voor we spreken over Assembler (HLASM) worden alle termen geralteerd met dit onderwerp uitgelegd. 
+\section{Structuur van een HLASM-programma}
 
-HLASM-programma’s bestaan uit een reeks statements die elk een specifieke instructie, directive of declaratie representeren. Elk statement is opgebouwd uit verschillende elementen die samen bepalen hoe de assembler de broncode interpreteert \autocite{ibm_hlasm, ibm_hlasm_programmers_guide}. % TODO : sources update
+In dit hoofdstuk wordt de structuur van de assemblertaal beschreven en de componenten die het opmaken. 
 
-De syntactische structuur van deze statements vormt de basis voor het begrijpen van assemblercode.
+\subsection{Een Assembler Statement}
 
-\subsection{Assembler Statement}
+Een HLASM-programma bestaat uit een reeks assemblerstatements. Een statement is een regel in de broncode dat een instructie is of een regel commenteraar. 
 
-Een assemblerprogramma bestaat uit een reeks \textit{statements}. Elk statement wordt meestal geschreven op een afzonderlijke regel en kan verschillende onderdelen bevatten. De exacte combinatie van deze onderdelen hangt af van het type instructie of directive dat wordt gebruikt.
-
-\begin{table}[h!]
+\begin{figure}[h]
     \centering
-    \begin{tabular}{|p{3.5cm}|p{9.5cm}|}
-        \hline
-        \textbf{Element} & \textbf{Beschrijving} \\
-        \hline
-        Label & Optionele symbolische naam die een adres in het programma representeert. \\
-        \hline
-        Mnemonic & Symbolische naam van de instructie of assemblerdirective. \\
-        \hline
-        Operands & Parameters die bepalen op welke registers, geheugenlocaties of waarden de instructie wordt toegepast. \\
-        \hline
-        Commentaar & Tekstuele uitleg voor ontwikkelaars. Dit wordt genegeerd door de assembler maar verschijnt wel in de listing. \\
-        \hline
-    \end{tabular}
-    \caption{Algemene structuur van een assembler statement}
-\end{table}
+    \includegraphics[width=0.53\textwidth]{asm_structuur.png}
+    \caption[De structuur van een statement in HLASM.]{De structuur van een statement in HLASM \autocite{hlasm_tf_2025}} 
+\end{figure} %
 
-Een voorbeeld van een assembler statement is:
-
-\begin{verbatim}
-    LOOP     A     R1,COUNT
-\end{verbatim}
-
-In dit voorbeeld is \texttt{LOOP} het label, \texttt{A} de mnemonic van de instructie en \texttt{R1,COUNT} de operanden.
+% kolomgebaseerde
 
 \subsection{Instructies}
 
-Instructies zijn de uitvoerbare elementen van een assemblerprogramma. Elke instructie bestaat uit een mnemonic en een set operanden. De mnemonic wordt door de assembler vertaald naar een binaire opcode die door de processor wordt uitgevoerd \autocite{ibm_hlasm}.
+%Een instructie is opgebouwd uit maximaal vier velden
 
-\begin{table}[h!]
+Er zijn drie verschillende types instructies:
+
+
+\subsubsection{Machine Instructions}
+
+Machine instructions zijn de feitelijke opdrachten voor de CPU. Ze worden direct vertaald naar binaire machinecode (objectcode) die de processor kan uitvoeren.
+
+
+bestaan uit ... (tabel)
+
+code voorbeeld: ....
+
+\begin{figure}[h]
     \centering
-    \begin{tabular}{|p{3cm}|p{10cm}|}
-        \hline
-        \textbf{Begrip} & \textbf{Beschrijving} \\
-        \hline
-        Instruction & Een uitvoerbare machine-instructie bestaande uit een mnemonic en operanden. \\
-        \hline
-        Mnemonic & Symbolische naam die een machine-instructie representeert. \\
-        \hline
-        Operand & Parameters van een instructie zoals registers, geheugenadressen of onmiddellijke waarden. \\
-        \hline
-    \end{tabular}
-    \caption{Elementen van een assembler instructie}
-\end{table}
+    \includegraphics[width=0.53\textwidth]{machine_instructions.png}
+    \caption[Machine Instructions]{Machine Instructions} 
+\end{figure} %
 
-Een voorbeeld van een instructie is:
 
-\begin{verbatim}
-    L     R1,VALUE
-\end{verbatim}
+\subsubsection{Assembler Instructions}
 
-Deze instructie laadt de waarde van geheugenlocatie \texttt{VALUE} in register \texttt{R1}.
+Assembler instructions zijn ...
+
+bestaan uit ... (tabel)
+
+code voorbeeld: ....
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.53\textwidth]{asm_instructions.png}
+    \caption[Assembler Instructions]{Assembler Instructions} 
+\end{figure} %
+
+
+\subsubsection{Macro Instructions}
+
+Macro instructions zijn ...
+
+bestaan uit ... (tabel)
+
+code voorbeeld: ....
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.53\textwidth]{macro_instructions.png}
+    \caption[Macro Instructions]{Macro Instructions} 
+\end{figure} %
+
 
 \subsection{Assembler Directives}
 
-Naast uitvoerbare instructies bevat HLASM ook assemblerdirectives. Deze directives worden niet uitgevoerd door de processor, maar sturen het assemblageproces zelf aan. Ze worden gebruikt om geheugenstructuren te definiëren, symbolische adressen te beheren en programmastructuren te organiseren \autocite{ibm_hlasm_programmers_guide}.
 
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|p{3cm}|p{10cm}|}
-        \hline
-        \textbf{Directive} & \textbf{Beschrijving} \\
-        \hline
-        CSECT & Control Section. Logische programmasectie die afzonderlijk kan worden gelinkt en geladen. \\
-        \hline
-        DC & Define Constant. Definieert een constante waarde in het geheugen. \\
-        \hline
-        DS & Define Storage. Reserveert geheugenruimte zonder initiële waarde. \\
-        \hline
-        USING & Koppelt een register aan een basisadres voor adressering. \\
-        \hline
-    \end{tabular}
-    \caption{Veelgebruikte assembler directives}
-\end{table}
-
-Een voorbeeld van een directive:
-
-\begin{verbatim}
-    VALUE    DC    F'10'
-\end{verbatim}
 
 Hier wordt een constante waarde gedefinieerd in het geheugen.
 
-\subsection{Macro’s}
-
-%HLASM ondersteunt ook macro’s, waarmee ontwikkelaars herbruikbare codeconstructies kunnen definiëren. Tijdens het assemblageproces worden macro-aanroepen automatisch uitgebreid tot één of meerdere assemblerstatements. Dit mechanisme helpt om herhalende code te vermijden en complexe instructiereeksen te abstraheren \autocite{ibm_hlasm_programmers_guide}.
-
-\begin{verbatim}
-    MACRO
-    INCR &REG
-    A &REG,=F'1'
-    MEND
-\end{verbatim}
-
-Deze macro definieert een eenvoudige instructiereeks die een register verhoogt met één.
-
-\subsection{Condition Code}
-
-%Veel HLASM-instructies beïnvloeden de zogenaamde \textit{condition code}. Dit is een statuswaarde die wordt opgeslagen in de processor en gebruikt wordt door conditionele branch-instructies om beslissingen te nemen tijdens de uitvoering van een programma \autocite{ibm_hlasm}.
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|p{3cm}|p{10cm}|}
-        \hline
-        \textbf{Begrip} & \textbf{Beschrijving} \\
-        \hline
-        Condition Code (CC) & Statusindicator die het resultaat van een instructie beschrijft en gebruikt wordt door conditionele sprongen. \\
-        \hline
-    \end{tabular}
-    \caption{Condition code in HLASM}
-\end{table}
-
-Een voorbeeld van een conditionele sprong is:
-
-\begin{verbatim}
-    C     R1,R2
-    BE    EQUAL
-\end{verbatim}
-
-Hier wordt eerst een vergelijking uitgevoerd. Indien de waarden gelijk zijn, wordt de sprong naar label \texttt{EQUAL} uitgevoerd.
-
-
-\section{Opbouw van een HLASM-programma}
-
-%HLASM-programma’s volgen een vrij gestructureerde maar flexibele syntaxis waarbij elke regel broncode een afzonderlijk statement vormt. Traditioneel wordt assemblercode geschreven in een kolomgebaseerd formaat waarbij verschillende delen van een statement zich in specifieke kolommen bevinden. Hoewel moderne editors deze beperking minder strikt maken, blijft deze structuur een belangrijk onderdeel van de syntaxis van assemblerprogramma’s \autocite{ibm_hlasm_programmers_guide}.
-
-%Een typische HLASM-regel bestaat uit verschillende velden. Het eerste veld bevat optioneel een label dat een symbolisch adres definieert. Daarna volgt het instructieveld waarin de mnemonic van de instructie wordt geplaatst. Vervolgens komt het operandveld waarin de parameters van de instructie worden gespecificeerd. Tot slot kan een commentaarveld worden toegevoegd dat uitleg geeft over de functie van het statement \autocite{ibm_hlasm}. 
-
-Een voorbeeld van een HLASM-instructie is:
-
-\begin{verbatim}
-    LOOP     L     R1,VALUE
-    A     R1,COUNT
-    ST    R1,RESULT
-\end{verbatim}
-
-In dit voorbeeld verwijst het label \texttt{LOOP} naar het geheugenadres van de eerste instructie. De instructies \texttt{L}, \texttt{A} en \texttt{ST} zijn mnemonics die respectievelijk een waarde laden, een optelling uitvoeren en een resultaat opslaan. De operanden geven aan welke registers en geheugenlocaties bij deze instructies betrokken zijn.
-
-%Naast uitvoerbare instructies bevat een HLASM-programma ook assemblerdirectives. Deze directives worden niet rechtstreeks uitgevoerd door de processor, maar sturen het assemblageproces zelf aan. Voorbeelden hiervan zijn directives voor het definiëren van data, het organiseren van programmastructuren en het beheren van symbolische adressen \autocite{ibm_hlasm_programmers_guide}. 
-
-
-% Kolomgebaseerde structuur,  Labels,  Instructieveld,  Operandveld, Commentaar ... hoe werkt het, hoe wordt het geimplementeerd met voorbeelden, waarom gebruikt...
 
 \section{Control-flow in HLASM}
 
