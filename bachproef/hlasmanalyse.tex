@@ -28,55 +28,93 @@ Er zijn drie verschillende types instructies:
 
 \subsubsection{Machine Instructions}
 
-Machine instructions zijn de feitelijke opdrachten voor de CPU. Ze worden direct vertaald naar binaire machinecode (objectcode) die de processor kan uitvoeren.
+Machine instructions zijn de feitelijke opdrachten voor de CPU. Ze worden door de assembler direct vertaald naar binaire objectcode die de processor kan uitvoeren. De syntaxis is gericht op het adresseren van registers en geheugenlocaties via expressies.
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Veld} & \textbf{Status} & \textbf{Samenstelling (conform flowchart)} \\ \hline
+        NAME      & Optioneel & Een symbool of een spatie. \\ \hline
+        OPERATION & Verplicht  & Een symbolische operatiecode (Mnemonic). \\ \hline
+        OPERAND   & Varieert   & Expressies, eventueel met base/index: \texttt{Exp}, \texttt{Exp(Exp)} of \texttt{Exp(Exp,Exp)}. \\ \hline
+    \end{tabular}
+\end{table}
 
 
-bestaan uit ... (tabel)
-
-code voorbeeld: ....
+\begin{verbatim}
+    * Voorbeeld Machine Instructions
+    LABEL1   L     R1,DATA          Load: Exp (Symbool)
+    AR    R1,R2            Add Register
+    MVC   0(8,R4),=C'TEST' Exp(Exp,Exp) met Literal
+\end{verbatim}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.53\textwidth]{machine_instructions.png}
     \caption[Machine Instructions]{Machine Instructions} 
-\end{figure} %
+\end{figure} % TODO add cite
 
 
 \subsubsection{Assembler Instructions}
 
-Assembler instructions zijn ...
+Assembler instructions (ook wel directives genoemd) zijn instructies aan de assembler zelf om de assemblage te sturen, zoals het definiëren van data of het reserveren van geheugen. Ze genereren niet altijd direct executable code.
 
-bestaan uit ... (tabel)
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{|l|l|p{7cm}|}
+        \hline
+        \textbf{Veld} & \textbf{Status} & \textbf{Samenstelling (conform flowchart)} \\ \hline
+        NAME      & Optioneel & Een symbool of spatie. \\ \hline
+        OPERATION & Verplicht  & Een symbolische operatiecode (Mnemonic). \\ \hline
+        OPERAND   & Varieert   & \textbf{Data Definitie:} Subvelden zoals Duplication Factor, Type, Modifiers en Nominal Value. \newline \textbf{Overig:} Expressies, Character strings of Symbolic options. \\ \hline
+    \end{tabular}
+\end{table}
 
-code voorbeeld: ....
+\begin{verbatim}
+    * Voorbeeld Assembler Instructions
+    DATA1    DC    3F'10'           Data Constant: Factor(3), Type(F), Value('10')
+    BUFFER   DS    CL80             Data Storage: Type(C), Length(L80)
+    TITLE 'Mijn Programma' Overige: Character String
+\end{verbatim}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.53\textwidth]{asm_instructions.png}
     \caption[Assembler Instructions]{Assembler Instructions} 
-\end{figure} %
+\end{figure} % TODO add cite
 
 
 \subsubsection{Macro Instructions}
 
-Macro instructions zijn ...
+Macro instructions zijn verzoeken aan de assembler om een voorgedefinieerde set instructies (de macro-definitie) in de broncode te plaatsen. Deze worden tijdens de \textit{pre-assembly} fase verwerkt.
 
-bestaan uit ... (tabel)
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Veld} & \textbf{Status} & \textbf{Samenstelling (conform flowchart)} \\ \hline
+        NAME      & Optioneel & Een symbool of een Character String (Ordinary/Sequence/Variable). \\ \hline
+        OPERATION & Verplicht  & Moet exact overeenkomen met de Mnemonic in de Macro Prototype. \\ \hline
+        OPERAND   & Optioneel  & Operanden met één waarde of \textit{sublists} met meerdere entries. \\ \hline
+    \end{tabular}
+\end{table}
 
-code voorbeeld: ....
+\begin{verbatim}
+    * Voorbeeld Macro Instructions
+    SAVE  (14,12)          Macro met een sublist als operand
+    MYMAC    OPEN  (INFILE,INPUT)   Macro met een Name field en sublist
+    WTO   'Foutmelding'    Macro met een Character String
+\end{verbatim}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.53\textwidth]{macro_instructions.png}
     \caption[Macro Instructions]{Macro Instructions} 
-\end{figure} %
-
-
-\subsection{Assembler Directives}
-
-
-
-Hier wordt een constante waarde gedefinieerd in het geheugen.
+\end{figure} % TODO add cite
 
 
 \section{Control-flow in HLASM}
