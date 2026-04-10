@@ -1,76 +1,74 @@
 \chapter{\IfLanguageName{dutch}{HLASM-analyse}{HLASM-analysis}}%
 \label{ch:hlasmanalyse}
 
-In dit onderzoek worden de termen "assembler" en "HLASM" gebruikt als synoniemen voor de High Level Assembler van IBM voor z/Architecture.
+In dit onderzoek worden de termen "assembler" en "HLASM" gebruikt als synoniemen voor de High Level Assembler van IBM voor z/Architecture. De analyse wordt uitgevoerd op basis van de verkregen kennis vanuit \textcite{ehrman_2001} en \textcite{hlasm_language_reference}. 
+
+\section{Inleiding}
+
+High Level Assembler (HLASM) is een low-level programmeertaal voor IBM mainframes. Een HLASM-programma bestaat uit een reeks instructies die direct met de hardware interageren. Er zijn vier soorten instructies: commentaarinstructies, machine-instructies, assemblerinstructies en macroinstructies. 
+
+\begin{itemize}
+    \item \textbf{Commentaarinstructies}; 
+        Deze instructies bieden toelichting in het programma voor de leesbaarheid en begrijpbaarheid. 
+    \item \textbf{Machine-instructies}; 
+        Deze instructies worden omgezet naar in machinetaalinstructies, die de cpu uitvoert wanneer het programma wordt uitgevoerd. 
+    \item \textbf{Assemblerinstructies};  
+        Deze instructies geven informatie aan de assembler. Ze kunnen bijvoorbeeld gebruikt worden om gegevens te genereren of een titel te geven aan de uitvoer. 
+    \item \textbf{Macroinstructies}; 
+        Deze instructies worden gebruikt als referentie naar een groep van instructies. De assembler vervangt die referentie automatisch naar de groep instructies. 
+\end{itemize}
+
+\newpage
+
+De bovenvermelde instructies, met uitzondering tot commentaarinstructies, bestaan elk uit vier delen die velden/fields worden genoemd. 
+
+\begin{itemize}
+    \item The name/label field 
+    \item The operartion/mnemonic field (altijd verplicht)
+    \item The operand field (bij meerdere operands zijn deze gescheiden door een komma)
+    \item The comment/remark field
+\end{itemize}
+
+Elk van deze velden zijn gescheiden bij één of meerdere spaties.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{asm_structuur.png}
+    \caption[De opstelling van een HLASM-programma.]{De opstelling van een HLASM-programma \autocite{hlasm_language_reference}.} 
+    \label{fig:instructies}
+\end{figure}
+
+\newpage
 
 \section{De kolomgebaseerde structuur}
 
-Een HLASM-programma bestaat uit een reeks "statements". In tegenstelling tot moderne talen is de plaats van de tekst op de regel bepalend. Een statement is opgedeeld in vaste kolommen, wat cruciaal is voor het correct "mappen" van de code:
+De Assembler verwerkt records van precies 80 bytes lang, dus dat betekent 80 tekens in één lijn code. Het aantal tekens wordt gerepresenteerd als kolommen. De instructies nemen enkel de posisties 1 tot en met 71 in beslag. Daarnaast, dient kolom 72 om mee tegeven als de volgende lijn code een voortzetting is van de huidig of een volledig nieuwe regel. Wanneer een niet-leeg teken ingevuld is, betekent dit dat het een voortzetting is. Bij een voortzetting, start de volgende regel vanaf kolom 16. De kollomen 73 tot 80 worden door de assembler genegeerd. 
 
-\begin{itemize}
-    \item \textbf{Naamveld (Kolom 1-8):} Hier staat de naam (het label) van een instructie. Dit veld kan ook leeg zijn (een spatie). In een Mermaid-diagram vormt dit vaak de ID van een knoop.
-    \item \textbf{Operatieveld (vanaf Kolom 10):} Bevat de actie of "mnemonic" (bijv. L, AR, BE). Dit vertelt ons welk type blok we in Mermaid moeten tekenen.
-    \item \textbf{Operandveld:} Bevat de gegevens waar de operatie mee werkt, zoals registers of geheugenlocaties. Spaties zijn hier niet toegestaan, omdat een spatie het einde van de operanden aangeeft.
-    \item \textbf{Opmerkingsveld:} Extra uitleg die door de assembler wordt genegeerd.
-\end{itemize}
+De kolommen die in beslag worden genomen door de instructies (1 - 71), zijn nogmaals opgedeeld voor de verschillende velden: 
 
-
-
-\section{Categorieën van instructies}
-
-Niet elke instructie beïnvloedt de control-flow op dezelfde manier. We onderscheiden drie types:
-
-\subsection{Machine Instructions}
-Dit zijn directe opdrachten voor de processor. Voor de mapping naar Mermaid zijn dit de belangrijkste bouwstenen, omdat ze vaak werken met "expressies" die verwijzen naar andere plekken in de code.
-
-\begin{figure}[h]
+\begin{table}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{machine_instructions.png}
-    \caption{Opbouw van machine-instructies met expressies en termen.}
-    \label{fig:machine_instructions}
-\end{figure}
+    \small
+    \begin{tabular}{|p{3cm}|p{12cm}|}
+        \hline
+        \textbf{Kolommen} & \textbf{Inhoud} \\
+        \hline
+        1 - 8 & De name/label \\
+        \hline
+        9 & Blank \\
+        \hline
+        10 - 14 & De operartion/mnemonic \\
+        \hline
+        15 & Blank  \\
+        \hline
+        16 - 71 & De operands(s), gescheiden door komma's - hier mogen geen spaties voorkomen (enkel tussen quotes). Wanneer een spatie voorkomt, wordt dit gezien als het einde van de operands veld. Alles na de operands wordt dan gezien als het commentaar/remark veld. \\
+        \hline
+    \end{tabular}
+    \caption{De kolomgebaseerde structuur van een hlasm-instructie.}
+    \label{tab:kolommen}
+\end{table}
 
-\subsection{Assembler Instructions}
-Dit zijn instructies voor de vertaler zelf, vaak gebruikt voor het definiëren van data (DC/DS). Deze beïnvloeden de control-flow meestal niet direct, maar zijn nodig om te begrijpen welke data een programma gebruikt.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{asm_instructions.png}
-    \caption{Onderdelen van assembler-instructies voor data-definities.}
-    \label{fig:asm_instructions}
-\end{figure}
-
-\subsection{Macro Instructions}
-Dit zijn "afkortingen" voor grotere stukken code. In een diagram kunnen deze worden weergegeven als één blok dat een complexere actie uitvoert.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{macro_instructions.png}
-    \caption{Structuur van macro-instructies en hun parameters.}
-    \label{fig:macro_instructions}
-\end{figure}
-
-\section{Control-flow en Vertakkingen}
-
-Het hoofddoel van dit onderzoek is het mappen van de \textbf{control-flow}. Het weergeeft het pad die de computer door de code aflegt. In HLASM gebeurt dit via sprongen (branches). 
-
-Bij een \textbf{onvoorwaardelijke sprong} wijzigt de route altijd. Bij een \textbf{voorwaardelijke sprong} beslist de computer op basis van een resultaat (de "Condition Code") welke weg hij inslaat. In Mermaid.js vertaalt dit zich naar een beslissingsruit met twee uitgangen: één voor wanneer de voorwaarde waar is, en één voor wanneer de uitvoering gewoon doorloopt naar de volgende regel.
+\section{De control flow}
 
 \subsection{Instructies voor Control-Flow Mapping}
 
-Voor een correcte conversie naar een Mermaid.js-diagram, moeten de control-flow bepaalende Machine Instructions worden geïdentificeerd.
-
-\begin{itemize}
-    \item \textbf{Onvoorwaardelijke sprongen (Branches):} Instructies zoals \texttt{B} (Branch) of \texttt{BR} (Branch via Register) dwingen de computer om altijd naar een specifiek doel-label te gaan. In Mermaid.js resulteert dit in een directe verbinding: \texttt{A --> B}.
-    
-    \item \textbf{Voorwaardelijke sprongen (Conditional Branches):} Instructies zoals \texttt{BE} (Branch if Equal), \texttt{BNE} (Branch if Not Equal), \texttt{BH} (Branch High) of \texttt{BL} (Branch Low) controleren eerst de \textit{Condition Code}. 
-
-    \begin{itemize}
-        \item Als de voorwaarde waar is, volgt de "True"-verbinding naar het label in het operandveld.
-        
-        \item Als de voorwaarde onwaar is, loopt de "False"-verbinding naar de fysiek eerstvolgende instructie in de code.
-    \end{itemize}
-
-    \item \textbf{Subroutine aanroepen (Linkage):} Instructies zoals \texttt{BAL} (Branch and Link) of \texttt{BAS} (Branch and Save) worden gebruikt om tijdelijk naar een ander codeblok te springen en later terug te keren. Voor de mapping naar Mermaid.js kunnen deze als speciale procesblokken of subgrafieken worden gemodelleerd.
-    \item \textbf{Loop-instructies:} Instructies zoals \texttt{BCT} (Branch on Count) verminderen een teller en springen zolang de waarde niet nul is. Dit creëert een cyclus of "loop" in het Mermaid-diagram.
-\end{itemize}

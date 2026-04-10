@@ -43,20 +43,23 @@ Het ontwerp van de visualisatietool bestaat uit een vertaling van HLASM-broncode
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|p{4cm}|p{8cm}|}
+    \small % Maakt de tekst iets kleiner zodat het beter past
+    % We definiëren hier 3 kolommen:
+    \begin{tabular}{|p{3.5cm}|p{3.5cm}|p{5cm}|}
         \hline
-        \textbf{HLASM-element} & \textbf{Mermaid.js representatie} \\
+        \textbf{HLASM-element} & \textbf{Mnemonic} & \textbf{Mermaid.js representatie} \\
         \hline
-        Label & Node in de flowchart \\
+        Label & Niet van toepassing & Node in de flowchart \\
         \hline
-        Sequentiële instructie & Verbinding tussen twee nodes \\
+        Sequentiële instructie & L, AR, SR, etc. & Verbinding tussen twee nodes \\
         \hline
-        Onvoorwaardelijke sprong & Edge naar doelnode \\
+        Onvoorwaardelijke sprong & B, BR & Edge naar doelnode \\
         \hline
-        Conditionele sprong & Vertakkende edge met conditie \\
+        Conditionele sprong & BE, BNE, BH, BL & Vertakkende edge met conditie \\
         \hline
-        Programma start & Entry node \\
+        Programma start & CSECT, START & Entry node \\
         \hline
     \end{tabular}
     \caption{Mapping van HLASM-elementen naar Mermaid.js}
+    \label{tab:mapping_hlasm_mermaid}
 \end{table}
