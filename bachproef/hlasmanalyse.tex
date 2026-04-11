@@ -68,6 +68,26 @@ De kolommen die in beslag worden genomen door de instructies (1 - 71), zijn nogm
     \label{tab:kolommen}
 \end{table}
 
+\subsection{Voorbeeld}
+
+...
+
+\begin{lstlisting}
+************************************************************************
+* PROGRAMMER:  EDWARD BOSWORTH, COLUMBUS STATE UNIVERSITY              *
+* SUMMARY   :  SET UP OF STANDARD LINKAGE                              *
+************************************************************************
+----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
+LAB1     CSECT                                                          
+         SAVE  (14,12)                 SAVE THE CALLER'S REGISTERS     
+         BALR  R12,0                   ESTABLISH                       
+         USING *,R12                   ADDRESSABILITY                  
+         LA    R2,SAVEAREA             ADDRESS OF MY SAVE AREA         
+         ST    R2,8(,R13)              FORWARD CHAIN MINE              
+         ST    R13,SAVEAREA+4          BACKWARD CHAIN CALLER'S        
+         LR    R13,R2                  SET 13 FROM MY SUB CALLS        
+\end{lstlisting}
+
 \section{De control flow}
 
 \subsection{Instructies voor Control-Flow Mapping}

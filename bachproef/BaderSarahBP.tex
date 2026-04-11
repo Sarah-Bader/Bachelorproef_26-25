@@ -33,6 +33,24 @@
     tabsize=4
 }
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    basicstyle=\small\ttfamily,
+    columns=fixed,
+    keepspaces=true,
+    breaklines=true,
+    frame=tlbr, 
+    framesep=4pt, 
+    framerule=0pt,
+    backgroundcolor=\color{gray!10},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false, 
+}
+
+
 %% Ensure the list of listings is in the table of contents
 \renewcommand\listoflistingscaption{%
     \IfLanguageName{dutch}{Lijst van codefragmenten}{List of listings}
