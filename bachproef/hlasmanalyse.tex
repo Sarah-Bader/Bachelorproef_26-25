@@ -26,7 +26,7 @@ De bovenvermelde instructies, met uitzondering tot commentaarinstructies, bestaa
     \item The name/label field 
     \item The operartion/mnemonic field (altijd verplicht)
     \item The operand field (bij meerdere operands zijn deze gescheiden door een komma)
-    \item The comment/remark field
+    \item The remarks field
 \end{itemize}
 
 Elk van deze velden zijn gescheiden bij één of meerdere spaties.
@@ -61,21 +61,21 @@ De kolommen die in beslag worden genomen door de instructies (1 - 71), zijn nogm
         \hline
         15 & Blank  \\
         \hline
-        16 - 71 & De operands(s), gescheiden door komma's - hier mogen geen spaties voorkomen (enkel tussen quotes). Wanneer een spatie voorkomt, wordt dit gezien als het einde van de operands veld. Alles na de operands wordt dan gezien als het commentaar/remark veld. \\
+        16 - 71 & De operands(s), gescheiden door komma's - hier mogen geen spaties voorkomen (enkel tussen quotes). Een spatie beëindigt het operand-veld, alles daarna behoort tot het remarks-veld.
+         \\
         \hline
     \end{tabular}
     \caption{De kolomgebaseerde structuur van een hlasm-instructie.}
-    \label{tab:kolommen}
+    \label{tab:kolomstructuur}
 \end{table}
 
 \subsection{Voorbeeld}
 
-...
+In het voorbeeld is de kolomstructuur af te leiden, de liniaal dient enkel als visueel hulpmiddel. In kolom 1 staat het name-veld of een asterisk voor commentaarregels. Vanaf kolom 10 staat het operation-veld, gevolgd door het operand-veld in kolom 16 als de parameters. De tekst die na de operanden volgt, met minimaal één spatie tussen, is het remarks-veld.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=HLASM, caption={Standaard Linkage Setup \autocite{bosworth_2009}.}]
 ************************************************************************
 * PROGRAMMER:  EDWARD BOSWORTH, COLUMBUS STATE UNIVERSITY              *
-* SUMMARY   :  SET UP OF STANDARD LINKAGE                              *
 ************************************************************************
 ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
 LAB1     CSECT                                                          
@@ -88,7 +88,101 @@ LAB1     CSECT
          LR    R13,R2                  SET 13 FROM MY SUB CALLS        
 \end{lstlisting}
 
-\section{De control flow}
+\newpage
+
+\section{De control-flow}
+
+Aan de hand van eerdere berekeningen of een logische vergelijking kunnen spronginstructies  alternatieve routes creëren. De uitkomst van een toetsing wordt aangegeven in de conditiecode. De Condition Code (CC) is een veld van twee bits binnen het Program Status Word\footnote{Het Program Status Word (PSW) is een register met verschillende velden die informatie bijhouden over het programma dat wordt uitgevoerd.} (PSW) die vier mogelijke waardes kan bevatten. Afhankelijk van de operatie hebben deze waarden een bepaalde betekenis.
+
+In het volgende voorbeeld wordt gekeken naar hoe de 'AR' instructie de condition code aanpast.
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+        \hline
+        \textbf{Mnemonic} & \textbf{Operands} & \textbf{Opcode} & \textbf{Instruction} \\
+        \hline
+        AR & R,R & 1A & ADD (32) \\
+        \hline
+    \end{tabular}
+    \caption{De eigenschappen van de mnemonic 'AR' \autocite{hlasm_table_instructions_2025}.}
+    \label{tab:AR}
+\end{table}
+
+Deze instructie telt de waarden in twee registers\footnote{Een register is een snelle, interne opslaglocatie van de processor die wordt gebruikt voor het bewerken van gegevens, het berekenen van adressen...} bij elkaar op, bewaart de som op in het eerste register en stelt de condition code in op basis van het resultaat:
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{|p{3cm}|p{7cm}|}
+        \hline
+        \textbf{CC} & \textbf{Meaning} \\
+        \hline
+        0 & Result is zero \\
+        \hline
+        1 & Result is negative \\
+        \hline
+        2 & Result is positive \\
+        \hline
+        3 & Result has overflowed (Het resultaat paste niet in het register)  \\
+        \hline
+    \end{tabular}
+    \caption{De mogelijkheden van de CC na de 'AR' instructie \autocite{principles_of_operation_2022}.}
+    \label{tab:ccAR}
+\end{table}
+
+% -------------
+\newpage
+
+In het volgende voorbeeld wordt gekeken naar hoe de 'CR' instructie de CC aanpast. 
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+        \hline
+        \textbf{Mnemonic} & \textbf{Operands} & \textbf{Opcode} & \textbf{Instruction} \\
+        \hline
+        CR & R,R & 19 & COMPARE (32) \\
+        \hline
+    \end{tabular}
+    \caption{De eigenschappen van de mnemonic 'CR' \autocite{hlasm_table_instructions_2025}.}
+    \label{tab:CR}
+\end{table}
+
+Deze instructie vergelijkt de waarden in twee registers met elkaar zonder deze te veranderen en stelt de condition code in:
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{|p{3cm}|p{7cm}|}
+        \hline
+        \textbf{CC} & \textbf{Meaning} \\
+        \hline
+        0 & Operand 1 = Operand 2 \\
+        \hline
+        1 & Operand 1 < Operand 2 \\
+        \hline
+        2 & Operand 1 > Operand 2 \\
+        \hline
+    \end{tabular}
+    \caption{De mogelijkheden van de CC na de 'CR' instructie \autocite{ehrman_2001}.}
+    \label{tab:ccCR}
+\end{table}
+
+De CC heeft geen vierde mogelijkheid, de logische uitkomsten zijn gelijk, kleiner of groter. 
+
+\subsection{Branching}
+
+Doormiddel van "Branch on Condition"-instructies kunnen we gebruik maken van de status van de condition code. De CC bepaalt als er aan de vertakkingsvoorwaarde is voldaan. 
+
+\subsubsection{De Branch Address}
+
+Wanneer er niet wordt voldaan aan de vertakkingsvoorwaarde, wordt er geen actie ondernomen en gaat de uitvoering verder vanaf de instructie na de "Branch on Condition"-instructie. 
+
+Indien er wel aan wordt voldaan, wordt de branch address bepaalt:
+
 
 \subsection{Instructies voor Control-Flow Mapping}
 
