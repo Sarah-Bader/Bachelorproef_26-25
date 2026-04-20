@@ -1,57 +1,78 @@
 \chapter{\IfLanguageName{dutch}{Control-flow visualisatie}{Control-flow visualisation}}%
 \label{ch:cfvisualisatie}
 
-Dit hoofdstuk beschrijft hoe de control-flow van HLASM-programma’s gevisualiseerd kan worden. Het doel van deze visualisatie is om ontwikkelaars een overzicht te geven bij de mogelijke uitvoeringspaden binnen een HLASM-programma. Een grafische visualistie maakt het eenvoudiger om sprongen, vertakkingen en programmastructuren te analyseren.
+Dit hoofdstuk beschrijft hoe de control-flow van HLASM-programma’s gevisualiseerd kan worden. Het doel van deze visualisatie is om beginnende ontwikkelaars een overzicht te geven van de mogelijke control-flow binnen een HLASM-programma.
+
+Uit een HLASM-programma is de structuur niet onmiddelijk zichtbaar in de broncode.
+% TODO: update
+% Aangezien HLASM geen expliciete blokstructuren bevat zoals moderne programmeertalen, is de programmastructuur niet onmiddellijk zichtbaar in de broncode. De control-flow moet daarom impliciet afgeleid worden op basis van labels, spronginstructies en de sequentiële uitvoering van instructies. Een grafische representatie maakt deze structuur expliciet en beter interpreteerbaar.
 
 \section{Requirements}
 
-Voor het ontwikkelen van een proof-of-concept moeten de functionele en niet-functionele vereisten worden gedefinieerd. Deze vereisten bepalen welke onderdelen van HLASM-code worden ondersteund en hoe de visualisatie eruit moet zien.
-
-% Welke instructies? Welke beperkingen?  Wat wordt niet ondersteund? 
-% Functionele vereisten; Detectie van labels, Detectie van sprongen, Correcte mapping naar nodes, Correcte mapping naar edges
-% Niet-functionele vereisten; Leesbaarheid van diagram, Correcte Mermaid.js-syntax
+Voor het ontwikkelen van een proof-of-concept worden zowel functionele als niet-functionele vereisten opgesteld. Deze vereisten bepalen welke onderdelen van HLASM-code worden geanalyseerd en hoe de resulterende visualisatie wordt opgebouwd.
 
 \subsection{Functionele vereisten}
 
-Voor de PoC zijn de volgende functionele vereisten opgesteld:
+Voor de PoC zijn de volgende functionele vereisten gedefinieerd:
 
 \begin{itemize}
-    \item Detectie van labels in de broncode, zodat mogelijke sprongdoelen geïdentificeerd kunnen worden.
-    \item Detectie van spronginstructies die de control-flow van het programma wijzigen, zoals onvoorwaardelijke en conditionele branches.
-    \item Correcte mapping van labels naar nodes in de control-flowgrafiek.
-    \item Correcte mapping van sprongen naar edges tussen nodes.
-    \item Ondersteuning voor zowel sequentiële uitvoering als vertakkingen binnen het programma.
+    \item Detectie van labels in de broncode, zodat sprongdoelen geïdentificeerd kunnen worden.
+    \item Detectie van vertakkingsinstructies die de control-flow beïnvloeden, waaronder zowel conditionele als onvoorwaardelijke sprongen.
+    \item Ondersteuning van sequentiële uitvoering, waarbij instructies zonder sprong automatisch verbonden worden met de volgende instructie.
+    \item Correcte mapping van labels naar knooppunten (nodes) in de control-flowgrafiek.
+    \item Correcte mapping van sprongen naar verbindingen (edges) tussen knooppunten.
+    \item Ondersteuning van meerdere uitvoeringspaden binnen één programma, inclusief eenvoudige vertakkingen en lussen.
 \end{itemize}
 
 \subsection{Niet-functionele vereisten}
 
-Voor de PoC zijn de volgende niet-functionele vereisten opgesteld:
+Naast de functionele vereisten zijn er ook niet-functionele vereisten opgesteld:
 
 \begin{itemize}
     \item De gegenereerde diagrammen moeten leesbaar zijn en een duidelijk overzicht geven van de programmastructuur.
-    \item De visualisatie moet automatisch gegenereerd worden.
-    \item De output moet weergegeven worden in de syntaxis van Mermaid.js, zodat de diagrammen eenvoudig aangepast kunnen worden.
-    \item De gegenereerde Mermaid.js-code moet correct en syntactisch geldig zijn.
+    \item De visualisatie moet automatisch gegenereerd worden op basis van de broncode.
+    \item De output moet gegenereerd worden in de syntaxis van Mermaid.js.
+    \item De gegenereerde Mermaid.js-code moet syntactisch correct zijn en zonder aanpassingen renderbaar zijn.
+    \item De implementatie moet eenvoudig uitbreidbaar zijn voor extra instructies of complexere analyses.
 \end{itemize}
 
 \section{Ontwerp}
 
-Het ontwerp van de visualisatietool bestaat uit een vertaling van HLASM-broncode naar een grafische representatie van de control-flow.
+% TODO: update (website)
+Het ontwerp van de visualisatietool bestaat uit een vertaling van HLASM-broncode naar een grafische representatie van de control-flow. Deze representatie kan worden gemodelleerd als een flow-chart, waarbij knooppunten overeenkomen met programmaposities en verbindingen de mogelijke uitvoeringspaden voorstellen.
+
+De opbouw van deze flow-chart gebeurt in verschillende stappen:
+
+\begin{itemize}
+    \item De broncode wordt opgesplitst in individuele instructies.
+    \item Per instructie worden het label, de mnemonic en de operanden geïdentificeerd.
+    \item Alle labels worden verzameld en gekoppeld aan hun positie in de code.
+    \item Voor elke instructie wordt bepaald naar welke instructie de uitvoering kan verdergaan.
+\end{itemize}
+
+Hierbij wordt onderscheid gemaakt tussen expliciete en impliciete control-flow:
+
+\begin{itemize}
+    \item \textbf{Expliciete control-flow}: veroorzaakt door branch-instructies die naar een label springen.
+    \item \textbf{Impliciete control-flow}: de standaard sequentiële uitvoering naar de volgende instructie.
+\end{itemize}
+
+Door deze twee vormen te combineren kan een volledige control-flowgrafiek worden opgebouwd.
 
 \subsection{Mapping van HLASM naar Mermaid.js}
-% Mapping van HLASM naar Mermaid.js; Label → Node, Branch → Edge, Conditionele sprong → Decision node, Startpunt → Entry node
+
+Om de control-flowgrafiek visueel weer te geven, wordt gebruik gemaakt van Mermaid.js. Hiervoor moet een mapping worden gedefinieerd tussen HLASM-elementen en grafische elementen.
 
 \begin{table}[h!]
     \centering
-    \small % Maakt de tekst iets kleiner zodat het beter past
-    % We definiëren hier 3 kolommen:
+    \small
     \begin{tabular}{|p{3.5cm}|p{3.5cm}|p{5cm}|}
         \hline
         \textbf{HLASM-element} & \textbf{Mnemonic} & \textbf{Mermaid.js representatie} \\
         \hline
         Label & Niet van toepassing & Node in de flowchart \\
         \hline
-        Sequentiële instructie & L, AR, SR, etc. & Verbinding tussen twee nodes \\
+        Sequentiële instructie & L, AR, SR, etc. & Verbinding naar volgende node \\
         \hline
         Onvoorwaardelijke sprong & B, BR & Edge naar doelnode \\
         \hline
@@ -59,7 +80,42 @@ Het ontwerp van de visualisatietool bestaat uit een vertaling van HLASM-broncode
         \hline
         Programma start & CSECT, START & Entry node \\
         \hline
+        Programma einde & END & Eindnode \\
+        \hline
     \end{tabular}
     \caption{Mapping van HLASM-elementen naar Mermaid.js}
     \label{tab:mapping_hlasm_mermaid}
 \end{table}
+
+Bij conditionele sprongen ontstaan meerdere mogelijke paden. In de visualisatie worden deze weergegeven als vertakkingen met een label dat de voorwaarde aanduidt. Onvoorwaardelijke sprongen worden voorgesteld als directe verbindingen zonder extra voorwaarden.
+
+Sequentiële instructies worden impliciet verbonden met de volgende instructie in de code, tenzij deze onderbroken worden door een spronginstructie.
+
+Door deze mapping toe te passen kan de structuur van een HLASM-programma worden weergegeven als een flowchart, waarbij de nadruk ligt op de control-flow in plaats van de inhoud van individuele instructies.
+
+\subsubsection{Voorbeeld}
+
+Om de mapping tussen HLASM en Mermaid.js te verduidelijken, wordt een eenvoudig voorbeeld gegeven.
+
+\begin{lstlisting}[language=HLASM, caption={Voorbeeld van een conditionele vertakking.}]
+    ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
+    CR    R1,R2
+    BE    GELIJK
+    B     VERDER
+    GELIJK   ...
+    VERDER   ...
+\end{lstlisting}
+
+In dit fragment wordt eerst een vergelijking uitgevoerd. Afhankelijk van de condition code wordt er vertakt naar het label \texttt{GELIJK}. Indien de voorwaarde niet voldaan is, wordt de volgende instructie uitgevoerd, namelijk een sprong naar \texttt{VERDER}.
+
+Dit kan worden omgezet naar volgende Mermaid.js representatie:
+
+\begin{lstlisting}[language={}, caption={Gegenereerde Mermaid.js flowchart.}]
+    flowchart TD
+    A[CR R1,R2] -->|BE| B[GELIJK]
+    A --> C[B VERDER]
+    C --> D[VERDER]
+    B --> D
+\end{lstlisting}
+
+In deze visualisatie stelt elke node een positie in het programma voor, terwijl de edges de mogelijke uitvoeringspaden weergeven. De conditionele sprong resulteert in een vertakking, terwijl de overige instructies sequentieel verbonden worden.

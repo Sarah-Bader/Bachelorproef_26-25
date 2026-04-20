@@ -33,9 +33,10 @@ Volgende aspecten werden bepaald:
 \begin{itemize}
     \item Welke subset van HLASM-instructies representeert de control flow? 
     \item Welke Mermaid.js-syntax vertaalt zich naar de juiste visualisatie van de control flow?
+    \item Wat zijn de meetbare succescriteria voor de evaluatiefase?
 \end{itemize}
 
-Het resultaat van deze fase is Hoofdstuk \ref{ch:cfvisualisatie} (Control-flow visualisatie), waarin een duidelijke afbakening en functionele eisen voor de verdere ontwikkeling staan beschreven. 
+Het resultaat van deze fase is Hoofdstuk \ref{ch:cfvisualisatie} (Control-flow visualisatie), waarin een duidelijke afbakening en functionele eisen voor de verdere ontwikkeling en evaluatie staan beschreven. 
 
 \section{Fase 4: Ontwerp en Implementatie}
 
@@ -47,13 +48,16 @@ Het resultaat van deze fase is Hoofdstuk \ref{ch:poc} (Proof-of-Concept), waarin
 
 \section{Fase 5: Evaluatie}
 
-In de evaluatiefase werd onderzocht of de proof-of-concept effectief de HLASM-control flow correct weergeeft.
+In de evaluatiefase werd onderzocht of de proof-of-concept effectief bijdraagt aan het sneller en correcter begrijpen van HLASM-control flow. 
+
+Er werd een vergelijkende studie uitgevoerd met 4 beginnende mainframeontwikkelaars. De deelnemers analyseerden HLASM-codefragmenten, met of zonder gebruik van de PoC.
 
 Om de correctheid te kunnen meten, werden volgende criteria vastgelegd:
 
 \begin{itemize}
-    \item het ... van start- en eindpunten,
-    \item het ... alle mogelijke vertakkingen,
+    \item het identificeren van start- en eindpunten,
+    \item het aanduiden van alle mogelijke vertakkingen,
+    \item het uitleggen van een bepaalde conditionele vertakking.
 \end{itemize}
 
 Het resultaat van deze fase wordt besproken in Hoofdstuk \ref{ch:conclusie} (Conclusie).
