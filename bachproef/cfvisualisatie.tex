@@ -29,12 +29,16 @@ Voor de PoC zijn de volgende functionele vereisten gedefinieerd:
 Naast de functionele vereisten zijn er ook niet-functionele vereisten opgesteld:
 
 \begin{itemize}
-    \item De gegenereerde diagrammen moeten leesbaar zijn en een duidelijk overzicht geven van de programmastructuur.
-    \item De visualisatie moet automatisch gegenereerd worden op basis van de broncode.
-    \item De output moet gegenereerd worden in de syntaxis van Mermaid.js.
-    \item De gegenereerde Mermaid.js-code moet syntactisch correct zijn en zonder aanpassingen renderbaar zijn.
-    \item De implementatie moet eenvoudig uitbreidbaar zijn voor extra instructies of complexere analyses.
+    \item Leesbaarheid: de gegenereerde diagrammen moeten een duidelijk overzicht geven van de control-flow, waarbij vertakkingen en uitvoeringspaden eenvoudig te volgen zijn.
+    
+    \item Correctheid: de gegenereerde Mermaid.js-code moet syntactisch correct zijn en zonder aanpassingen renderbaar zijn.
+    
+    \item Automatisatie: de visualisatie moet volledig automatisch gegenereerd worden op basis van de HLASM-broncode, zonder manuele tussenstappen.
+    
+    \item Beperkingen: de implementatie richt zich op een afgebakende subset van HLASM-instructies. 
+    
 \end{itemize}
+
 
 \section{Ontwerp}
 
