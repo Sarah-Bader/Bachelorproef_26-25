@@ -33,16 +33,19 @@
 % Wie zijn bachelorproef in het Nederlands schrijft, kan dit negeren, de inhoud
 % wordt niet in het document ingevoegd.
 
-\IfLanguageName{english}{%
-\selectlanguage{dutch}
-\chapter*{Samenvatting}
-\lipsum[1-4]
-\selectlanguage{english}
-}{}
-
 %%---------- Samenvatting -----------------------------------------------------
 % De samenvatting in de hoofdtaal van het document
 
 \chapter*{\IfLanguageName{dutch}{Samenvatting}{Abstract}}
 
-\lipsum[1-4]
+Mainframes blijven een belangrijke rol spelen binnen organisaties met hoge workloads, zoals banken, verzekeraars en luchtvaartmaatschappijen. Een deel van de programma's die op deze systemen draait, is geschreven in High Level Assembler (HLASM). Deze programma’s zijn vaak complex, minimaal gedocumenteerd en moeilijk te begrijpen voor beginnende ontwikkelaars. Ook heeft de sector een tekort aan nieuw talent, waardoor het overdragen van kennis steeds moeilijker wordt.
+
+Deze bachelorproef onderzoekt hoe visualisatie kan bijdragen aan het beter begrijpen van de control-flow van HLASM-programma’s. De hoofonderzoeksvraag klinkt als volgt: “Hoe effectief versnellen statische analyse en Mermaid-diagrammen het leerproces van HLASM bij beginners?”. Het doel van het onderzoek is het ontwikkelen en evalueren van een proof-of-concept (PoC) die HLASM-code automatisch omzet naar een visuele representatie van de control-flow.
+
+Het onderzoek werd uitgevoerd in verschillende fasen. Eerst werd een literatuurstudie uitgevoerd naar het belang van mainframes, de eigenschappen van HLASM en bestaande visualisatietechnieken. Vervolgens werd een technische analyse uitgevoerd van HLASM-broncode, waarbij de nadruk lag op structurele elementen zoals labels en vertakkingsinstructies. Op basis hiervan werd een requirementsanalyse opgesteld. Daarna werd een webgebaseerde proof-of-concept ontwikkeld die via statische analyse HLASM-code omzet naar een Mermaid.js flowchart. Tot slot werd de tool geëvalueerd via een gebruikerstest met vier beginnende ontwikkelaars.
+
+Uit de resultaten blijkt dat de visualisatie het identificeren van control-flowstructuren vergemakkelijkt. De deelnemers  konden sneller vertakkingen en uitvoeringspaden herkennen in vergelijking met een manuele analyse van de broncode. Vooral het visueel weergeven van conditionele en onvoorwaardelijke sprongen bleek een meerwaarde te zijn.
+
+De resultaten tonen aan dat statische analyse gecombineerd met visuele representatie een nuttig hulpmiddel kan zijn voor het ondersteunen van beginnende ontwikkelaars. De ontwikkelde PoC is echter beperkt tot een subset van HLASM-instructies en houdt geen rekening met dynamische aspecten van de uitvoering, zoals indirecte sprongen of macro-expansie.
+
+Dit onderzoek toont aan dat een eenvoudige, webgebaseerde visualisatietool een waardevolle bijdrage kan leveren aan het begrijpen en documenteren van HLASM-code, en daarmee het leerproces van nieuwe mainframeontwikkelaars kan versnellen.

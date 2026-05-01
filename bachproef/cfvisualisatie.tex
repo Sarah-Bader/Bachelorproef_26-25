@@ -3,13 +3,13 @@
 
 Dit hoofdstuk beschrijft hoe de control-flow van HLASM-programma’s gevisualiseerd kan worden. Het doel van deze visualisatie is om beginnende ontwikkelaars een overzicht te geven van de mogelijke control-flow binnen een HLASM-programma.
 
-Uit een HLASM-programma is de structuur niet onmiddelijk zichtbaar in de broncode.
-% TODO: update
-% Aangezien HLASM geen expliciete blokstructuren bevat zoals moderne programmeertalen, is de programmastructuur niet onmiddellijk zichtbaar in de broncode. De control-flow moet daarom impliciet afgeleid worden op basis van labels, spronginstructies en de sequentiële uitvoering van instructies. Een grafische representatie maakt deze structuur expliciet en beter interpreteerbaar.
+In HLASM is de programmastructuur niet onmiddellijk zichtbaar in de broncode. De control-flow moet daarom afgeleid worden op basis van labels, spronginstructies en de sequentiële uitvoering van instructies. Een grafische representatie maakt deze structuur beter interpreteerbaar.
+
+De visualisatie wordt gerealiseerd in de vorm van een webapplicatie. Dit maakt de analyse en visualisatie laagdrempelig en interactief, zonder bijkomende installatievereisten. De gebruiker kan HLASM-code invoeren in de browser, waarna automatisch een control-flowdiagram wordt gegenereerd.
 
 \section{Requirements}
 
-Voor het ontwikkelen van een proof-of-concept worden zowel functionele als niet-functionele vereisten opgesteld. Deze vereisten bepalen welke onderdelen van HLASM-code worden geanalyseerd en hoe de resulterende visualisatie wordt opgebouwd.
+Voor het ontwikkelen van een proof-of-concept worden zowel functionele als niet-functionele vereisten opgesteld. Deze vereisten bepalen welke onderdelen van HLASM-code worden geanalyseerd en hoe de visualisatie wordt opgebouwd.
 
 \subsection{Functionele vereisten}
 
@@ -17,8 +17,7 @@ Voor de PoC zijn de volgende functionele vereisten gedefinieerd:
 
 \begin{itemize}
     \item Detectie van labels in de broncode, zodat sprongdoelen geïdentificeerd kunnen worden.
-    \item Detectie van vertakkingsinstructies die de control-flow beïnvloeden, waaronder zowel conditionele als onvoorwaardelijke sprongen.
-    \item Ondersteuning van sequentiële uitvoering, waarbij instructies zonder sprong automatisch verbonden worden met de volgende instructie.
+    \item Detectie van vertakkingsinstructies die de control-flow beïnvloeden, waarondedr zowel conditionele als onvoorwaardelijke sprongen.
     \item Correcte mapping van labels naar knooppunten (nodes) in de control-flowgrafiek.
     \item Correcte mapping van sprongen naar verbindingen (edges) tussen knooppunten.
     \item Ondersteuning van meerdere uitvoeringspaden binnen één programma, inclusief eenvoudige vertakkingen en lussen.
@@ -35,6 +34,8 @@ Naast de functionele vereisten zijn er ook niet-functionele vereisten opgesteld:
     
     \item Automatisatie: de visualisatie moet volledig automatisch gegenereerd worden op basis van de HLASM-broncode, zonder manuele tussenstappen.
     
+    \item Toegankelijkheid: de toepassing wordt aangeboden als webapplicatie, zodat deze onmiddellijk bruikbaar is via een browser zonder installatie.
+    
     \item Beperkingen: de implementatie richt zich op een afgebakende subset van HLASM-instructies. 
     
 \end{itemize}
@@ -42,17 +43,20 @@ Naast de functionele vereisten zijn er ook niet-functionele vereisten opgesteld:
 
 \section{Ontwerp}
 
-% TODO: update (website)
-Het ontwerp van de visualisatietool bestaat uit een vertaling van HLASM-broncode naar een grafische representatie van de control-flow. Deze representatie kan worden gemodelleerd als een flow-chart, waarbij knooppunten overeenkomen met programmaposities en verbindingen de mogelijke uitvoeringspaden voorstellen.
+Het ontwerp van de visualisatietool bestaat uit een vertaling van HLASM-broncode naar een grafische representatie van de control-flow. Deze representatie wordt getoond als een flowchart.
 
-De opbouw van deze flow-chart gebeurt in verschillende stappen:
+De implementatie gebeurt als een webapplicatie. De logica wordt geimplementeerd via JavaScript. Hierdoor blijft de toepassing eenvoudig en onafhankelijk van externe systemen.
+
+De opbouw van de flowchart gebeurt in verschillende stappen:
 
 \begin{itemize}
-    \item De broncode wordt opgesplitst in individuele instructies.
-    \item Per instructie worden het label, de mnemonic en de operanden geïdentificeerd.
+    \item De ingevoerde broncode wordt opgesplitst in individuele instructies.
+    \item Per instructie worden het label, de mnemonic en de operanden geïdentificeerd op basis van de kolomgebaseerde structuur.
     \item Alle labels worden verzameld en gekoppeld aan hun positie in de code.
     \item Voor elke instructie wordt bepaald naar welke instructie de uitvoering kan verdergaan.
 \end{itemize}
+
+\newpage
 
 Hierbij wordt onderscheid gemaakt tussen expliciete en impliciete control-flow:
 
@@ -61,11 +65,9 @@ Hierbij wordt onderscheid gemaakt tussen expliciete en impliciete control-flow:
     \item \textbf{Impliciete control-flow}: de standaard sequentiële uitvoering naar de volgende instructie.
 \end{itemize}
 
-Door deze twee vormen te combineren kan een volledige control-flowgrafiek worden opgebouwd.
-
 \subsection{Mapping van HLASM naar Mermaid.js}
 
-Om de control-flowgrafiek visueel weer te geven, wordt gebruik gemaakt van Mermaid.js. Hiervoor moet een mapping worden gedefinieerd tussen HLASM-elementen en grafische elementen.
+Om de control-flowgrafiek visueel weer te geven, wordt gebruik gemaakt van Mermaid.js. Hiervoor wordt een mapping gedefinieerd tussen HLASM-elementen en grafische elementen.
 
 \begin{table}[h!]
     \centering
@@ -95,7 +97,9 @@ Bij conditionele sprongen ontstaan meerdere mogelijke paden. In de visualisatie 
 
 Sequentiële instructies worden impliciet verbonden met de volgende instructie in de code, tenzij deze onderbroken worden door een spronginstructie.
 
-Door deze mapping toe te passen kan de structuur van een HLASM-programma worden weergegeven als een flowchart, waarbij de nadruk ligt op de control-flow in plaats van de inhoud van individuele instructies.
+Door deze mapping toe te passen kan de structuur van een HLASM-programma worden weergegeven als een flowchart, waarbij de nadruk ligt op de control-flow.
+
+\newpage
 
 \subsubsection{Voorbeeld}
 
@@ -103,16 +107,14 @@ Om de mapping tussen HLASM en Mermaid.js te verduidelijken, wordt een eenvoudig 
 
 \begin{lstlisting}[language=HLASM, caption={Voorbeeld van een conditionele vertakking.}]
     ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
-    CR    R1,R2
-    BE    GELIJK
-    B     VERDER
+             CR    R1,R2
+             BE    GELIJK
+             B     VERDER
     GELIJK   ...
     VERDER   ...
 \end{lstlisting}
 
-In dit fragment wordt eerst een vergelijking uitgevoerd. Afhankelijk van de condition code wordt er vertakt naar het label \texttt{GELIJK}. Indien de voorwaarde niet voldaan is, wordt de volgende instructie uitgevoerd, namelijk een sprong naar \texttt{VERDER}.
-
-Dit kan worden omgezet naar volgende Mermaid.js representatie:
+Dit voorbeeld kan worden omgezet naar volgende Mermaid.js representatie:
 
 \begin{lstlisting}[language={}, caption={Gegenereerde Mermaid.js flowchart.}]
     flowchart TD
@@ -121,5 +123,3 @@ Dit kan worden omgezet naar volgende Mermaid.js representatie:
     C --> D[VERDER]
     B --> D
 \end{lstlisting}
-
-In deze visualisatie stelt elke node een positie in het programma voor, terwijl de edges de mogelijke uitvoeringspaden weergeven. De conditionele sprong resulteert in een vertakking, terwijl de overige instructies sequentieel verbonden worden.

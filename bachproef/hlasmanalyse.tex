@@ -29,7 +29,7 @@ De bovenvermelde instructies, met uitzondering tot commentaarinstructies, bestaa
     \item The remarks field
 \end{itemize}
 
-Elk van deze velden zijn gescheiden bij één of meerdere spaties.
+Elk van deze velden zijn gescheiden met één of meerdere spaties.
 
 \begin{figure}[h!]
     \centering
@@ -42,7 +42,7 @@ Elk van deze velden zijn gescheiden bij één of meerdere spaties.
 
 \section{De kolomgebaseerde structuur}
 
-De Assembler verwerkt records van precies 80 bytes lang, dus dat betekent 80 tekens in één lijn code. Het aantal tekens wordt gerepresenteerd als kolommen. De instructies nemen enkel de posisties 1 tot en met 71 in beslag. Daarnaast, dient kolom 72 om mee tegeven als de volgende lijn code een voortzetting is van de huidig of een volledig nieuwe regel. Wanneer een niet-leeg teken ingevuld is, betekent dit dat het een voortzetting is. Bij een voortzetting, start de volgende regel vanaf kolom 16. De kollomen 73 tot 80 worden door de assembler genegeerd. 
+De Assembler verwerkt records van precies 80 bytes lang, dus dat betekent 80 tekens in één lijn code. Het aantal tekens wordt gerepresenteerd als kolommen. De instructies nemen enkel de posisties 1 tot en met 71 in beslag. Daarnaast, dient kolom 72 om mee te geven als de volgende lijn code een voortzetting is van de huidig of een volledig nieuwe regel. Wanneer een niet-leeg teken ingevuld is, betekent dit dat het een voortzetting is. Bij een voortzetting, start de volgende regel vanaf kolom 16. De kollomen 73 tot 80 worden door de assembler genegeerd. 
 
 De kolommen die in beslag worden genomen door de instructies (1 - 71), zijn nogmaals opgedeeld voor de verschillende velden: 
 
@@ -92,7 +92,7 @@ LAB1     CSECT
 
 \section{De control-flow}
 
-Aan de hand van eerdere berekeningen of een logische vergelijking kunnen spronginstructies  alternatieve routes creëren. De uitkomst van een toetsing wordt aangegeven in de conditiecode. De Condition Code (CC) is een veld van twee bits binnen het Program Status Word\footnote{Het Program Status Word (PSW) is een register met verschillende velden die informatie bijhouden over het programma dat wordt uitgevoerd.} (PSW) die vier mogelijke waardes kan bevatten. Afhankelijk van de operatie hebben deze waarden een bepaalde betekenis.
+Aan de hand van eerdere berekeningen of een logische vergelijking kunnen spronginstructies alternatieve routes creëren. De uitkomst van een toetsing wordt aangegeven in de conditiecode. De Condition Code (CC) is een veld van twee bits binnen het Program Status Word\footnote{Het Program Status Word (PSW) is een register met verschillende velden die informatie bijhouden over het programma dat wordt uitgevoerd.} (PSW) die vier mogelijke waardes kan bevatten. Afhankelijk van de operatie hebben deze waarden een bepaalde betekenis.
 
 In het volgende voorbeeld wordt gekeken naar hoe de 'AR' instructie de condition code aanpast.
 
@@ -175,30 +175,49 @@ De CC heeft geen vierde mogelijkheid, de logische uitkomsten zijn gelijk, kleine
 
 \subsection{Branching}
 
-Doormiddel van "Branch on Condition"-instructies kunnen we gebruik maken van de status van de condition code. De CC bepaalt of er aan de vertakkingsvoorwaarde is voldaan. 
+De control-flow in HLASM wordt bepaald door instructies die het uitvoeringsadres van het programma wijzigen. De structuur van het programma verandert door sprongen naar andere posities in de code.
 
-Wanneer er niet aan de voorwaarde wordt voldaan, wordt er geen actie ondernomen en gaat de uitvoering verder naar de volgende instructie.
+Deze sprongen worden aangegeven via branch-instructies. Branching omvat zowel conditionele als onvoorwaardelijke vertakkingen en sprongen naar subroutines.
 
-Indien er wel aan de voorwaarde wordt voldaan, wordt de normale uitvoering onderbroken en verdergezet op een andere locatie in het programma. Dit gebeurt door het aanpassen van het adres van de volgende uit te voeren instructie in het Program Status Word (PSW). Het PSW bevat onder andere het adres van de huidige instructie. Door dit adres te wijzigen, wordt de uitvoering voortgezet vanaf een nieuw adres.
+Bij conditionele vertakkingen wordt gebruik gemaakt van de condition code (CC). Deze code wordt ingesteld door voorafgaande instructies, zoals vergelijkingen of rekenkundige operaties. De waarde van de CC bepaalt of de vertakkingsvoorwaarde voldaan is.
 
-Dit nieuwe adres komt overeen met het adres dat gekoppeld is aan een label in het programma. Tijdens de assemblage vertaalt de assembler deze labels naar concrete geheugenadressen.
+Wanneer niet aan de voorwaarde wordt voldaan, verloopt de uitvoering sequentieel en wordt de volgende instructie uitgevoerd. Wanneer er wel aan de voorwaarde wordt voldaan, wordt de normale uitvoering onderbroken en verdergezet op een andere locatie in het programma.
 
-\begin{lstlisting}[language=HLASM, caption={Voorbeeld van een conditionele vertakking.}]
+Dit gebeurt door het aanpassen van het adres van de volgende uit te voeren instructie in het Program Status Word (PSW). Het PSW bevat onder andere het adres van de huidige instructie. Door dit adres te wijzigen, wordt de uitvoering voortgezet vanaf een nieuw adres.
+
+\newpage
+
+Naast conditionele vertakkingen bestaan er ook onvoorwaardelijke sprongen. Deze instructies voeren altijd een sprong uit, onafhankelijk van de condition code. Dit zorgt ervoor dat de sequentiële uitvoering expliciet wordt doorbroken.
+
+Verder zijn er instructies die gebruikt worden voor het oproepen van subroutines. Eerst wordt het terugkeeradres opgeslaan, vervolgens wordt er vertakt naar een andere locatie in het programma. Op het einde kan de uitvoering hervat worden op de oorspronkelijke locatie.
+
+Het doeladres van een sprong komt overeen met een label in de broncode. Tijdens de assemblage vertaalt de assembler deze labels naar concrete geheugenadressen. 
+
+\begin{lstlisting}[language=HLASM, caption={Voorbeeld van vertakkingen in HLASM.}]
     ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
              CR    R1,R2
              BE    GELIJK
              B     VERDER
-    GELIJK   ...
-    VERDER   ...
+    GELIJK   AR    R1,R2
+    VERDER   SR    R1,R2
 \end{lstlisting}
 
-In dit voorbeeld wordt eerst een vergelijking uitgevoerd tussen twee registers. Indien de condition code aangeeft dat beide waarden gelijk zijn, wordt er vertakt naar het label \texttt{GELIJK}. Indien dit niet het geval is, wordt de volgende instructie uitgevoerd, namelijk een onvoorwaardelijke sprong naar \texttt{VERDER}.
-
-De control-flow in HLASM wordt niet expliciet vastgelegd via blokstructuren, maar het bestaat impliciet door het aanpassen van het uitvoeringsadres. Labels werken hierbij als ankerpunten en branch-instructies bepalen of en wanneer deze punten bereikt worden.
+In dit voorbeeld wordt eerst een vergelijking uitgevoerd tussen twee registers. Indien de condition code aangeeft dat beide waarden gelijk zijn, wordt er vertakt naar het label \texttt{GELIJK}. Als dit niet het geval is, wordt de volgende instructie uitgevoerd, namelijk een onvoorwaardelijke sprong naar \texttt{VERDER}.
 
 \subsection{Instructies voor Control-Flow Mapping}
 
-Niet alle instructies hebben een invloed op de control-flow van een programma. De drie soorten van instructies die de uitvoeringsvolgorde van het programma kunnen wijzigen: conditionele vertakkingen, onvoorwaardelijke vertakkingen en instructies die de condition code beïnvloeden.
+Niet alle instructies hebben een invloed op de control-flow van een programma.
+
+Binnen HLASM kunnen deze instructies onderverdeeld worden in vier categorieën:
+
+\begin{itemize}
+    \item conditionele vertakkingen,
+    \item onvoorwaardelijke vertakkingen,
+    \item subroutine-aanroepen,
+    \item instructies die de condition code instellen.
+\end{itemize}
+
+\newpage
 
 \begin{table}[h!]
     \centering
@@ -207,24 +226,24 @@ Niet alle instructies hebben een invloed op de control-flow van een programma. D
         \hline
         \textbf{Categorie} & \textbf{Mnemonic} & \textbf{Beschrijving} \\
         \hline
-        Conditionele vertakkingen & BE, BNE, BL, BH, BNH, BNL & Vertakken afhankelijk van de waarde van de condition code. Deze instructies creëren meerdere mogelijke paden in de control-flow. \\
+        Conditionele vertakkingen & BE, BNE, BL, BH, BNH, BNL & Vertakken afhankelijk van de waarde van de condition code. Deze instructies geven meerdere mogelijke uitvoeringspaden. \\
         \hline
-        Onvoorwaardelijke vertakkingen & B, BR & Vertakken altijd naar een opgegeven adres of label. Deze instructies onderbreken de sequentiële uitvoering. \\
+        Onvoorwaardelijke vertakkingen & B, BR & Vertakken altijd naar een opgegeven adres of label. De sequentiële uitvoering wordt hierbij onderbroken. \\
         \hline
-        Subroutine vertakkingen & BAL, BAS, BASR & Slaan het terugkeeradres op en vertakken naar een subroutine. Kunnen beschouwd worden als functie-aanroepen binnen de control-flow. \\
+        Subroutine vertakkingen & BAL, BAS, BASR & Slaan het terugkeeradres op en vertakken naar een subroutine. Deze instructies zijn gelijkaardig aan functie-aanroepen. \\
         \hline
-        Vergelijkingsinstructies & C, CR & Voeren een vergelijking uit tussen operanden en stellen de condition code in zonder de operanden te wijzigen. \\
+        Vergelijkingsinstructies & C, CR & Voeren een vergelijking uit en stellen de condition code in zonder de operanden te wijzigen. \\
         \hline
-        Rekenkundige instructies met CC & AR, SR & Voeren een berekening uit en passen de condition code aan op basis van het resultaat. \\
+        Rekenkundige instructies & AR, SR & Voeren een berekening uit en passen de condition code aan op basis van het resultaat. \\
         \hline
     \end{tabular}
     \caption{Relevante HLASM-instructies voor control-flow mapping.}
-    \label{tab:cf_instructions}
+    \label{tab:cf__instructions}
 \end{table}
 
+Voor de opbouw van een control-flowgrafiek is het voldoende om de vertakkingsinstructies te detecteren. Deze bepalen expliciet de mogelijke paden doorheen het programma en vormen de verbindingen tussen knooppunten in de grafiek.
 
-Voor de opbouw van een control-flow representatie is het vooral van belang om de vertakkingsinstructies te detecteren. Deze bepalen immers expliciet de mogelijke paden doorheen het programma. 
+Instructies die de condition code instellen spelen een indirecte rol. Zij bepalen de uitkomst van conditionele vertakkingen, maar zijn niet noodzakelijk om de structuur van de control-flow te representeren.
 
-Daarnaast spelen instructies die de condition code instellen een indirecte rol. Zij bepalen namelijk de uitkomst van conditionele vertakkingen. Zonder deze instructies kan de reden van een vertakking niet worden achterhaald, maar voor een structurele visualisatie is het vaak voldoende om enkel de aanwezigheid van de vertakking te registreren.
+Binnen deze bachelorproef ligt de focus op het detecteren van labels en vertakkingsinstructies. Labels worden gemodelleerd als knooppunten in de control-flowgrafiek, terwijl vertakkingen worden voorgesteld als verbindingen tussen deze knooppunten.
 
-In het kader van deze bachelorproef wordt de focus gelegd op het detecteren van labels en vertakkingsinstructies. Deze vormen de basis voor het opstellen van een control-flow graph, waarbij labels worden gemodelleerd als knooppunten en vertakkingen als verbindingen tussen deze knooppunten.
