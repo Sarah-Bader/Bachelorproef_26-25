@@ -18,7 +18,11 @@ De applicatie bestaat uit drie stappen:
 
 De architectuur is simpel gehouden, de proof-of-concept hoeft niet de hele code te analyseren. Het doel is enkel om te laten zien dat een basisanalyse volstaat om de programmastructuur in beeld te brengen.
 
-\subsection{Parsing}
+\newpage
+
+\subsection{Stap 1: Parsing}
+
+%simpele uitleg
 
 \begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
    const lines = hlasmCode.split('\n');
@@ -45,24 +49,63 @@ De architectuur is simpel gehouden, de proof-of-concept hoeft niet de hele code 
    });
 \end{lstlisting}
 
-\subsection{Control-flow analyse}
+\subsection{Stap 2: Control-flow analyse}
 
-Onderstaand fragment toont een vereenvoudigde versie van de parser die gebruikt wordt in de applicatie:
+%simpele uitleg
 
-%\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
-%    function parseLine(line) {
-%        const label = line.substring(0, 8).trim();
-%        const mnemonic = line.substring(9, 14).trim().toUpperCase();
-%        const operands = line.substring(15, 71).trim();
-%        
-%        return { label, mnemonic, operands };
-%    }
-%\end{lstlisting}
+\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
+    const lines = hlasmCode.split('\n');
+    const instructions = [];
+    
+    lines.forEach((line, index) => {
+        if (!line || line.trim() === "" || line.trim().startsWith("*")) break;
+        
+        const padded   = line.padEnd()  (80, " ");
+        
+        const label    = padded.substring(0, 8).trim();
+        const mnemonic = padded.substring(9, 14).trim().toUpperCase();
+        const operand  = padded.substring(15, 71).trim().split(",")[0].trim(); 
+        
+        if (!mnemonic) break;
+        
+        instructions.push({
+            lineNumber: index + 1,
+            raw: padded.substring(0, 71),
+            label,
+            mnemonic,
+            operand: firstOperand
+        });
+    });
+\end{lstlisting}
 
+\subsection{Stap 3: Visualisatie}
 
-Dit fragment illustreert hoe gebruik wordt gemaakt van de vaste kolomstructuur van HLASM om instructies te analyseren.
+%simpele uitleg
 
-\subsection{Control-flow analyse}
+\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
+    const lines = hlasmCode.split('\n');
+    const instructions = [];
+    
+    lines.forEach((line, index) => {
+        if (!line || line.trim() === "" || line.trim().startsWith("*")) break;
+        
+        const padded   = line.padEnd()  (80, " ");
+        
+        const label    = padded.substring(0, 8).trim();
+        const mnemonic = padded.substring(9, 14).trim().toUpperCase();
+        const operand  = padded.substring(15, 71).trim().split(",")[0].trim(); 
+        
+        if (!mnemonic) break;
+        
+        instructions.push({
+            lineNumber: index + 1,
+            raw: padded.substring(0, 71),
+            label,
+            mnemonic,
+            operand: firstOperand
+        });
+    });
+\end{lstlisting}
 
 \subsection{Gebruikersinterface}
 
