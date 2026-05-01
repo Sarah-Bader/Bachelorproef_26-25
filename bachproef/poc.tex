@@ -2,19 +2,182 @@
 \label{ch:poc}
 
 \section{Architectuur van de applicatie}
-\lipsum[10-15]
+
+De proof-of-concept werd geïmplementeerd als een webapplicatie die HLASM-broncode omzet naar een control-flowdiagram in Mermaid.js-syntaxis.
+Omdat de proof-of-concept een webapplicatie is, is de tool direct toegankelijk zonder dat er een installatie vereist is.
+
+De applicatie bestaat uit drie stappen:
+
+\begin{enumerate}
+    \item \textbf{Parsing}: de ingevoerde HLASM-broncode wordt opgesplitst in individuele instructies. Per regel worden label, mnemonic en operanden geïdentificeerd op basis van de kolomgebaseerde structuur.
+    
+    \item \textbf{Control-flow analyse}: op basis van de gedetecteerde instructies wordt bepaald hoe de uitvoering van het programma kan verlopen. Er wordt onderscheid gemaakt tussen sequentiële uitvoering en vertakkingen.
+    
+    \item \textbf{Visualisatie}: de structuur wordt omgezet naar Mermaid.js-syntaxis, die vervolgens gerenderd wordt als een flowchart.
+\end{enumerate}
+
+De architectuur is simpel gehouden, de proof-of-concept hoeft niet de hele code te analyseren. Het doel is enkel om te laten zien dat een basisanalyse volstaat om de programmastructuur in beeld te brengen.
+
+\subsection{Parsing}
+
+\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
+   const lines = hlasmCode.split('\n');
+   const instructions = [];
+   
+   lines.forEach((line, index) => {
+       if (!line || line.trim() === "" || line.trim().startsWith("*")) break;
+       
+       const padded   = line.padEnd()  (80, " ");
+       
+       const label    = padded.substring(0, 8).trim();
+       const mnemonic = padded.substring(9, 14).trim().toUpperCase();
+       const operand  = padded.substring(15, 71).trim().split(",")[0].trim(); 
+       
+       if (!mnemonic) break;
+       
+       instructions.push({
+           lineNumber: index + 1,
+           raw: padded.substring(0, 71),
+           label,
+           mnemonic,
+           operand: firstOperand
+       });
+   });
+\end{lstlisting}
+
+\subsection{Control-flow analyse}
+
+Onderstaand fragment toont een vereenvoudigde versie van de parser die gebruikt wordt in de applicatie:
+
+%\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
+%    function parseLine(line) {
+%        const label = line.substring(0, 8).trim();
+%        const mnemonic = line.substring(9, 14).trim().toUpperCase();
+%        const operands = line.substring(15, 71).trim();
+%        
+%        return { label, mnemonic, operands };
+%    }
+%\end{lstlisting}
+
+
+Dit fragment illustreert hoe gebruik wordt gemaakt van de vaste kolomstructuur van HLASM om instructies te analyseren.
+
+\subsection{Control-flow analyse}
+
+\subsection{Gebruikersinterface}
+
+De webapplicatie bestaat uit twee hoofdonderdelen:
+
+\begin{itemize}
+    \item een invoerveld voor HLASM-broncode,
+    \item een visualisatiepaneel waarin het gegenereerde diagram wordt weergegeven.
+\end{itemize}
+
+%\begin{figure}[h!]
+    %\centering
+    % TODO: screenshot toevoegen
+    %\includegraphics[width=0.9\textwidth]{frontend_editor.png}
+    %\caption{Invoer van HLASM-code in de webapplicatie.}
+%\end{figure}
+
+%\begin{figure}[h!]
+    %\centering
+    % TODO: screenshot toevoegen
+    %\includegraphics[width=0.9\textwidth]{frontend_diagram.png}
+    %\caption{Gegenereerde control-flow visualisatie.}
+%\end{figure}
+
+\subsection{Gebruik van de applicatie}
+
+Het gebruik van de tool verloopt in enkele eenvoudige stappen:
+
+\begin{enumerate}
+    \item De gebruiker plakt of typt HLASM-broncode in de editor.
+    \item De applicatie analyseert automatisch de ingevoerde code.
+    \item Op basis van deze analyse wordt een Mermaid.js-diagram gegenereerd.
+    \item Het diagram wordt onmiddellijk visueel weergegeven.
+\end{enumerate}
+
+De gebruiker hoeft geen kennis te hebben van Mermaid.js. De gegenereerde visualisatie dient als directe ondersteuning bij het begrijpen van de control-flow.
 
 \section{Beperkingen van de implementatie}
-\lipsum[10-15]
+
+De implementatie maakt bewust gebruik van een vereenvoudigde benadering van HLASM. Dit brengt een aantal beperkingen met zich mee.
+
+Ten eerste wordt geen volledige syntactische of semantische analyse uitgevoerd. De parser werkt op basis van patroonherkenning en veronderstelt dat de invoer de standaard kolomstructuur volgt. Afwijkingen hiervan kunnen leiden tot foutieve interpretaties.
+
+Daarnaast worden macro-instructies niet geëxpandeerd. Aangezien macros meerdere instructies kunnen bevatten, kan dit resulteren in een onvolledige weergave van de control-flow.
+
+Een belangrijke beperking is de behandeling van vertakkingen. Enkel directe sprongen naar labels worden ondersteund. Indirecte sprongen, zoals via registers (bijvoorbeeld \texttt{BR R14}), kunnen niet statisch geanalyseerd worden en worden daarom niet opgenomen in de visualisatie.
+
+Verder wordt de condition code niet inhoudelijk geïnterpreteerd. De tool detecteert enkel dat een conditionele vertakking aanwezig is, zonder de onderliggende logica te analyseren.
+
+Deze beperkingen zijn aanvaardbaar binnen de context van deze proof-of-concept. De focus ligt op het zichtbaar maken van de globale structuur, niet op een volledige simulatie van het programma.
 
 \section{Evaluatie}
-\lipsum[10-15]
 
-\subsection{Titel A}
-\lipsum[10-15]
+De evaluatie heeft als doel te bepalen in welke mate de proof-of-concept bijdraagt aan het begrijpen van de control-flow in HLASM-programma’s.
 
-\subsection{Titel B}
-\lipsum[10-15]
+Alle deelnemers hadden geen voorafgaande kennis van HLASM. Voorafgaand aan de test kregen zij een korte introductie over de basisprincipes van control-flow, met nadruk op labels en vertakkingen. Deze introductie was bewust beperkt om de deelnemers als beginnende gebruikers te behouden.
 
-\subsection{Titel C}
-\lipsum[10-15]
+De evaluatie werd uitgevoerd met vier deelnemers. Elke deelnemer kreeg twee HLASM-codefragmenten en werd gevraagd om:
+
+\begin{itemize}
+    \item het startpunt te identificeren,
+    \item vertakkingen aan te duiden,
+    \item de globale structuur te beschrijven.
+\end{itemize}
+
+Deze opdrachten werden uitgevoerd:
+\begin{itemize}
+    \item zonder hulpmiddelen,
+    \item met gebruik van de visualisatietool.
+\end{itemize}
+
+Zowel de benodigde tijd als de correctheid van de analyse werden geregistreerd.
+
+\subsection{Testing}
+
+\subsubsection{Kandidaat 1}
+
+Kandidaat 1 had geen ervaring met HLASM en had moeite met het manueel volgen van vertakkingen. De analyse was traag en bevatte fouten.
+
+Met de tool kon de kandidaat de structuur sneller en correcter identificeren.
+
+\textbf{Bevinding}: duidelijke verbetering in snelheid en correctheid.
+
+\subsubsection{Kandidaat 2}
+
+Kandidaat 2 begreep de basisstructuur manueel, maar had moeite met complexere vertakkingen.
+
+De visualisatie werd gebruikt als bevestiging van de interpretatie.
+
+\textbf{Bevinding}: vermindering van onzekerheid en snellere validatie.
+
+\subsubsection{Kandidaat 3}
+
+Kandidaat 3 werkte systematisch en tekende de control-flow manueel uit. Dit was correct maar tijdrovend.
+
+De tool verving dit proces volledig.
+
+\textbf{Bevinding}: aanzienlijke efficiëntiewinst.
+
+\subsubsection{Kandidaat 4}
+
+Kandidaat 4 had de meeste moeite met manuele analyse en maakte meerdere fouten.
+
+De visualisatie maakte de structuur duidelijker en hielp fouten corrigeren.
+
+\textbf{Bevinding}: grootste impact bij minder ervaren gebruikers.
+
+\subsection{Samenvatting van de resultaten}
+
+Over alle deelnemers heen werden volgende trends vastgesteld:
+
+\begin{itemize}
+    \item De analysetijd daalde bij gebruik van de tool.
+    \item De correctheid van de interpretatie nam toe.
+    \item De programmastructuur werd als duidelijker ervaren.
+\end{itemize}
+
+Deze resultaten ondersteunen de hypothese dat een visuele representatie van control-flow het leerproces van HLASM versnelt, in het bijzonder voor beginnende ontwikkelaars.
