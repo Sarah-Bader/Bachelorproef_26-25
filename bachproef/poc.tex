@@ -3,108 +3,154 @@
 
 \section{Architectuur van de applicatie}
 
-De proof-of-concept werd geïmplementeerd als een webapplicatie die HLASM-broncode omzet naar een control-flowdiagram in Mermaid.js-syntaxis.
-Omdat de proof-of-concept een webapplicatie is, is de tool direct toegankelijk zonder dat er een installatie vereist is.
+De proof-of-concept werd geïmplementeerd als een webapplicatie die HLASM-broncode omzet naar een control-flowdiagram in Mermaid.js-syntax.
+Omdat het een webapplicatie is, hoeft de gebruiker niets te installeren.  
+De tool kan meteen gebruikt worden via de browser. Dit maakt het eenvoudig om de applicatie snel te testen en te gebruiken.
 
-De applicatie bestaat uit drie stappen:
+De werking van de applicatie bestaat uit drie stappen:
 
 \begin{enumerate}
     \item \textbf{Parsing}: de ingevoerde HLASM-broncode wordt opgesplitst in individuele instructies. Per regel worden label, mnemonic en operanden geïdentificeerd op basis van de kolomgebaseerde structuur.
     
-    \item \textbf{Control-flow analyse}: op basis van de gedetecteerde instructies wordt bepaald hoe de uitvoering van het programma kan verlopen. Er wordt onderscheid gemaakt tussen sequentiële uitvoering en vertakkingen.
+    \item \textbf{Control-flow analyse}: op basis van de gedetecteerde instructies wordt bepaald hoe de uitvoering van het programma kan verlopen.
     
-    \item \textbf{Visualisatie}: de structuur wordt omgezet naar Mermaid.js-syntaxis, die vervolgens gerenderd wordt als een flowchart.
+    \item \textbf{Visualisatie}: de structuur wordt omgezet naar Mermaid.js-syntax, die vervolgens wordt omgezet naar een flowchart.
 \end{enumerate}
-
-De architectuur is simpel gehouden, de proof-of-concept hoeft niet de hele code te analyseren. Het doel is enkel om te laten zien dat een basisanalyse volstaat om de programmastructuur in beeld te brengen.
 
 \newpage
 
 \subsection{Stap 1: Parsing}
 
-%simpele uitleg
+In deze eerste stap wordt de HLASM-code verwerkt tot een lijst van instructies.
+Lege lijnen en commentaar (lijnen die starten met een *) worden genegeerd.
 
-\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
-   const lines = hlasmCode.split('\n');
-   const instructions = [];
-   
-   lines.forEach((line, index) => {
-       if (!line || line.trim() === "" || line.trim().startsWith("*")) break;
-       
-       const padded   = line.padEnd()  (80, " ");
-       
-       const label    = padded.substring(0, 8).trim();
-       const mnemonic = padded.substring(9, 14).trim().toUpperCase();
-       const operand  = padded.substring(15, 71).trim().split(",")[0].trim(); 
-       
-       if (!mnemonic) break;
-       
-       instructions.push({
-           lineNumber: index + 1,
-           raw: padded.substring(0, 71),
-           label,
-           mnemonic,
-           operand: firstOperand
-       });
-   });
-\end{lstlisting}
+Voor elke lijn worden drie onderdelen bepaald:
+\begin{itemize}
+    \item het label (indien aanwezig),
+    \item de mnemonic (de instructienaam),
+    \item het eerste operand (argument).
+\end{itemize}
 
-\subsection{Stap 2: Control-flow analyse}
+De parser maakt gebruik van de vaste kolomstructuur door specifieke delen van de lijn uit te lezen op vaste posities.
 
-%simpele uitleg
+%TODO 
 
-\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
-    const lines = hlasmCode.split('\n');
+\begin{lstlisting}[language=JavaScript, caption={De HLASM parser.}]
+function parseInstructions(hlasmCode) {
     const instructions = [];
     
-    lines.forEach((line, index) => {
-        if (!line || line.trim() === "" || line.trim().startsWith("*")) break;
+    hlasmCode.split('\n').forEach((line, index) => {
+        if (!line || line.trim() === "" || line.trim().startsWith("*"))
+        return;
         
-        const padded   = line.padEnd()  (80, " ");
-        
+        const padded   = line.padEnd(80, " ");
         const label    = padded.substring(0, 8).trim();
         const mnemonic = padded.substring(9, 14).trim().toUpperCase();
-        const operand  = padded.substring(15, 71).trim().split(",")[0].trim(); 
         
-        if (!mnemonic) break;
+        if (!mnemonic)
+        return;
+        
+        const operandField = padded.substring(15, 71).trim();
+        
+        const operandMatch = operandField.match(/^([^\s']+|'[^']*')+/);
+        const fullOperand  = operandMatch ? operandMatch[0] : "";
+        const firstOperand = fullOperand.split(',')[0].trim();
         
         instructions.push({
             lineNumber: index + 1,
-            raw: padded.substring(0, 71),
+            raw: `${label.padEnd(8)} ${mnemonic.padEnd(5)} ${fullOperand}`,
             label,
             mnemonic,
             operand: firstOperand
         });
     });
+    
+    return instructions;
+}
+\end{lstlisting}
+
+\subsection{Stap 2: Control-flow analyse}
+
+%simpele uitleg - opdeling in blokken
+
+\begin{lstlisting}[language=JavaScript, caption={Het fragment van die de instructies opdeeld in blokken.}]
+function buildBlocks(instructions) {
+    let blockId = 0;
+    const blocks = [];
+    let currentBlock = createBlock(0);
+    
+    instructions.forEach((instr, i) => {
+        if (instr.label && currentBlock.lines.length > 0) {
+            blocks.push(currentBlock);
+            currentBlock = createBlock(++blockId);
+        }
+        
+        currentBlock.lines.push(instr);
+        
+        if (instr.label) {
+            currentBlock.labels.push(instr.label);
+        }
+        
+        const isBranch = isBranchInstruction(instr.mnemonic);
+        const isEnd = instr.mnemonic === "END";
+        
+        if (isBranch || isEnd) {
+            currentBlock.exit = instr;
+            blocks.push(currentBlock);
+            currentBlock = createBlock(++blockId);
+        } else if (instructions[i + 1] && instructions[i + 1].label) {
+            currentBlock.exit = { mnemonic: "SEQUENTIAL", operand: "" };
+            blocks.push(currentBlock);
+            currentBlock = createBlock(++blockId);
+        }
+    });
+    
+    if (currentBlock.lines.length > 0 && !blocks.includes(currentBlock)) {
+        blocks.push(currentBlock);
+    }
+    
+    return blocks;
+}
 \end{lstlisting}
 
 \subsection{Stap 3: Visualisatie}
 
 %simpele uitleg
 
-\begin{lstlisting}[language=JavaScript, caption={Fragment van de HLASM parser.}]
-    const lines = hlasmCode.split('\n');
-    const instructions = [];
+\begin{lstlisting}[language=JavaScript, caption={De conversie naar mermaid.js syntax.}]
+function blocksToMermaid(blocks) {
+    let mermaid = "%%{init: {'themeVariables': {'fontFamily': 'monospace'}}}%%\nflowchart TD\n";
     
-    lines.forEach((line, index) => {
-        if (!line || line.trim() === "" || line.trim().startsWith("*")) break;
-        
-        const padded   = line.padEnd()  (80, " ");
-        
-        const label    = padded.substring(0, 8).trim();
-        const mnemonic = padded.substring(9, 14).trim().toUpperCase();
-        const operand  = padded.substring(15, 71).trim().split(",")[0].trim(); 
-        
-        if (!mnemonic) break;
-        
-        instructions.push({
-            lineNumber: index + 1,
-            raw: padded.substring(0, 71),
-            label,
-            mnemonic,
-            operand: firstOperand
-        });
+    blocks.forEach(block => {
+        const text = block.lines
+        .map(l => l.raw.replace(/\s+/, ' ').trim()).join("<br/>");
+        mermaid += `    ${block.id}["${text}"]\n`;
     });
+    
+    blocks.forEach((block, i) => {
+        const next = blocks[i + 1];
+        const exit = block.exit;
+        
+        // we have reached the last block
+        if (!exit) return;
+        
+        const m = exit.mnemonic;
+        const targetLabel = exit.operand;
+        
+        if (isConditionalBranch(m)) {
+            const targetBlock = findBlockByLabel(blocks, targetLabel);
+            if (targetBlock) mermaid += `    ${block.id} -->|${m}| ${targetBlock.id}\n`;
+            if (next) mermaid += `    ${block.id} --> ${next.id}\n`;
+        } else if (isUnconditionalBranch(m)) {
+            const targetBlock = findBlockByLabel(blocks, targetLabel);
+            if (targetBlock) mermaid += `    ${block.id} --> ${targetBlock.id}\n`;
+        } else if (m === "SEQUENTIAL" && next) {
+            mermaid += `    ${block.id} --> ${next.id}\n`;
+        }
+    });
+    
+    return mermaid;
+}
 \end{lstlisting}
 
 \subsection{Gebruikersinterface}
@@ -118,16 +164,8 @@ De webapplicatie bestaat uit twee hoofdonderdelen:
 
 %\begin{figure}[h!]
     %\centering
-    % TODO: screenshot toevoegen
-    %\includegraphics[width=0.9\textwidth]{frontend_editor.png}
+    %\includegraphics[width=0.9\textwidth]{gebruikersinterface.png}
     %\caption{Invoer van HLASM-code in de webapplicatie.}
-%\end{figure}
-
-%\begin{figure}[h!]
-    %\centering
-    % TODO: screenshot toevoegen
-    %\includegraphics[width=0.9\textwidth]{frontend_diagram.png}
-    %\caption{Gegenereerde control-flow visualisatie.}
 %\end{figure}
 
 \subsection{Gebruik van de applicatie}
@@ -180,6 +218,17 @@ Deze opdrachten werden uitgevoerd:
 Zowel de benodigde tijd als de correctheid van de analyse werden geregistreerd.
 
 \subsection{Testing}
+
+\subsubsection{Testmateriaal}
+
+\begin{lstlisting}[language=HLASM, caption={Standaard Linkage Setup \autocite{bosworth_2009}.}]
+    * codevoorbeeld 1 *
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=HLASM, caption={Standaard Linkage Setup \autocite{bosworth_2009}.}]
+    * codevoorbeeld 2 *
+\end{lstlisting}
 
 \subsubsection{Kandidaat 1}
 
