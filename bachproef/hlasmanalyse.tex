@@ -110,7 +110,7 @@ In het volgende voorbeeld wordt gekeken naar hoe de 'AR' instructie de condition
     \label{tab:AR}
 \end{table}
 
-Deze instructie telt de waarden in twee registers\footnote{Een register is een snelle, interne opslaglocatie van de processor die wordt gebruikt voor het bewerken van gegevens, het berekenen van adressen...} bij elkaar op, bewaart de som op in het eerste register en stelt de condition code in op basis van het resultaat:
+Deze instructie telt de waarden in twee registers\footnote{Een register is een kleine, snelle opslaglocatie binnen de processor die gebruikt wordt voor het tijdelijk bewaren en verwerken van gegevens en adressen.} bij elkaar op, bewaart de som op in het eerste register en stelt de condition code in op basis van het resultaat:
 
 \begin{table}[h!]
     \centering
@@ -131,9 +131,6 @@ Deze instructie telt de waarden in twee registers\footnote{Een register is een s
     \caption{De mogelijkheden van de CC na de 'AR' instructie \autocite{principles_of_operation_2022}.}
     \label{tab:ccAR}
 \end{table}
-
-% -------------
-\newpage
 
 In het volgende voorbeeld wordt gekeken naar hoe de 'CR' instructie de CC aanpast. 
 
@@ -185,24 +182,63 @@ Wanneer niet aan de voorwaarde wordt voldaan, verloopt de uitvoering sequentieel
 
 Dit gebeurt door het aanpassen van het adres van de volgende uit te voeren instructie in het Program Status Word (PSW). Het PSW bevat onder andere het adres van de huidige instructie. Door dit adres te wijzigen, wordt de uitvoering voortgezet vanaf een nieuw adres.
 
-\newpage
-
 Naast conditionele vertakkingen bestaan er ook onvoorwaardelijke sprongen. Deze instructies voeren altijd een sprong uit, onafhankelijk van de condition code. Dit zorgt ervoor dat de sequentiële uitvoering expliciet wordt doorbroken.
 
 Verder zijn er instructies die gebruikt worden voor het oproepen van subroutines. Eerst wordt het terugkeeradres opgeslaan, vervolgens wordt er vertakt naar een andere locatie in het programma. Op het einde kan de uitvoering hervat worden op de oorspronkelijke locatie.
 
+\newpage
+
 Het doeladres van een sprong komt overeen met een label in de broncode. Tijdens de assemblage vertaalt de assembler deze labels naar concrete geheugenadressen. 
 
 \begin{lstlisting}[language=HLASM, caption={Voorbeeld van vertakkingen in HLASM.}]
-    ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
-             CR    R1,R2
-             BE    GELIJK
-             B     VERDER
-    GELIJK   AR    R1,R2
-    VERDER   SR    R1,R2
+----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
+         CR    R1,R2
+         BE    GELIJK
+         B     VERDER
+*         
+GELIJK   AR    R1,R2
+VERDER   SR    R1,R2
 \end{lstlisting}
 
 In dit voorbeeld wordt eerst een vergelijking uitgevoerd tussen twee registers. Indien de condition code aangeeft dat beide waarden gelijk zijn, wordt er vertakt naar het label \texttt{GELIJK}. Als dit niet het geval is, wordt de volgende instructie uitgevoerd, namelijk een onvoorwaardelijke sprong naar \texttt{VERDER}.
+
+\subsection{Relative Branching J-instructies}
+
+Naast de klassieke branch-instructies bestaan er binnen HLASM ook relative branch-instructies. Deze instructies gebruiken een relatieve offset\footnote{Een offset is een relatieve afstand ten opzichte van een bepaalde geheugenlocatie of instructiepositie.} ten opzichte van de huidige positie in het programma om een sprong uit te voeren.
+
+Een voorbeeld hiervan zijn de J-instructies, zoals \texttt{J}, \texttt{JE} en \texttt{JNE}. Deze instructies worden gebruikt voor respectievelijk onvoorwaardelijke en conditionele vertakkingen.
+
+\begin{lstlisting}[language=HLASM, caption={Voorbeeld van relative branching met J-instructies.}]
+----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
+         CR    R1,R2
+         JE    GELIJK
+         J     VERDER
+*    
+GELIJK   AR    R1,R2
+VERDER   SR    R1,R2
+\end{lstlisting}
+
+De werking van deze instructies is gelijkaardig aan gewone branch-instructies. Ze wijzigen namelijk ook de control-flow van het programma door naar een andere positie in de code te springen.
+
+\newpage
+
+\subsection{Compare-and-Branch (CGIJ)-instructies}
+
+HLASM bevat ook compare-and-branch instructies. Deze combineren een vergelijking en een vertakking in één enkele instructie.
+
+Een voorbeeld hiervan is de \texttt{CGIJ}-instructie. Deze instructie vergelijkt een registerwaarde met een onmiddellijke waarde en voert daarna eventueel een sprong uit afhankelijk van het resultaat.
+
+\begin{lstlisting}[language=HLASM, caption={Voorbeeld van een CGIJ-instructie.}]
+----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
+         CGIJ  R1,10,NL,GROTER
+         AR    R2,R3
+*
+GROTER   SR    R2,R3
+\end{lstlisting}
+
+In dit voorbeeld wordt de waarde in register \texttt{R1} vergeleken met de waarde \texttt{10}. Indien de voorwaarde voldaan is, wordt er vertakt naar het label \texttt{GROTER}.
+
+Deze instructies hebben rechtstreeks invloed op de control-flow van een programma omdat ze zowel een vergelijking uitvoeren als een mogelijke vertakking bepalen.
 
 \subsection{Instructies voor Control-Flow Mapping}
 
@@ -236,14 +272,20 @@ Binnen HLASM kunnen deze instructies onderverdeeld worden in vier categorieën:
         \hline
         Rekenkundige instructies & AR, SR & Voeren een berekening uit en passen de condition code aan op basis van het resultaat. \\
         \hline
+        Relative branching & J, JE, JNE & Vertakken relatief ten opzichte van de huidige instructiepositie. \\
+        \hline
+        Compare-and-branch & CGIJ & Combineert een vergelijking en een vertakking in één instructie. \\
+        \hline
     \end{tabular}
     \caption{Relevante HLASM-instructies voor control-flow mapping.}
     \label{tab:cf__instructions}
 \end{table}
 
-Voor de opbouw van een control-flowgrafiek is het voldoende om de vertakkingsinstructies te detecteren. Deze bepalen expliciet de mogelijke paden doorheen het programma en vormen de verbindingen tussen knooppunten in de grafiek.
+Voor de opbouw van een control-flowgrafiek is het voldoende om vertakkingsinstructies te detecteren. Deze bepalen expliciet de mogelijke paden doorheen het programma en vormen de verbindingen tussen knooppunten in de grafiek.
 
 Instructies die de condition code instellen spelen een indirecte rol. Zij bepalen de uitkomst van conditionele vertakkingen, maar zijn niet noodzakelijk om de structuur van de control-flow te representeren.
 
-Binnen deze bachelorproef ligt de focus op het detecteren van labels en vertakkingsinstructies. Labels worden gemodelleerd als knooppunten in de control-flowgrafiek, terwijl vertakkingen worden voorgesteld als verbindingen tussen deze knooppunten.
+Binnen deze bachelorproef ligt de focus op het detecteren van labels en klassieke branch-instructies, zoals B- en J-instructies. Labels worden gemodelleerd als knooppunten in de control-flowgrafiek, terwijl vertakkingen worden voorgesteld als verbindingen tussen deze knooppunten.
+
+Meer complexe instructies, zoals compare-and-branch instructies, worden buiten de scope van de proof of concept gehouden.
 

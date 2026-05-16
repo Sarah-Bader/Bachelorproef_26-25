@@ -15,26 +15,27 @@
 % Heeft het onderzoek geleid tot nieuwe vragen die uitnodigen tot verder 
 %onderzoek?
 
+In deze bachelorproef werd onderzocht in welke mate statische analyse en Mermaid-diagrammen kunnen helpen bij het leren van HLASM door beginnende ontwikkelaars. 
 
-In deze bachelorproef werd onderzocht in welke mate statische analyse en Mermaid-diagrammen het leerproces van HLASM kunnen versnellen bij beginnende ontwikkelaars. De centrale onderzoeksvraag luidde:
+De centrale onderzoeksvraag luidde:
 
 \begin{quote}
     \itshape
     Hoe effectief versnellen statische analyse en Mermaid-diagrammen het leerproces van HLASM bij beginners?
 \end{quote}
 
-Om deze vraag te beantwoorden werd eerst een literatuurstudie uitgevoerd naar het belang van mainframes, de rol van HLASM en de moeilijkheden die beginners ervaren bij het begrijpen van assemblytalen. Vervolgens werd een technische analyse uitgevoerd van HLASM om te bepalen welke elementen relevant zijn voor de control-flow. Op basis hiervan werd een proof-of-concept ontwikkeld die HLASM-broncode automatisch omzet naar een control-flowdiagram in Mermaid.js.
+Om deze vraag te beantwoorden werd eerst een literatuurstudie uitgevoerd naar mainframes, HLASM en de moeilijkheden die beginners ervaren bij assemblytalen. Daarna werd een analyse gemaakt van HLASM om te bepalen welke onderdelen belangrijk zijn voor de control-flow. Op basis hiervan werd een proof-of-concept ontwikkeld die HLASM-code omzet naar een diagram in Mermaid.js.
 
-Uit de evaluatie blijkt dat de visualisatie een duidelijke meerwaarde biedt voor beginnende gebruikers. Alle deelnemers konden de control-flow sneller en correcter analyseren wanneer gebruik werd gemaakt van de tool. Vooral bij complexe vertakkingen en bij deelnemers zonder voorkennis was het verschil merkbaar. De visualisatie maakte impliciete structuren expliciet, waardoor minder mentale reconstructie nodig was.
+Uit de evaluatie blijkt dat de visualisatie vooral helpt om sneller een overzicht te krijgen van de structuur van een programma. De deelnemers konden makkelijker zien hoe verschillende delen van de code met elkaar verbonden zijn en waar vertakkingen plaatsvinden.
 
-Deze resultaten wijzen erop dat statische analyse in combinatie met visuele representatie effectief kan bijdragen aan het leerproces van HLASM. De tool fungeert hierbij als een vorm van ondersteunende documentatie die de structuur van het programma inzichtelijk maakt.
+Tegelijk werd duidelijk dat deze visualisatie niet voldoende is om de code volledig te begrijpen. De deelnemers gaven aan dat het nog steeds nodig is om de code zelf te lezen en te analyseren. De tool versnelt dus niet het volledige leerproces, maar helpt vooral bij het begrijpen van de globale structuur.
 
-Toch moeten deze resultaten genuanceerd worden. De proof-of-concept is gebaseerd op een vereenvoudigde analyse en ondersteunt slechts een beperkte subset van HLASM-instructies. Complexe constructies, zoals macro-expansie en indirecte sprongen, worden niet meegenomen. Hierdoor is de visualisatie niet volledig accuraat in alle gevallen. Daarnaast was de evaluatiegroep beperkt in omvang, wat de generaliseerbaarheid van de resultaten beïnvloedt.
+De tool wordt daarom best gezien als een aanvullend hulpmiddel, en niet als een vervanging van manuele analyse. Vooral bij grotere programma’s biedt de visualisatie een duidelijke meerwaarde, omdat het moeilijker is om daar zelf snel een overzicht van te krijgen. Bij kleinere programma’s is deze meerwaarde beperkter.
 
-Ondanks deze beperkingen toont het onderzoek aan dat zelfs een eenvoudige visualisatietool een significante impact kan hebben op het begrijpen van legacy-code. Dit is relevant binnen het werkveld, waar het onderhoud van bestaande HLASM-programma’s vaak bemoeilijkt wordt door een gebrek aan documentatie en expertise.
+Er moet rekening worden gehouden met de beperkingen van dit onderzoek. De proof-of-concept ondersteunt slechts een beperkt deel van HLASM en houdt geen rekening met complexere constructies zoals macro’s of indirecte sprongen. Daarnaast was de testgroep klein, waardoor de resultaten niet volledig veralgemeend kunnen worden.
 
-Het onderzoek opent ook mogelijkheden voor verder werk. Een volgende stap zou kunnen zijn om de parser uit te breiden met ondersteuning voor meer instructies en complexere control-flow constructies. Daarnaast kan onderzocht worden hoe dergelijke visualisaties geïntegreerd kunnen worden in bestaande ontwikkelomgevingen. Ook een uitgebreidere gebruikerstest met een grotere en meer diverse groep deelnemers kan bijkomende inzichten opleveren.
+Ondanks deze beperkingen toont dit onderzoek aan dat een eenvoudige visualisatietool nuttig kan zijn bij het analyseren van HLASM-code. Dit is relevant in de praktijk, waar het begrijpen van bestaande code vaak moeilijk is door een gebrek aan documentatie.
 
-Samenvattend kan gesteld worden dat de combinatie van statische analyse en Mermaid-visualisatie een effectieve en laagdrempelige manier biedt om de control-flow van HLASM-programma’s inzichtelijk te maken. Dit draagt bij aan een sneller leerproces en kan ondersteuning bieden bij het onderhoud van bestaande systemen.
+Voor toekomstig werk kan de tool verder uitgebreid worden met ondersteuning voor meer instructies en complexere situaties. Ook kan onderzocht worden hoe deze visualisatie geïntegreerd kan worden in bestaande ontwikkelomgevingen. Daarnaast kan een grotere evaluatie bijkomende inzichten geven.
 
-
+Samengevat kan gesteld worden dat statische analyse in combinatie met een visuele voorstelling helpt om de structuur van HLASM-programma’s sneller te begrijpen. De tool ondersteunt het leerproces, maar vervangt het niet.

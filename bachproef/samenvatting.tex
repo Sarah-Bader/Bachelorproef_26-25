@@ -38,14 +38,20 @@
 
 \chapter*{\IfLanguageName{dutch}{Samenvatting}{Abstract}}
 
-Mainframes blijven een belangrijke rol spelen binnen organisaties met hoge workloads, zoals banken, verzekeraars en luchtvaartmaatschappijen. Een deel van de programma's die op deze systemen draait, is geschreven in High Level Assembler (HLASM). Deze programma’s zijn vaak complex, minimaal gedocumenteerd en moeilijk te begrijpen voor beginnende ontwikkelaars. Ook heeft de sector een tekort aan nieuw talent, waardoor het overdragen van kennis steeds moeilijker wordt.
+Mainframes spelen nog steeds een belangrijke rol in sectoren zoals banken, verzekeringen en luchtvaart. Veel van de software op deze systemen is geschreven in High Level Assembler (HLASM). Deze programma’s zijn vaak moeilijk te begrijpen, zeker voor beginners. Daarnaast is er een tekort aan nieuwe ontwikkelaars, wat het doorgeven van kennis moeilijk maakt.
 
-Deze bachelorproef onderzoekt hoe visualisatie kan bijdragen aan het beter begrijpen van de control-flow van HLASM-programma’s. De hoofonderzoeksvraag klinkt als volgt: “Hoe effectief versnellen statische analyse en Mermaid-diagrammen het leerproces van HLASM bij beginners?”. Het doel van het onderzoek is het ontwikkelen en evalueren van een proof-of-concept (PoC) die HLASM-code automatisch omzet naar een visuele representatie van de control-flow.
+Deze bachelorproef onderzoekt hoe visualisatie kan helpen bij het begrijpen van de control-flow van HLASM-programma’s. De centrale onderzoeksvraag luidt: “Hoe effectief versnellen statische analyse en Mermaid-diagrammen het leerproces van HLASM bij beginners?”. Het doel van het onderzoek is het ontwikkelen en evalueren van een proof-of-concept (PoC) die HLASM-code omzet naar een visuele voorstelling.
 
-Het onderzoek werd uitgevoerd in verschillende fasen. Eerst werd een literatuurstudie uitgevoerd naar het belang van mainframes, de eigenschappen van HLASM en bestaande visualisatietechnieken. Vervolgens werd een technische analyse uitgevoerd van HLASM-broncode, waarbij de nadruk lag op structurele elementen zoals labels en vertakkingsinstructies. Op basis hiervan werd een requirementsanalyse opgesteld. Daarna werd een webgebaseerde proof-of-concept ontwikkeld die via statische analyse HLASM-code omzet naar een Mermaid.js flowchart. Tot slot werd de tool geëvalueerd via een gebruikerstest met vier beginnende ontwikkelaars.
+Het onderzoek werd uitgevoerd in verschillende stappen. Eerst werd een literatuurstudie gedaan naar mainframes, HLASM en bestaande visualisatietechnieken. Daarna werd HLASM-code geanalyseerd om te bepalen welke onderdelen belangrijk zijn voor de control-flow, zoals labels en sprongen. Op basis daarvan werd een proof-of-concept ontwikkeld als webapplicatie. Deze tool zet HLASM-code via statische analyse om naar een flowchart in Mermaid.js. Tot slot werd de tool getest met vier beginnende gebruikers.
 
-Uit de resultaten blijkt dat de visualisatie het identificeren van control-flowstructuren vergemakkelijkt. De deelnemers  konden sneller vertakkingen en uitvoeringspaden herkennen in vergelijking met een manuele analyse van de broncode. Vooral het visueel weergeven van conditionele en onvoorwaardelijke sprongen bleek een meerwaarde te zijn.
+Uit de resultaten blijkt dat de visualisatie vooral helpt om sneller een overzicht te krijgen van de structuur van een programma. De deelnemers konden gemakkelijker zien hoe verschillende delen van de code met elkaar verbonden zijn en waar vertakkingen plaatsvinden.
 
-De resultaten tonen aan dat statische analyse gecombineerd met visuele representatie een nuttig hulpmiddel kan zijn voor het ondersteunen van beginnende ontwikkelaars. De ontwikkelde PoC is echter beperkt tot een subset van HLASM-instructies en houdt geen rekening met dynamische aspecten van de uitvoering, zoals indirecte sprongen of macro-expansie.
+Tegelijk werd duidelijk dat de tool het begrijpen van de code niet volledig vervangt. Om de werking van het programma correct te begrijpen, blijft het nodig om de code zelf te lezen en te analyseren. De visualisatie werd dus vooral gezien als een hulpmiddel dat het proces ondersteunt.
 
-Dit onderzoek toont aan dat een eenvoudige, webgebaseerde visualisatietool een waardevolle bijdrage kan leveren aan het begrijpen en documenteren van HLASM-code, en daarmee het leerproces van nieuwe mainframeontwikkelaars kan versnellen.
+Daarnaast bleek dat de meerwaarde van de tool groter is bij grotere programma’s. Bij kleinere codefragmenten is de structuur meestal eenvoudig genoeg om manueel te volgen, waardoor de visualisatie minder toevoegt.
+
+De resultaten tonen aan dat statische analyse in combinatie met een visuele voorstelling een nuttig hulpmiddel kan zijn voor beginnende ontwikkelaars. De ontwikkelde PoC heeft echter beperkingen: slechts een deel van de HLASM-instructies wordt ondersteund en complexe situaties zoals macro’s en indirecte sprongen worden niet meegenomen.
+
+\newpage
+
+Samenvattend kan gesteld worden dat een eenvoudige visualisatietool helpt om de structuur van HLASM-programma’s sneller te begrijpen. De tool ondersteunt het leerproces, maar vervangt het niet, en is vooral nuttig bij grotere programma’s.

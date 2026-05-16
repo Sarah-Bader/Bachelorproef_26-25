@@ -33,7 +33,8 @@ Voor elke lijn worden drie onderdelen bepaald:
 
 De parser maakt gebruik van de vaste kolomstructuur door specifieke delen van de lijn uit te lezen op vaste posities.
 
-%TODO 
+Na deze stap wordt elke lijn voorgesteld als een object met duidelijke velden.  
+Dit maakt het eenvoudiger om de volgende stap uit te voeren.
 
 \begin{lstlisting}[language=JavaScript, caption={De HLASM parser.}]
 function parseInstructions(hlasmCode) {
@@ -47,11 +48,9 @@ function parseInstructions(hlasmCode) {
         const label    = padded.substring(0, 8).trim();
         const mnemonic = padded.substring(9, 14).trim().toUpperCase();
         
-        if (!mnemonic)
-        return;
+        if (!mnemonic) return;
         
         const operandField = padded.substring(15, 71).trim();
-        
         const operandMatch = operandField.match(/^([^\s']+|'[^']*')+/);
         const fullOperand  = operandMatch ? operandMatch[0] : "";
         const firstOperand = fullOperand.split(',')[0].trim();
@@ -71,9 +70,24 @@ function parseInstructions(hlasmCode) {
 
 \subsection{Stap 2: Control-flow analyse}
 
-%simpele uitleg - opdeling in blokken
+In deze stap wordt gekeken hoe het programma verloopt tijdens uitvoering.
 
-\begin{lstlisting}[language=JavaScript, caption={Het fragment van die de instructies opdeeld in blokken.}]
+De instructies worden gegroepeerd in blokken.  
+Een blok is een reeks instructies die na elkaar uitgevoerd worden, zonder onderbreking.
+
+Een nieuw blok start in de volgende situaties:
+\begin{itemize}
+    \item wanneer een instructie een label bevat,
+    \item wanneer er een sprong (branch) gebeurt,
+    \item wanneer het programma eindigt (END).
+\end{itemize}
+
+Voor elk blok wordt ook bepaald hoe het blok eindigt.  
+Dit kan bijvoorbeeld een sprong zijn naar een ander label, of een gewone overgang naar het volgende blok.
+
+Op deze manier ontstaat een structuur die beschrijft hoe de uitvoering van het programma kan verlopen.
+
+\begin{lstlisting}[language=JavaScript, caption={De code die instructies in blokken verdeelt.}]
 function buildBlocks(instructions) {
     let blockId = 0;
     const blocks = [];
@@ -115,9 +129,22 @@ function buildBlocks(instructions) {
 
 \subsection{Stap 3: Visualisatie}
 
-%simpele uitleg
+In de laatste stap wordt de gevonden structuur omgezet naar een visueel diagram.
 
-\begin{lstlisting}[language=JavaScript, caption={De conversie naar mermaid.js syntax.}]
+Eerst worden alle blokken voorgesteld als knopen (nodes).  
+De inhoud van elk blok wordt weergegeven als tekst in de knoop.
+
+Daarna worden verbindingen (pijlen) toegevoegd tussen de blokken:
+\begin{itemize}
+    \item een gewone pijl voor een normale overgang,
+    \item een pijl met label voor een conditionele sprong,
+    \item een directe pijl voor een onvoorwaardelijke sprong.
+\end{itemize}
+
+Deze informatie wordt omgezet naar Mermaid.js-syntaxis.  
+Mermaid.js zorgt er vervolgens voor dat deze tekst automatisch wordt weergegeven als een flowchart.
+
+\begin{lstlisting}[language=JavaScript, caption={De conversie naar mermaid.js.}]
 function blocksToMermaid(blocks) {
     let mermaid = "%%{init: {'themeVariables': {'fontFamily': 'monospace'}}}%%\nflowchart TD\n";
     
@@ -155,18 +182,24 @@ function blocksToMermaid(blocks) {
 
 \subsection{Gebruikersinterface}
 
-De webapplicatie bestaat uit twee hoofdonderdelen:
+De gebruikersinterface van de applicatie is eenvoudig opgebouwd.
 
+Er zijn twee onderdelen:
 \begin{itemize}
-    \item een invoerveld voor HLASM-broncode,
-    \item een visualisatiepaneel waarin het gegenereerde diagram wordt weergegeven.
+    \item een invoerveld waarin de gebruiker HLASM-code kan invoeren,
+    \item een visualisatiepaneel waarin het diagram wordt weergegeven.
 \end{itemize}
 
-%\begin{figure}[h!]
-    %\centering
-    %\includegraphics[width=0.9\textwidth]{gebruikersinterface.png}
-    %\caption{Invoer van HLASM-code in de webapplicatie.}
-%\end{figure}
+Wanneer de gebruiker code invoert, wordt het diagram automatisch bijgewerkt.  
+De gebruiker ziet dus onmiddellijk het resultaat van de analyse.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{gebruikersinterface.png}
+    \caption{Invoer van HLASM-code in de webapplicatie.}
+\end{figure}
+
+\newpage
 
 \subsection{Gebruik van de applicatie}
 
@@ -174,102 +207,62 @@ Het gebruik van de tool verloopt in enkele eenvoudige stappen:
 
 \begin{enumerate}
     \item De gebruiker plakt of typt HLASM-broncode in de editor.
-    \item De applicatie analyseert automatisch de ingevoerde code.
-    \item Op basis van deze analyse wordt een Mermaid.js-diagram gegenereerd.
+    \item De applicatie verwerkt de code automatisch.
+    \item Op basis van de analyse wordt een Mermaid.js-diagram gegenereerd.
     \item Het diagram wordt onmiddellijk visueel weergegeven.
 \end{enumerate}
 
-De gebruiker hoeft geen kennis te hebben van Mermaid.js. De gegenereerde visualisatie dient als directe ondersteuning bij het begrijpen van de control-flow.
+De gebruiker hoeft geen kennis te hebben van Mermaid.js. De visualisatie wordt volledig automatisch gegenereerd en helpt bij het begrijpen van de structuur van het programma.
 
 \section{Beperkingen van de implementatie}
 
-De implementatie maakt bewust gebruik van een vereenvoudigde benadering van HLASM. Dit brengt een aantal beperkingen met zich mee.
+Omdat de implementatie gebruik maakt van een vereenvoudige aanpak zijn er enkele beperkingen.
 
-Ten eerste wordt geen volledige syntactische of semantische analyse uitgevoerd. De parser werkt op basis van patroonherkenning en veronderstelt dat de invoer de standaard kolomstructuur volgt. Afwijkingen hiervan kunnen leiden tot foutieve interpretaties.
+Ten eerste wordt geen volledige syntactische of semantische analyse uitgevoerd. De parser gaat ervan uit dat de invoer de standaard kolomstructuur volgt. Als dit niet het geval is, kan de interpretatie fout zijn.
 
-Daarnaast worden macro-instructies niet geëxpandeerd. Aangezien macros meerdere instructies kunnen bevatten, kan dit resulteren in een onvolledige weergave van de control-flow.
+Daarnaast worden macro-instructies niet uitgewerkt. Macros kunnen meerdere instructies bevatten, waardoor een deel van de control-flow niet zichtbaar is in het diagram.
 
-Een belangrijke beperking is de behandeling van vertakkingen. Enkel directe sprongen naar labels worden ondersteund. Indirecte sprongen, zoals via registers (bijvoorbeeld \texttt{BR R14}), kunnen niet statisch geanalyseerd worden en worden daarom niet opgenomen in de visualisatie.
+Verder worden enkel directe sprongen naar labels ondersteund.  
+Indirecte sprongen, bijvoorbeeld via registers (zoals \texttt{BR R14}), worden niet geanalyseerd.
 
-Verder wordt de condition code niet inhoudelijk geïnterpreteerd. De tool detecteert enkel dat een conditionele vertakking aanwezig is, zonder de onderliggende logica te analyseren.
+Tot slot wordt de condition code niet inhoudelijk geïnterpreteerd.  
 
-Deze beperkingen zijn aanvaardbaar binnen de context van deze proof-of-concept. De focus ligt op het zichtbaar maken van de globale structuur, niet op een volledige simulatie van het programma.
+Deze beperkingen zijn aanvaardbaar binnen deze proof-of-concept.  
+De focus ligt op het zichtbaar maken van de globale structuur van het programma.
+
+\newpage
 
 \section{Evaluatie}
 
-De evaluatie heeft als doel te bepalen in welke mate de proof-of-concept bijdraagt aan het begrijpen van de control-flow in HLASM-programma’s.
+De evaluatie onderzoekt of de tool helpt bij het begrijpen van HLASM-programma’s.
 
-Alle deelnemers hadden geen voorafgaande kennis van HLASM. Voorafgaand aan de test kregen zij een korte introductie over de basisprincipes van control-flow, met nadruk op labels en vertakkingen. Deze introductie was bewust beperkt om de deelnemers als beginnende gebruikers te behouden.
+Alle deelnemers hadden geen voorkennis van HLASM.  
+Ze kregen vooraf een korte uitleg over control-flow, met nadruk op labels en sprongen.
 
-De evaluatie werd uitgevoerd met vier deelnemers. Elke deelnemer kreeg twee HLASM-codefragmenten en werd gevraagd om:
-
+De evaluatie werd uitgevoerd met vier deelnemers.  
+Elke deelnemer kreeg twee codefragmenten en moest:
 \begin{itemize}
-    \item het startpunt te identificeren,
-    \item vertakkingen aan te duiden,
-    \item de globale structuur te beschrijven.
+    \item het startpunt identificeren,
+    \item vertakkingen aanduiden,
+    \item de globale structuur beschrijven.
 \end{itemize}
 
 Deze opdrachten werden uitgevoerd:
 \begin{itemize}
-    \item zonder hulpmiddelen,
-    \item met gebruik van de visualisatietool.
+    \item zonder hulpmiddel,
+    \item met gebruik van de tool.
 \end{itemize}
 
-Zowel de benodigde tijd als de correctheid van de analyse werden geregistreerd.
+\subsection{Resultaten}
 
-\subsection{Testing}
+Uit de evaluatie blijkt dat de tool vooral helpt om snel een overzicht te krijgen van de globale structuur van een programma.
 
-\subsubsection{Testmateriaal}
+De deelnemers konden met de visualisatie sneller zien hoe de verschillende delen van het programma met elkaar verbonden zijn en waar vertakkingen plaatsvinden. Dit maakte het eenvoudiger om de algemene flow te begrijpen.
 
-\begin{lstlisting}[language=HLASM, caption={Standaard Linkage Setup \autocite{bosworth_2009}.}]
-    * codevoorbeeld 1 *
-\end{lstlisting}
+Tegelijk werd duidelijk dat dit overzicht niet voldoende is om de code volledig te begrijpen.  
+De deelnemers gaven aan dat het nog steeds nodig is om de volledige code lijn per lijn te bekijken om de werking correct te interpreteren.
 
+De tool werd daarom niet gezien als een vervanging van manuele analyse, maar als een hulpmiddel dat het proces ondersteunt.
 
-\begin{lstlisting}[language=HLASM, caption={Standaard Linkage Setup \autocite{bosworth_2009}.}]
-    * codevoorbeeld 2 *
-\end{lstlisting}
-
-\subsubsection{Kandidaat 1}
-
-Kandidaat 1 had geen ervaring met HLASM en had moeite met het manueel volgen van vertakkingen. De analyse was traag en bevatte fouten.
-
-Met de tool kon de kandidaat de structuur sneller en correcter identificeren.
-
-\textbf{Bevinding}: duidelijke verbetering in snelheid en correctheid.
-
-\subsubsection{Kandidaat 2}
-
-Kandidaat 2 begreep de basisstructuur manueel, maar had moeite met complexere vertakkingen.
-
-De visualisatie werd gebruikt als bevestiging van de interpretatie.
-
-\textbf{Bevinding}: vermindering van onzekerheid en snellere validatie.
-
-\subsubsection{Kandidaat 3}
-
-Kandidaat 3 werkte systematisch en tekende de control-flow manueel uit. Dit was correct maar tijdrovend.
-
-De tool verving dit proces volledig.
-
-\textbf{Bevinding}: aanzienlijke efficiëntiewinst.
-
-\subsubsection{Kandidaat 4}
-
-Kandidaat 4 had de meeste moeite met manuele analyse en maakte meerdere fouten.
-
-De visualisatie maakte de structuur duidelijker en hielp fouten corrigeren.
-
-\textbf{Bevinding}: grootste impact bij minder ervaren gebruikers.
-
-\subsection{Samenvatting van de resultaten}
-
-Over alle deelnemers heen werden volgende trends vastgesteld:
-
-\begin{itemize}
-    \item De analysetijd daalde bij gebruik van de tool.
-    \item De correctheid van de interpretatie nam toe.
-    \item De programmastructuur werd als duidelijker ervaren.
-\end{itemize}
-
-Deze resultaten ondersteunen de hypothese dat een visuele representatie van control-flow het leerproces van HLASM versnelt, in het bijzonder voor beginnende ontwikkelaars.
+Daarnaast werd opgemerkt dat de meerwaarde van de tool vooral zichtbaar is bij grotere programma’s.  
+Bij kleinere codefragmenten is de structuur meestal eenvoudig genoeg om manueel te volgen, waardoor de visualisatie weinig extra toevoegt.

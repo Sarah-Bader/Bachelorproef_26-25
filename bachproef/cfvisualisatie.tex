@@ -19,8 +19,7 @@ Voor de PoC zijn de volgende functionele vereisten gedefinieerd:
     \item Detectie van labels in de broncode, zodat sprongdoelen geïdentificeerd kunnen worden.
     \item Detectie van vertakkingsinstructies die de control-flow beïnvloeden, waarondedr zowel conditionele als onvoorwaardelijke sprongen.
     \item Correcte mapping van labels naar knooppunten (nodes) in de control-flowgrafiek.
-    \item Correcte mapping van sprongen naar verbindingen (edges) tussen knooppunten.
-    \item Ondersteuning van meerdere uitvoeringspaden binnen één programma, inclusief eenvoudige vertakkingen en lussen.
+    \item Correcte mapping van sprongen naar verbindingen tussen knooppunten.
 \end{itemize}
 
 \subsection{Niet-functionele vereisten}
@@ -53,7 +52,6 @@ De opbouw van de flowchart gebeurt in verschillende stappen:
     \item De ingevoerde broncode wordt opgesplitst in individuele instructies.
     \item Per instructie worden het label, de mnemonic en de operanden geïdentificeerd op basis van de kolomgebaseerde structuur.
     \item Alle labels worden verzameld en gekoppeld aan hun positie in de code.
-    \item Voor elke instructie wordt bepaald naar welke instructie de uitvoering kan verdergaan.
 \end{itemize}
 
 \newpage
@@ -99,27 +97,3 @@ Sequentiële instructies worden impliciet verbonden met de volgende instructie i
 
 Door deze mapping toe te passen kan de structuur van een HLASM-programma worden weergegeven als een flowchart, waarbij de nadruk ligt op de control-flow.
 
-\newpage
-
-\subsubsection{Voorbeeld}
-
-Om de mapping tussen HLASM en Mermaid.js te verduidelijken, wordt een eenvoudig voorbeeld gegeven.
-
-\begin{lstlisting}[language=HLASM, caption={Voorbeeld van een conditionele vertakking.}]
-    ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
-             CR    R1,R2
-             BE    GELIJK
-             B     VERDER
-    GELIJK   ...
-    VERDER   ...
-\end{lstlisting}
-
-Dit voorbeeld kan worden omgezet naar volgende Mermaid.js representatie:
-
-\begin{lstlisting}[language={}, caption={Gegenereerde Mermaid.js flowchart.}]
-    flowchart TD
-    A[CR R1,R2] -->|BE| B[GELIJK]
-    A --> C[B VERDER]
-    C --> D[VERDER]
-    B --> D
-\end{lstlisting}
